@@ -1,0 +1,10 @@
+id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientificName,taxon_rank,infrataxon_status,provenance_status,provincial_concern,introduction_status,reportingStatus,solow_EP,species,subspecies,variety,nameStatus,inSummary
+48460,,Life,life,stateofmatter,,"","","",unknown,"","","",,"","","","",
+47126,48460,Plantae,Plants,kingdom,,"","","",unknown,"","","",,"","","","",
+211194,47126,Tracheophyta,Vascular Plants,phylum,,"","","",unknown,"","","",,"","","","",
+-1,211194,Angiospermae,"",subphylum,,"","","",unknown,"","","",,"","","","",
+-4,-1,Magnoliopsida,"",class,,"","","",unknown,"","","",,"","","","",
+-20,-4,Ericales,"",order,,"","","",unknown,"","","",,"","","","",
+-81,-20,Ericaceae,"",family,,"","","",unknown,"","","",,"","","","",
+-179,-81,Arbutus,"",genus,,"","","",unknown,"","","",,"","","","",
+51046,-179,Arbutus menziesii,arbutus,species,,Arbutus menziesii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,menziesii,"","",provisional,1

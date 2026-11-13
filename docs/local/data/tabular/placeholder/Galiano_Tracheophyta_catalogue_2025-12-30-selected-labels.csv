@@ -1,0 +1,9 @@
+taxon_name,eventDate,occurrenceID,basisOfRecord,recordedBy,decimalLatitude,decimalLongitude,coordinateUncertaintyInMetres,elevation,locality,institutionCode,collectionCode,catalogNumber,recordNumber,identifiedBy,establishmentMeans,iNaturalistTaxonId,Island
+Arbutus menziesii,2024-08-09,https://www.inaturalist.org/observations/234816340,HUMAN_OBSERVATION,Andrew Simon,48.9252638889,-123.4448027778,10,"","",iNaturalist,Observations,234816340,"","","",51046,1
+Arbutus menziesii,2019-05-04,https://www.inaturalist.org/observations/24714979,HUMAN_OBSERVATION,Lena Dietz Chiasson,48.8717955351,-123.3121709527,10,"","",iNaturalist,Observations,24714979,"","","",51046,1
+Arbutus menziesii,2025-05-07,https://www.inaturalist.org/observations/279315039,HUMAN_OBSERVATION,Hardik Raheja,48.8716710245,-123.311968684,4,"","",iNaturalist,Observations,279315039,"","","",51046,1
+Arbutus menziesii,2023-06-10,https://www.inaturalist.org/observations/166618998,HUMAN_OBSERVATION,Andrew Simon,48.8785900411,-123.3190101974,37,"","",iNaturalist,Observations,166618998,"","","",51046,1
+Arbutus menziesii,2021-07-11,https://www.inaturalist.org/observations/86685775,HUMAN_OBSERVATION,Andrew Simon,48.8762109752,-123.4008748827,26,"","",iNaturalist,Observations,86685775,"","","",51046,
+Arbutus menziesii,2025-10-19,https://www.inaturalist.org/observations/322245570,HUMAN_OBSERVATION,Matthew Pohl,49.0128939,-123.5758649997,,"","",iNaturalist,Observations,322245570,"","","",51046,1
+Arbutus menziesii,2025-02-17,https://www.inaturalist.org/observations/262032722,HUMAN_OBSERVATION,taliajp,48.8718116667,-123.31215,4,"","",iNaturalist,Observations,262032722,"","","",51046,1
+Arbutus menziesii,2020-09-19,https://www.inaturalist.org/observations/60492171,HUMAN_OBSERVATION,Creature_Librarian,48.9524418532,-123.5192042466,8,"","",iNaturalist,Observations,60492171,"","","",51046,1

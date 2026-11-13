@@ -1,0 +1,41 @@
+---
+title: Flora of Galiano Island
+shortTitle: Atlas
+weight: 3
+knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
+paneHandlerLayers: ["reknitr.obsMapPaneHandler"]
+regionField: "!statusAsRegion"
+statusColors:
+  confirmed: '#5a96d2'
+  historical: '#decb90'
+  new: '#7562b4'
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+options(error = rlang::entrace, rlang_backtrace_on_error = "full")
+library(tidyverse)
+plants <- read.csv("tabular_data/Galiano_Tracheophyta_catalogue_2025-12-30-selected-labels.csv")
+plant.summary <- read.csv("tabular_data/Galiano_Tracheophyta_summary_2026-04-04-prepared-taxa.csv", fileEncoding = "UTF-8") %>%
+  filter(inSummary == 1)
+```
+
+## Flora of Galiano Island
+
+To date, `r nrow(plant.summary)` vascular plant species have been recorded on Galiano
+Island, drawing together `r nrow(plants)` records from historical collections, iNaturalist
+observations and other sources. Each species falls into one of three groups:
+
+<div class="galiano-status-tiles"></div>
+
+:::: {.galiano-howto}
+Click a group to show only the records of those species, old and recent, on the map and
+in the list.
+Open *Filters* to narrow records by recorder, locality or time period, pick a plant from the list to
+see only its records, or use the shape tool at the top left of the map to draw an area, double-clicking to finish. Open *Records* below the map for the details behind each
+selection.
+::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("scripts/Community_science_contributions_mapbox.R")
+reportingStatusMap
+```

@@ -1,0 +1,26 @@
+---
+title: Community Curation
+shortTitle: Living Data
+weight: 6
+knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
+# The component rendering this pane's section, into whose template npm run story writes it - see AGENTS.md
+paneComponent: bioreportr.curationPane
+paneHandlerLayers: ["reknitr.obsMapPaneHandler"]
+# The checklist folds away once a taxon is chosen for curation, leaving the curation form
+foldVizControlsOnTaxon: true
+---
+
+## Community Curation
+
+::: {.mxcw-curation-invitation}
+We invite you to contribute to a living flora of Galiano Island! Please help us to improve the accuracy
+of the data presented here by adding curatorial notes regarding the provenance, taxonomy, or georeferencing of
+records.
+
+<span class="galiano-callout">Click on any taxon in the checklist below</span> to add a curatorial note. You can
+also choose a taxon from any other part of the atlas, through the speech bubble beside its name.
+:::
+
+```{=html}
+<div class="mxcw-curation-form-holder" @id="curationForm"></div>
+```

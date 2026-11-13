@@ -1,0 +1,391 @@
+<script src="../../bioreportr/js/story.js"></script>
+<script src="../js/galiano.js"></script>
+<script>
+"use strict";
+
+// The Lost Plants pane of the Galiano story - its section, knitted from content/story/LostPlants.Rmd, and the gallery
+// of "lost" plants shown in its data pane in place of the map. The plants are selected from the site's data whenever
+// it loads, so that the gallery follows the data, and their photos are looked up live from iNaturalist. The gallery is
+// configured onto the story page by galiano-story.vue as its member lostPlants
+
+// noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
+var galiano = fluid.registerNamespace("galiano");
+// noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
+var hortis = fluid.registerNamespace("hortis");
+// noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
+var bioreportr = fluid.registerNamespace("bioreportr");
+fluid.registerNamespace("galiano.lostPlants");
+
+// The gallery of lost plants
+fluid.def("galiano.lostPlants", {
+    $layers: "fluid.component",
+    // A native species which is historically reported but unconfirmed is shown if it has at least this Solow EP ...
+    minEP: 0.3,
+    // ... or no more than this number of records
+    maxRecords: 2,
+    // The maximum number of ids accepted by a single request to the iNaturalist taxa endpoint
+    batchSize: 30,
+    // Observes iNaturalist's requested limit of about one request per second
+    batchDelay: 1100,
+    cards: [],
+    plants: "$compute:galiano.lostPlants.select({storyPage}.taxa.allRows, {storyPage}.obsRows, {self}, {storyPage}.recordAnnotations)",
+    load: "$effect:galiano.lostPlants.load({self}, {self}.plants, {storyPage}.loaded)",
+    // The cards are shown in a fresh random order each time the pane is opened, so that a different assemblage leads
+    reshuffle: "$effect:galiano.lostPlants.reshuffle({self}, {storyPage}.activePaneKey)",
+    markup: "$compute:galiano.lostPlants.markup({self}.cards)",
+    count: "$compute:galiano.lostPlants.count({self}.cards)"
+});
+
+// The pane's section, rendered from the template below - its text gives the number of plants in the gallery
+fluid.def("galiano.lostPlantsPane", {
+    $layers: "fluid.component",
+    count: "{storyPage}.lostPlants.count"
+});
+
+/** The gallery of lost plants **/
+
+/**
+ * Select the plants of the gallery from the site's data, highest extirpation probability first. A native species
+ * which is historically reported but unconfirmed is shown if its Solow EP is at least `minEP` or it has no more than
+ * `maxRecords` records.
+ * @param {TaxonRow[]} taxaRows - All taxa
+ * @param {Object[]} obsRows - All records
+ * @param {Object} options - Members `minEP` and `maxRecords`
+ * @param {Object<String, Object>} [annotations] - The annotations of records, by occurrenceID - those suspended from the
+ * calculation of extirpation probability, e.g. of a planted population, are not counted as sightings
+ * @return {Object[]} The selected plants, each with members `taxon`, `nRecords`, `nUnmapped` and `lastRecorded`
+ */
+galiano.lostPlants.select = function (taxaRows, obsRows, options, annotations) {
+    const sightings = new Map();
+    obsRows.filter(obs => !annotations?.[obs.occurrenceID]?.excludeFromEP).forEach(obs => {
+        const entry = sightings.get(obs.iNaturalistTaxonId) || {nRecords: 0, nUnmapped: 0, lastRecorded: NaN};
+        const year = parseInt(obs.eventDate, 10);
+        entry.nRecords++;
+        entry.nUnmapped += bioreportr.hasCoordinates(obs) ? 0 : 1;
+        entry.lastRecorded = Number.isNaN(entry.lastRecorded) ? year : Math.max(entry.lastRecorded, year || entry.lastRecorded);
+        sightings.set(obs.iNaturalistTaxonId, entry);
+    });
+    return taxaRows
+        .filter(taxon => taxon.inSummary && taxon.introduction_status === "native" && taxon.reportingStatus === "unconfirmed")
+        .map(taxon => ({taxon, ...(sightings.get(taxon.id) || {nRecords: 0, nUnmapped: 0, lastRecorded: NaN})}))
+        .filter(({taxon, nRecords}) => +taxon.solow_EP >= options.minEP || nRecords > 0 && nRecords <= options.maxRecords)
+        .sort((a, b) => +b.taxon.solow_EP - +a.taxon.solow_EP || a.taxon.scientificName.localeCompare(b.taxon.scientificName));
+};
+
+/**
+ * Find a photo of a taxon which may be republished. iNaturalist records no licence code for a photo with all rights
+ * reserved, and photos licensed against derivatives are passed over since the gallery crops them to squares. The
+ * taxon's default photo is preferred, followed by the others curated for it.
+ * @param {Object} taxon - A taxon record from the iNaturalist API
+ * @return {Object|undefined} The photo record, if there is an openly licensed one
+ */
+galiano.lostPlants.licensedPhoto = function (taxon) {
+    const photos = [taxon.default_photo, ...(taxon.taxon_photos || []).map(entry => entry.photo)];
+    return photos.find(photo => photo?.license_code && !photo.license_code.includes("-nd"));
+};
+
+/**
+ * Render one plant of the gallery.
+ * @param {Object} plant - A plant as selected by `galiano.lostPlants.select`
+ * @param {Object} photo - Its photo record from the iNaturalist API
+ * @return {String} The markup for the plant
+ */
+galiano.lostPlants.renderCard = function (plant, photo) {
+    const encode = hortis.dataTable.encode;
+    const name = encode(plant.taxon.scientificName);
+    const details = [plant.taxon.commonName, plant.lastRecorded && "last recorded " + plant.lastRecorded].filter(Boolean).join(" · ");
+    const unmapped = plant.nRecords > 0 && plant.nUnmapped === plant.nRecords ? "<span class=\"galiano-lost-unmapped\">⚠ no mapped records</span>" : "";
+    const credit = photo.attribution.replace(/, uploaded by .*$/, "").replace(", some rights reserved", "");
+    return `<button type="button" class="galiano-lost-card" data-taxon-id="${encode(plant.taxon.id)}">
+        <img src="${encode(photo.medium_url)}" alt="${name}" loading="lazy">
+        <span class="galiano-lost-name">${name}</span>
+        <span class="galiano-lost-details">${encode(details)}</span>
+        ${unmapped}
+        <span class="galiano-lost-credit">${encode(credit)}</span>
+    </button>`;
+};
+
+/**
+ * Fill the gallery with those selected plants which have an openly licensed photo, a batch at a time, observing
+ * iNaturalist's requested limit of about one request per second. The cards are written to the component's `cards`
+ * as each batch arrives. Nothing is fetched until the real data has loaded, and a later run supersedes an earlier.
+ * @param {fluid.component} that - The component holding the gallery, with members `cards`, `batchSize` and `batchDelay`
+ * @param {Object[]} plants - The plants, as selected by `galiano.lostPlants.select`
+ * @param {Boolean} loaded - `true` once the page's data is real rather than placeholders
+ */
+galiano.lostPlants.load = function (that, plants, loaded) {
+    if (loaded) {
+        galiano.lostPlants.fetchCards(that, plants);
+    }
+};
+
+/**
+ * Return a copy of a list in random order, by the Fisher-Yates shuffle.
+ * @param {Array} list - The list
+ * @return {Array} The shuffled copy
+ */
+galiano.lostPlants.shuffle = function (list) {
+    const togo = list.slice();
+    for (let i = togo.length - 1; i > 0; --i) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [togo[i], togo[j]] = [togo[j], togo[i]];
+    }
+    return togo;
+};
+
+/**
+ * Shuffle the gallery's cards each time its pane is opened. Deferred, since an effect may not write signals, and
+ * reading the cards there keeps them from becoming a dependency of the effect, which would then shuffle them forever.
+ * @param {fluid.component} that - The component holding the gallery
+ * @param {String} activePaneKey - The key of the pane shown
+ */
+galiano.lostPlants.reshuffle = function (that, activePaneKey) {
+    if (activePaneKey === "LostPlants") {
+        fluid.invokeLater(() => {
+            if (that.cards.length > 1) {
+                that.cards = galiano.lostPlants.shuffle(that.cards);
+            }
+        });
+    }
+};
+
+/**
+ * Fetch the photos of the plants of a gallery from iNaturalist and render their cards - see `galiano.lostPlants.load`.
+ * @param {fluid.component} that - The component holding the gallery
+ * @param {Object[]} plants - The plants, as selected by `galiano.lostPlants.select`
+ * @return {Promise} A promise which resolves once every batch has been fetched
+ */
+galiano.lostPlants.fetchCards = async function (that, plants) {
+    const run = (galiano.lostPlants.runs.get(that) || 0) + 1;
+    galiano.lostPlants.runs.set(that, run);
+    const current = () => galiano.lostPlants.runs.get(that) === run;
+    const {batchSize, batchDelay} = that;
+    let cards = [];
+    for (let start = 0; start < plants.length && current(); start += batchSize) {
+        const batch = plants.slice(start, start + batchSize);
+        const ids = batch.map(plant => plant.taxon.id).join(",");
+        try {
+            const response = await fetch(`https://api.inaturalist.org/v1/taxa/${ids}?per_page=${batchSize}`);
+            const taxa = (await response.json()).results;
+            const photos = Object.fromEntries(taxa.map(taxon => [String(taxon.id), galiano.lostPlants.licensedPhoto(taxon)]));
+            cards = cards.concat(batch.filter(plant => photos[plant.taxon.id]).map(plant => galiano.lostPlants.renderCard(plant, photos[plant.taxon.id])));
+            await new Promise(resolve => setTimeout(resolve, batchDelay));
+        } catch (error) {
+            console.error("Could not fetch photos from iNaturalist", error);
+            start = plants.length;
+        }
+    }
+    // Shown only once complete, so that the text never gives a partial count. Until then it reads "These native species"
+    if (current()) {
+        that.cards = galiano.lostPlants.shuffle(cards);
+    }
+};
+
+// The latest run of loading each gallery, so that a later run supersedes an earlier
+galiano.lostPlants.runs = new WeakMap();
+
+galiano.lostPlants.markup = cards => "<div class=\"galiano-lost-gallery\">" + cards.join("") + "</div>";
+
+// Blank until the gallery has loaded, so that the text reads "The gallery shows native species" rather than a count of none
+galiano.lostPlants.count = cards => cards.length > 0 ? String(cards.length) : "";
+
+/**
+ * Open the extirpation risk pane with a plant chosen in the gallery selected, bringing its row into view.
+ * @param {bioreportr.storyPage} storyPage - The story page
+ * @param {String} taxonId - The id of the plant's taxon
+ * @param {String} targetPane - The key of the pane listing a species' records
+ * @param {Document} dokkument - The document holding the story page
+ * @param {Window} window - The window holding the story page
+ */
+galiano.lostPlants.showTaxon = function (storyPage, taxonId, targetPane, dokkument, window) {
+    const table = storyPage.solowTaxa.taxaTable;
+    const row = table.rows.find(candidate => candidate.id === taxonId);
+    if (row) {
+        storyPage.selectPane(targetPane);
+        table.selectedRow = row;
+        // Bring the selected row into view once the table has its size in the newly visible pane
+        window.requestAnimationFrame(() => {
+            const index = table.displayRows.indexOf(row);
+            const scrollEl = dokkument.querySelector(".mxcw-solow-taxa .hortis-dataTable-scroll");
+            if (index >= 0 && scrollEl) {
+                scrollEl.scrollTop = index * table.rowHeight;
+            }
+        });
+    }
+};
+
+
+// The gallery is shown in the Lost Plants pane's data pane, in place of the map
+galiano.paneMarkup = galleryMarkup => ({LostPlants: galleryMarkup});
+</script>
+
+<style>
+/* ── Gallery of lost plants ──────────────────────────────── */
+
+.mxcw-dataPane-LostPlants {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #184E62;
+    scrollbar-gutter: stable;
+    overscroll-behavior: contain;
+}
+
+.galiano-lost-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: var(--story-gap);
+    padding: 12px 0 12px 12px;
+}
+
+.galiano-lost-card {
+
+/* Drawn inside the card, since the scrollbar's gutter would clip it at the right hand edge of the gallery */
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 0 var(--story-gap);
+    text-align: left;
+    color: #eefaff;
+    background: #0d3040;
+    border-radius: var(--data-table-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: outline-color 150ms;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+}
+
+.galiano-lost-card:hover,
+.galiano-lost-card:focus-visible {
+    outline-color: #FDF2CE;
+}
+
+.galiano-lost-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 4px;
+}
+
+.galiano-lost-card span {
+    padding: 0 var(--story-gap);
+}
+
+.galiano-lost-name {
+    font-size: var(--story-data);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.galiano-lost-details {
+    font-size: var(--story-data);
+    line-height: 1.3;
+}
+
+.galiano-lost-credit {
+    font-size: var(--story-small);
+    line-height: 1.3;
+    color: #a8c8d0;
+}
+
+@media (max-width: 767.98px) {
+    .galiano-lost-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+.mxcw-dataPane-LostPlants::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 12px;
+}
+
+.mxcw-dataPane-LostPlants::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 6px;
+    background-clip: padding-box;
+    background-color: #C1C1C1;
+}
+
+/* ── Plants of the gallery without coordinates ───────────── */
+
+.galiano-lost-unmapped {
+    font-size: var(--story-small);
+    line-height: 1.3;
+    color: #FDF2CE;
+}
+
+@media (min-width: 768px) {
+    .mxcw-paneKey-LostPlants .mxcw-sectionInner {
+        flex: none;
+    }
+}
+
+.mxcw-paneKey-LostPlants h2 {
+    color: #a8c8d0;
+    font-size: var(--story-small);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 1.25rem 0 clamp(12px, 2.4vh, 26px);
+}
+
+.mxcw-paneKey-LostPlants .mxcw-sectionColumn > p {
+    max-width: 31em;
+    margin: 0 auto clamp(10px, 2.2vh, 22px);
+    padding: 0;
+    color: #d6e8ee;
+    font-size: var(--story-reading-text);
+    line-height: 1.5;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.mxcw-paneKey-LostPlants .mxcw-sectionColumn > p :is(strong, .galiano-callout),
+.mxcw-paneKey-LostPlants .mxcw-sectionColumn > p a {
+    color: #FDF2CE;
+    font-weight: 400;
+}
+
+/* Phones: the gallery runs on down the page beneath the story, rather than scrolling within a box of its own */
+@media (max-width: 767.98px) {
+    .mxcw-leftPane:has(.mxcw-dataPane-LostPlants:not(.fl-hidden)),
+    .mxcw-leftPane:has(.mxcw-dataPane-LostPlants:not(.fl-hidden)) > .mxcw-data {
+        height: auto;
+    }
+
+    .mxcw-dataPane-LostPlants {
+        height: auto;
+        overflow: visible;
+    }
+}
+</style>
+
+<!-- The <template> block below is written by src/js/storyBuild.js and must not be edited here: it holds the section
+     knitted from content/story/LostPlants.Rmd, whose front matter names galiano.lostPlantsPane as its paneComponent. Edit the
+     R Markdown and knit it, then run "npm run story", which replaces everything between <template> and </template>
+     and nothing else in this file. The markup is a template, which may bind members of galiano.lostPlantsPane with
+     @{...} - written in the R Markdown as raw HTML, e.g. `<span>@{count}</span>`{=html}, which pandoc leaves as it is -->
+<template>
+<div id="the-lost-plants-of-galiano-island" class="section level2 mxcw-paneKey-LostPlants"><h2>The lost plants of Galiano Island</h2><div class="mxcw-sectionInner"><div class="mxcw-sectionColumn">
+
+<p>This gallery shows <span class="galiano-lost-count">@{count}</span>
+native species once reported for Galiano Island, which have not been
+seen in recent decades. Some may be lost <em>to us</em>—overlooked,
+forgotten, or waiting to be rediscovered. Others may be lost <em>because
+of us</em>, through impacts like habitat change or the introduction of
+invasive species.</p>
+<p><span class="galiano-callout">Pick a plant from the gallery</span> to
+see where and when it was last found, then join local naturalists and
+community members on a search for the <a href="https://www.inaturalist.org/projects/biodiversity-galiano-island">Biodiversity
+Galiano Island</a> project on iNaturalist.</p>
+<p>Herbarium collections at the Royal BC Museum and UBC, and Harvey
+Janszen’s (2003) <em>Outer Gulf Islands Vascular Plant Checklist</em>,
+provide the historical baseline for this atlas. Harvey passed away in
+2021, and a community of naturalists has since carried his work forward
+through <a href="https://www.inaturalist.org/projects/biodiversity-galiano-island">Biodiversity
+Galiano</a>; this atlas is a testament to that continuing legacy.</p>
+</div></div></div>
+</template>

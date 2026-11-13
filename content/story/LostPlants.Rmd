@@ -1,0 +1,21 @@
+---
+title: The lost plants of Galiano Island
+shortTitle: Lost Plants
+weight: 2
+knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
+# The component rendering this pane's section, into whose template npm run story writes it - see AGENTS.md
+paneComponent: galiano.lostPlantsPane
+---
+
+## The lost plants of Galiano Island
+
+This gallery shows `<span class="galiano-lost-count">@{count}</span>`{=html} native species once reported for Galiano Island, which have not been seen in recent decades. Some may be lost *to us*—overlooked, forgotten, or waiting to be rediscovered. Others may be lost *because of us*, through impacts like habitat change or the introduction of invasive species.
+
+<span class="galiano-callout">Pick a plant from the gallery</span> to see where and when it was last found, then join local naturalists and community members on a search for the
+[Biodiversity Galiano Island](https://www.inaturalist.org/projects/biodiversity-galiano-island)
+project on iNaturalist.
+
+Herbarium collections at the Royal BC Museum and UBC, and Harvey Janszen’s (2003) *Outer Gulf Islands Vascular Plant
+Checklist*, provide the historical baseline for this atlas. Harvey passed away in 2021, and a community of naturalists
+has since carried his work forward through [Biodiversity Galiano](https://www.inaturalist.org/projects/biodiversity-galiano-island);
+this atlas is a testament to that continuing legacy.

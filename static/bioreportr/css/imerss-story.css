@@ -1,0 +1,2024 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* The height actually visible - on a phone, 100vh is that with the browser's toolbars put away, so that while they
+       show, the foot of the page, which scrolls within the body, would lie behind them where it can't be scrolled to */
+    height: 100dvh;
+    background-color: #184E62;
+    color: #FDF2CE;
+}
+
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i&display=swap";
+
+table {
+    /* Override absolutely insane display:block in hextra core style */
+    display: table !important;
+}
+
+/** Override another insane tailwind default */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+    display: inline-block;
+    vertical-align: unset;
+}
+
+:root {
+    --bs-body-font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /** This only controls the bizarre height calculation for the page **/
+    --navbar-height: 12rem;
+
+    font-family: var(--bs-body-font-family)
+}
+
+/** Override absolutely ridiculous tailwind hardcoded content colour **/
+main .content h3, main.content h2, main h1 {
+    color: #FDF2CE !important;
+}
+
+.imerss-main {
+
+/* Text beyond the opening vignette comes in two classes: reading panes are narrative, centred and at the scale of a
+   site's opening vignette; tool panes (Atlas, Find the Plants) share their column with a table, so are compact and run
+   to the full width *//* One type and spacing scale for the panes of this site's story page, loaded after the shared bioReportR styles.
+   The elements fixed across the network of sites - navigation banner, menu, section tabs, footer, palette and fonts -
+   are deliberately not touched here. */
+    display: flex;
+    height: 100%;
+    --story-title: clamp(17px, 0.4vw + 12px, 20px);
+    --story-body: clamp(14px, 0.35vw + 10px, 16px);
+    --story-data: clamp(13px, 0.15vw + 11px, 14px);
+    --story-small: 12px;
+    --story-gap: 8px;
+    --solow-widgets-height: clamp(230px, 34vh, 380px);
+    --solow-widgets-open-height: clamp(190px, 24vh, 260px);
+    --story-reading-text: clamp(16px, min(0.55vw + 11px, 2.3vh), 21px);
+    --story-tool-text: clamp(15px, min(0.3vw + 11px, 2vh), 18px);
+}
+
+/** Defeat side matter which screws up layout when page is wide - the sidebar, which doubles as the mobile menu, is
+    handled in the compact header rules below **/
+.xl\:hx-block:not(.sidebar-container) {
+    display: none !important;
+}
+
+.imerss-page {
+    width: 40%;
+    /* As flex items the columns would otherwise refuse to shrink below their content, so that the leftPane's margin and
+       the resize bar between them made the page a few pixels wider than the window */
+    min-width: 0;
+}
+
+.imerss-navbar-title {
+    color: #FDF2CE;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0.01em;
+}
+
+/* The IMERSS name beside its mark at the right of the banner, set as on imerss.org */
+.imerss-navbar .imerss-navbar-wordmark {
+    margin: 0 24px 0 0;
+    color: #FDF2CE;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.imerss-bg-neutral-50 {
+    background-color: #ffffff80;
+}
+
+/** Needs to be more specific to beat hextra's abominable theming **/
+
+nav a span {
+    color: #dff1f4;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+nav a {
+    position: relative;
+}
+
+.imerss-navbar-background {
+
+/* Should the page ever move, the image moves with the menu lying over it rather than staying behind */
+    background: url("../images/imerss-header-cropped.jpg") no-repeat;
+    background-size: cover;
+    height: 164px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.imerss-navbar {
+    justify-content: space-between;
+    display: flex;
+    height: 100px;
+}
+
+/* Weird trick inherited from docsy for filtering background image */
+
+.imerss-navbar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #184E6280;
+}
+
+/* Lift the controls above the dimming overlays added by ::after - the hamburger can't be clicked otherwise */
+.imerss-navbar a, .imerss-subnav a, .imerss-subnav .search-wrapper, .imerss-subnav .hamburger-menu {
+    position: relative;
+    z-index: 2;
+}
+
+.imerss-navbar img {
+    margin-right: 10px;
+}
+
+.imerss-navbar span {
+    margin-left: 16px;
+}
+
+/* Shared navigation banner - a project site shows a link back to the index site above its title */
+
+.imerss-navbar .imerss-navbar-titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imerss-navbar .imerss-navbar-index span {
+    color: #FDF2CE;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.02rem;
+    margin-left: 24px;
+}
+
+.imerss-main > .resize-bar {
+    /* Avoid creating visible gap to right */
+    margin-right: -10px;
+}
+
+.imerss-subnav {
+    color: #dff1f4;
+    position: relative;
+    font-size: 16px;
+    /* Creep over the resize bar so that the header image is dimmed */
+    margin-left: -4px;
+}
+
+/* Menu items are left justified, with the icon links (e.g. GitHub) pushed over to the right */
+.imerss-subnav nav > :not(.imerss-subnav-icon) + .imerss-subnav-icon {
+    margin-left: auto;
+}
+
+.imerss-subnav::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #184E62b0;
+}
+
+/* Fix up wonky height of links inside subnav e.g. GitHub icon */
+.imerss-subnav .imerss-subnav-icon {
+    display: flex;
+}
+
+footer {
+    color: black;
+}
+
+html[class~=dark] footer {
+    color: #a8bec8;
+}
+
+.imerss-copyright {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+
+h2 {
+    margin-block-start: 0px;
+}
+
+.main-container h2 {
+    margin-bottom: 1.1rem;
+    text-align: center;
+}
+
+.mxcw-section-nav {
+    display: flex;
+    align-items: center;
+    padding-bottom: 4px;
+
+    top: 5px;
+    width: 100%;
+    margin: 0 10px;
+    z-index: 200;
+
+    overflow-x: auto;
+    overflow-y: clip;
+
+    flex-shrink: 0;
+}
+
+.mxcw-section-nav .mxcw-hidden {
+    display: none;
+}
+
+.mxcw-container {
+    display: flex;
+    flex-direction: column;
+    /* Allows for header material and the 1.25rem copyright footer */
+    height: calc(100vh - 12.75rem);
+    --mxcw-container-padding: 8px;
+    padding: 0 var(--mxcw-container-padding);
+}
+
+.mxcw-container ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: var(--imerss-scrollbar-width);
+    background-color: revert;
+}
+
+.mxcw-container ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #C1C1C1;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.mxcw-container ::-webkit-scrollbar-thumb:hover {
+    background-color: #A8A8A8;
+}
+
+
+.mxcw-content {
+    overflow: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.mxcw-content a {
+    text-decoration: underline;
+}
+
+.mxcw-data a {
+    text-decoration: underline;
+    color: blue;
+}
+
+.section.level2 {
+    height: 100%;
+    flex-direction: column;
+}
+
+.mxcw-sectionInner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mxcw-sectionColumn {
+    width: 50%;
+    overflow-y: auto;
+    margin-right: 8px;
+    padding-right: 8px;
+}
+
+@media screen and ( max-width: 620px ) {
+    .mxcw-sectionInner {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .mxcw-content {
+        flex-direction: column;
+    }
+
+    .mxcw-sectionColumn {
+        width: 100%;
+        overflow-y: visible;
+    }
+}
+
+.mxcw-content-holder {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    /* Allow contentResizeBar to shrink this below the height of its content */
+    min-height: 0;
+    font-size: 16px;
+    padding: 6px 0;
+    align-items: center;
+    position: relative;
+    /* TODO hoist this main text colour to a variable */
+    color: #eefaff;
+}
+
+
+
+.chevron-nav {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    --chevron-tip: 10px;
+}
+
+.chevron-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    background: #4b778f;
+    border: none;
+    outline: none;
+    z-index: 1;
+    transition: background 0.15s, color 0.15s;
+    clip-path: polygon(0 0, calc(100% - var(--chevron-tip)) 0, 100% 50%, calc(100% - var(--chevron-tip)) 100%, 0 100%, var(--chevron-tip) 50%);
+    flex: 1 1 auto;
+    min-height: 32px;
+    font-size: 11px;
+    line-height: 1.05;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 2px calc(var(--chevron-tip) + 6px) 2px calc(var(--chevron-tip) + 4px);
+    margin-right: calc(-1 * var(--chevron-tip));
+}
+
+.chevron-tab:first-child {
+    clip-path: polygon(0 0, calc(100% - var(--chevron-tip)) 0, 100% 50%, calc(100% - var(--chevron-tip)) 100%, 0 100%);
+    padding-left: 10px;
+    z-index: 5;
+}
+
+
+
+.chevron-tab:last-child {
+    margin-right: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, var(--chevron-tip) 50%);
+    z-index: 1;
+    padding-right: 10px;
+}
+
+.chevron-tab:hover {
+    background: #6f96a8;
+    z-index: 10;
+}
+
+.chevron-tab.active {
+    background: #9aaeb8;
+    z-index: 10;
+}
+
+.chevron-tab.active:hover {
+    background: #a8bec8;
+}
+
+
+.mxcw-solow-legend .imerss-legend-title {
+    font-size: smaller;
+    margin-bottom: 4px;
+}
+
+.mxcw-taxa-filters-holder {
+    background-color: #eefaff;
+    padding: 2px 6px;
+}
+
+.mxcw-taxa-filters-holder .imerss-filter-body {
+    flex-direction: column;
+}
+
+.mxcw-taxa-filters-holder .imerss-filters {
+    display: flex;
+    padding-top: 6px;
+    overflow-x: scroll;
+}
+
+.mxcw-taxa-filters-holder .imerss-filter {
+    display: flex;
+    border-right: 1px #ddd solid;
+    border-bottom: none;
+    padding: 0 8px;
+}
+
+.mxcw-solow-taxa {
+    height: 100%;
+    background-color: #184E62;
+    display: flex;
+    flex-direction: column;
+}
+
+/** Stop the Solow data table having rounded corners since we want to bolt filters onto the top of it **/
+.mxcw-solow-taxa .hortis-dataTable-wrap {
+    border: none;
+    border-radius: 0;
+}
+
+/* The extirpation risk pane's widgets beneath the map: a slim strip holding the slider of the population radius, above
+   the panel of the taxon chosen, which takes the rest of the height */
+.mxcw-solow-widgets-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    width: 100%;
+}
+
+.mxcw-solow-radius-holder {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    /* Lets the strip compact itself to the width it is given */
+    container-type: inline-size;
+}
+
+.mxcw-solow-taxon-holder {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+}
+
+.mxcw-solow-taxon-holder > div,
+.mxcw-solow-standard-panel {
+    height: 100%;
+}
+
+/* The strip: title, slider with its scale, and value, in a row */
+.mxcw-solow-radius {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 14px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px 12px 4px;
+    background: #0d3040;
+    border: 1px solid #4a9aaa;
+    border-radius: var(--data-table-radius);
+    font-family: Arial, sans-serif;
+}
+
+.mxcw-solow-taxon-pane {
+    /** Shared with hortis-dataTable-wrap */
+    border: 1px solid var(--data-table-border);
+    border-radius: var(--data-table-radius);
+    background: var(--data-table-surface);
+    padding: 0;
+    display: flex;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+    gap: 12px;
+}
+
+.mxcw-solow-taxon-pane .mxcw-taxon-image {
+    width: auto;
+    flex: 0 0 auto;
+    height: 100%;
+    max-height: 460px;
+    aspect-ratio: 1;
+    max-width: 58%;
+}
+
+.mxcw-solow-taxon-pane .mxcw-taxon-info {
+    width: auto;
+    min-height: 0;
+    /* This box scrolls itself - browsers applying layout containment for container-type won't report its overflow to the pane */
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    container-type: inline-size;
+    flex: 1 1 0;
+    padding: var(--story-gap) var(--story-gap) var(--story-gap) 0;
+}
+
+.mxcw-solow-taxon-pane .taxonDisplay-image-holder {
+    height: 100%;
+    font-size: smaller;
+    padding: 0;
+}
+
+.mxcw-solow-taxon-pane .imerss-photo {
+    max-height: none;
+    border-radius: 0;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Keep the link inside the photo however narrow it gets. It is positioned relative to .imerss-photo */
+.mxcw-solow-taxon-pane .taxonDisplay-iNat-extern {
+    right: 4px;
+    bottom: 4px;
+    box-sizing: border-box;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-title {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-scale {
+    min-width: 0;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-slider-wrap {
+    position: relative;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-track {
+    position: relative;
+    height: 4px;
+    margin: 9px 0 3px;
+    background: #4a9aaa;
+    border-radius: 2px;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #4a9aaa;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 18px;
+    background: transparent;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #a8c8d0;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    transition: background 0.15s;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-input::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #a8c8d0;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    transition: background 0.15s;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-input:hover::-webkit-slider-thumb,
+.mxcw-solow-radius .mxcw-solow-radius-input:focus-visible::-webkit-slider-thumb {
+    background: #fdf2ce;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-input:hover::-moz-range-thumb,
+.mxcw-solow-radius .mxcw-solow-radius-input:focus-visible::-moz-range-thumb {
+    background: #fdf2ce;
+}
+
+/* The scale beneath the slider, a tick at each value it snaps to */
+.mxcw-solow-radius .mxcw-solow-radius-snap-markers {
+    display: flex;
+    justify-content: space-between;
+    /* Half the slider's thumb */
+    padding: 0 8px;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-snap-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 0;
+    gap: 1px;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-snap-tick {
+    width: 1px;
+    height: 4px;
+    background: #4a9aaa;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-snap-label {
+    color: #7ab8c4;
+    font-size: 10px;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.mxcw-solow-radius .mxcw-solow-radius-current-value {
+    min-width: 4.5em;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Where the strip is narrow its scale's labels give way, the ticks remaining, and then its title */
+@container (max-width: 420px) {
+    .mxcw-solow-radius .mxcw-solow-radius-snap-label {
+        display: none;
+    }
+}
+
+@container (max-width: 260px) {
+    .mxcw-solow-radius {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .mxcw-solow-radius .mxcw-solow-radius-title {
+        display: none;
+    }
+}
+
+
+.mxcw-taxon-fields {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 3px;
+    margin: 0;
+}
+
+/* Stack each label above its value once there is no room for two columns */
+@container (max-width: 230px) {
+    .mxcw-solow-taxon-pane .mxcw-taxon-fields {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 0;
+    }
+
+    .mxcw-solow-taxon-pane .mxcw-taxon-fields dt {
+        font-size: smaller;
+        opacity: 0.8;
+    }
+}
+
+.mxcw-taxon-name {
+    font-size: var(--story-body);
+    padding-bottom: 10px;
+    padding-top: 5px;
+    line-height: normal;
+    font-weight: 700;
+}
+
+.mxcw-leftPane {
+
+/* The banner image lies behind the whole width of the page down to the base of the menu - the left hand column
+   must stay opaque above it, even while a pane is transparent or the map has yet to draw */
+    display: flex;
+    flex-direction: column;
+    /* Small gap so that different resize bars are detached */
+    margin-right: 2px;
+    width: 60%;
+    /* See .imerss-page */
+    min-width: 0;
+    position: relative;
+    z-index: 4;
+    background-color: #184E62;
+}
+
+
+.mxcw-map {
+    /* Initially fill whatever .mxcw-data leaves, less 12px resize bar and 2px gap */
+    height: calc(100% - 280px);
+    min-height: 0;
+    width: 100%;
+    min-width: auto;
+    transition-property: height;
+    margin: 0px auto;
+    overflow: hidden;
+    z-index: 5;
+    color: black;
+
+    /** Somehow this works when hiding but not when showing */
+    /*
+    transition-duration: 800ms;
+     */
+}
+
+.mxcw-hideMap .mxcw-map {
+    height: 0;
+    min-height: 0;
+}
+
+.mxcw-data {
+    z-index: 5;
+    opacity: 1;
+    color: black;
+    /* Initial height which shows 5 rows of the observations table - header 30.5px, rows 26.5px plus controls and pagination */
+    height: 266px;
+    min-height: 230px;
+    display: flex;
+}
+
+
+/* !important in these two rules overrides any heights set by dragging mapResizeBar, which are restored on leaving the pane */
+.mxcw-hideMap ~ .mxcw-data {
+    height: 100% !important;
+}
+
+.mxcw-hideMap {
+    height: 0 !important;
+}
+
+.mxcw-hideMap + div {
+    display: none;
+}
+
+.mxcw-content .section {
+    /* We've got the scrollbar at the right, eat into it a bit */
+    display: none;
+    padding: 0.5rem 0 var(--story-gap) 4px;
+}
+
+.mxcw-content img {
+    max-height: 35vh;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.mxcw-content h2 {
+    font-size: var(--story-title);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: var(--story-gap);
+}
+
+.imerss-container {
+    margin: 0px;
+    height: 60%;
+}
+
+/* Extend contentResizeBar over the container's padding, leaving a 2px gap at the left endh mapResizeBar. */
+.mxcw-container > .resize-bar {
+    margin-left: calc(2px - var(--mxcw-container-padding));
+    margin-right: calc(4px - var(--mxcw-container-padding));
+}
+
+/* Panes which hide the viz controls leave nothing for contentResizeBar to resize against */
+.mxcw-container > .resize-bar:has(+ .imerss-container.fl-hidden) {
+    display: none;
+}
+
+/* These panes also leave the content the whole column - !important overrides any height set by dragging contentResizeBar */
+.mxcw-content-holder:has(~ .imerss-container.fl-hidden) {
+    height: 100% !important;
+}
+
+/* Styling for native legends */
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    opacity: 0.7;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+    border-radius: 5px;
+}
+
+.mxcw-hidden.legend {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.data-pane iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.mxcw-paneKey-Status .html-widget {
+    margin-top: 1rem;
+}
+
+.mxcw-dataPane-TopContributions {
+    background-color: #184E62;
+}
+
+/* Hide the data pane, which is still present in the content */
+.mxcw-content-holder .mxcw-data {
+    min-height: 0;
+    height: 0;
+}
+
+.imerss-filter-controls {
+    margin-top: 2px;
+    margin-bottom: -2px;
+}
+
+.imerss-filter {
+    padding: 1px 0 2px;
+
+}
+
+.mxcw-leftPane > .resize-bar {
+    margin-top: 2px;
+}
+
+/* Scoped to the page, so as to outweigh imerss-bioinfo's resize-bar.css, which loads after this sheet and whose fainter
+   colours, still fainter in a dark colour scheme, otherwise left the bars almost invisible */
+.imerss-main .resize-bar {
+    --bar-color: rgba(192, 192, 192, 0.5);
+    --bar-color-hover: rgba(192, 192, 192, 0.6);
+    --bar-color-active: rgba(192, 192, 192, 0.8);
+}
+
+/* ------------------------------------------------------------------------------------------------------------------
+   Responsive layout. These rules come last so that they win over the base rules above which they override.
+
+   Compact header, below 920px - Hextra switches to its mobile layout at 768px, but our subnav only has the 40% of the
+   width given to .imerss-page, and its menu links stop fitting there at around 920px. So below that width we hide
+   the menu links and show the hamburger, and restyle Hextra's mobile menu (its .sidebar-container, whose links come
+   from site.Menus.main - see sidebar.html) as a dropdown beneath the hamburger, in both the two column and stacked
+   layouts.
+
+   Stacked layout, below 768px - the map no longer has room beside the story.
+   ------------------------------------------------------------------------------------------------------------------ */
+
+@media (min-width: 920px) {
+    .imerss-subnav a {
+        display: flex;
+    }
+
+    /* The story page's sidebar is disabled, but Hextra still shows it as a placeholder on wide screens */
+    .sidebar-container.xl\:hx-block {
+        display: none;
+    }
+}
+
+@media (max-width: 919.98px) {
+    .imerss-subnav nav > a:not(.imerss-subnav-icon) {
+        display: none;
+    }
+
+    .imerss-subnav .hamburger-menu {
+        display: block;
+    }
+
+    .imerss-subnav {
+        z-index: 20;
+    }
+
+    /* Dropdown beneath the hamburger - the 100px navigation banner plus the 4rem subnav. Hextra styles it below 768px
+       as a full screen panel, which these rules override */
+    aside.sidebar-container {
+        display: flex;
+        position: fixed;
+        top: calc(100px + 4rem);
+        right: 1rem;
+        bottom: auto;
+        left: auto;
+        width: auto;
+        min-width: 12rem;
+        max-height: calc(100vh - 100px - 4rem);
+        overflow-y: auto;
+        align-self: auto;
+        padding-top: 0;
+        /* Above the section nav, whose z-index of 200 makes it a stacking context as a flex item */
+        z-index: 300;
+        background-color: #184E62;
+        border: 1px solid rgba(253, 242, 206, 0.35);
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+        transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+
+    /* The classes toggled by Hextra's menu.js for closed and open, which it only styles below 768px */
+    aside.sidebar-container.max-md\:\[transform\:translate3d\(0\2c -100\%\2c 0\)\] {
+        transform: translate3d(0, -0.5rem, 0);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    aside.sidebar-container.max-md\:\[transform\:translate3d\(0\2c 0\2c 0\)\] {
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sidebar-container ul.md\:hx-hidden {
+        display: flex;
+    }
+
+    .sidebar-container > .hextra-scrollbar {
+        height: auto;
+    }
+
+    .sidebar-container a {
+        color: #FDF2CE;
+    }
+
+    /* Still catches a click outside the dropdown to close it, but without dimming the page */
+    .mobile-menu-overlay {
+        background-color: transparent !important;
+    }
+
+    /* A page without a sidebar, e.g. the story page, has the hamburger open instead a dropdown of the subnav's links,
+       copied beneath it by src/hextra/js/menu.js, styled as the sidebar's dropdown above */
+    .imerss-subnav {
+        position: relative;
+    }
+
+    .imerss-subnav-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        min-width: 12rem;
+        padding: 6px 0;
+        background-color: #184E62;
+        border: 1px solid rgba(253, 242, 206, 0.35);
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        transform: translate3d(0, -0.5rem, 0);
+        transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+
+    .imerss-subnav-open .imerss-subnav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    /* While open, the subnav and whatever holds it rise above the section tabs beneath, which would cover the dropdown */
+    .imerss-subnav.imerss-subnav-open,
+    :has(> .imerss-subnav.imerss-subnav-open) {
+        z-index: 400 !important;
+    }
+
+    .imerss-subnav .imerss-subnav-dropdown a {
+        display: block;
+        margin: 0;
+        padding: 10px 18px;
+        color: #FDF2CE;
+    }
+}
+
+/* Wide enough for the subnav's own links, the dropdown is never shown */
+@media (min-width: 920px) {
+    .imerss-subnav-dropdown {
+        display: none;
+    }
+}
+
+/* Stacked layout - the subnav, then the map and its data pane, then the story are stacked in .imerss-main, which
+   scrolls beneath the navigation banner. .imerss-page is flattened so that the subnav, which it holds, can be ordered
+   above the map, where it sticks over the lower part of the banner's background so that the hamburger stays in reach */
+@media (max-width: 767.98px) {
+    .imerss-main {
+        flex-direction: column;
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    /* Only .imerss-main scrolls, so the banner's background needn't be fixed - in a fixed layer it can fail to paint
+       beside the scroller's content */
+    .imerss-navbar-background {
+        position: absolute;
+    }
+
+    .imerss-page {
+        display: contents;
+    }
+
+    .imerss-subnav {
+        order: -1;
+        position: sticky;
+        top: 0;
+        flex-shrink: 0;
+        margin-left: 0;
+    }
+
+    /* Overrides any width left inline by a drag of the side by side layout's mainResizeBar, which is hidden here */
+    .mxcw-leftPane {
+        width: 100% !important;
+        height: calc(55vh + 280px);
+        flex-shrink: 0;
+        margin-right: 0;
+    }
+
+    .imerss-main > .resize-bar {
+        display: none;
+    }
+
+    .mxcw-story-holder {
+        width: 100%;
+    }
+
+    /* Infusion 6 renders the subnav within a wrapper, which is the item of this column to be ordered and stuck */
+    .imerss-page > :has(> .imerss-subnav) {
+        order: -2;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        /* Opaque, since the banner's background scrolls away beneath it */
+        background: #184e62;
+    }
+
+    /* On a phone the reader meets the section tabs and the story first, and the map or gallery after them, rather
+       than having to scroll past a screenful of map to reach either */
+    .mxcw-story-holder {
+        order: -1;
+    }
+
+    /* The story runs to its full length within the page's own scrolling, rather than in a box of its own nested within
+       it. Only the panel of filters, records and species keeps a height of its own, within which its lists scroll */
+    .mxcw-container,
+    .mxcw-content-holder {
+        height: auto;
+    }
+
+    .mxcw-content {
+        height: auto;
+        overflow: visible;
+    }
+
+    .mxcw-container > .resize-bar {
+        display: none;
+    }
+
+    /* Qualified to outweigh the later rules giving this panel a share of the column's fixed height. Kept to about half
+       the screen, so that above or below it there is always page for a finger to scroll by - a list filling the screen
+       would take every swipe, and the page beneath it could not be reached */
+    .mxcw-story-holder .mxcw-container > .imerss-container {
+        flex: none;
+        height: 55vh;
+    }
+
+    /* A swipe which reaches the end of a list or panel goes on to scroll the page, rather than springing back */
+    .imerss-main .hortis-dataTable-scroll,
+    .imerss-main .mxcw-taxon-info,
+    .imerss-main .imerss-checklist,
+    .imerss-main .imerss-main-checklist {
+        overscroll-behavior-y: auto;
+    }
+}
+
+/* Phone widths - keep a long site title within the 100px navigation banner */
+@media (max-width: 600px) {
+    /* The title wraps within whatever the logo leaves, so that the logo always stays on the screen */
+    .imerss-navbar .imerss-navbar-titles {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .imerss-navbar > a {
+        flex: none;
+    }
+
+    .imerss-navbar-title {
+        font-size: 16px;
+        letter-spacing: 0.01em;
+    }
+
+    .imerss-navbar .imerss-navbar-wordmark {
+        margin-right: 8px;
+        font-size: 15px;
+    }
+
+    .imerss-navbar img {
+        width: 26px;
+        height: auto;
+        margin-right: 6px;
+    }
+
+    .imerss-navbar .imerss-navbar-index span {
+        font-size: 11px;
+    }
+}
+/* ── Story page panes: type, spacing and layout shared by every bioReportR site's story page, gathered from the projects' own sheets ── */
+.mxcw-container > .imerss-container {
+    height: 50%;
+}
+.mxcw-content p,
+.mxcw-content li {
+    font-size: var(--story-body);
+    line-height: 1.5;
+}
+.mxcw-content p {
+    margin-bottom: 0.6em;
+}
+.mxcw-content p:last-child {
+    margin-bottom: 0;
+}
+/* The theme's reset removes list markers from vignette text */
+.mxcw-content ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0 0 0.6em;
+}
+.mxcw-content li {
+    margin-bottom: 0.2em;
+}
+.imerss-panel-label,
+.imerss-filters-header {
+    font-size: var(--story-body);
+    padding: 2px var(--story-gap) 2px 4px;
+}
+.imerss-filter-title {
+    font-size: var(--story-data);
+    font-weight: 700;
+}
+.imerss-filter-row,
+.imerss-checklist,
+.imerss-checklist li,
+.imerss-search-checklist input,
+.imerss-record-reporter {
+    font-size: var(--story-data);
+}
+.imerss-main .hortis-dataTable-wrap td {
+    font-size: var(--story-data);
+}
+.imerss-main .hortis-dataTable-wrap th {
+    font-size: var(--story-small);
+}
+.mxcw-taxon-fields dt,
+.mxcw-taxon-fields dd {
+    font-size: var(--story-data);
+}
+.imerss-legend,
+.imerss-legend .imerss-legend-title,
+.imerss-legend div {
+    font-size: var(--story-small);
+}
+.imerss-legend .imerss-legend-title {
+    white-space: nowrap;
+}
+.mxcw-content ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin: 0 0 0.6em;
+}
+.mxcw-content blockquote {
+    font-size: var(--story-body);
+    font-style: italic;
+    border-left: 2px solid #FDF2CE;
+    padding-left: 0.75em;
+    margin: 0.6em 0 0;
+}
+@media (min-width: 768px) {
+    .imerss-main {
+        flex: 1 1 0;
+        height: auto;
+        min-height: 0;
+        overflow: clip;
+    }
+    /* The column now runs down to just above the footer */
+    .mxcw-container {
+        height: calc(100vh - 188px);
+    }
+    .mxcw-content {
+        scrollbar-gutter: stable;
+    }
+
+    [class*="mxcw-paneKey-"] .mxcw-sectionColumn {
+        margin-right: 0;
+        padding: 0 4px 0 12px;
+    }
+
+    [class*="mxcw-paneKey-"] > h2 {
+        padding: 0 4px 0 12px;
+    }
+}
+/* On reaching the end of a panel, macOS browsers hand the scroll on to the page and bounce it, even though it has
+   nothing to scroll. Keep each panel's scrolling to itself, and stop the page from bouncing at all */
+html,
+body {
+    overscroll-behavior: none;
+}
+.mxcw-content,
+.imerss-checklist,
+.imerss-main-checklist,
+.hortis-dataTable-scroll,
+.mxcw-taxon-info {
+    overscroll-behavior: contain;
+}
+.imerss-main .hortis-dataTable-pagination {
+    padding: 2px 8px;
+    font-size: var(--story-small);
+}
+.imerss-main .hortis-dataTable-pageControls {
+    gap: 2px;
+}
+.imerss-main .hortis-dataTable-pagination button {
+    padding: 0 6px;
+    line-height: 1.5;
+    border-radius: 4px;
+}
+.imerss-filter-panel {
+    padding: 2px 6px;
+}
+.imerss-main-checklist {
+    padding: 0 0 2px;
+}
+.imerss-checklist {
+    padding: 0 2px 0 0;
+}
+.imerss-copyright a {
+    text-decoration: underline;
+}
+/* Links are never bold within the content of a page, even inside bold text */
+:is(.mxcw-content, .mxcw-dataPane, main) a, :is(.mxcw-content, .mxcw-dataPane, main) :is(strong, b) a {
+    font-weight: 400;
+}
+/* Atlas filters: each a row of label and control on one grid, the controls shaped as the plant search beneath them,
+   and the status choices as chips edged in the colours of the status tiles */
+#imerss-main-filters {
+    padding: 2px 8px 6px 0;
+}
+#imerss-main-filters > .imerss-filter:empty {
+    display: none;
+}
+#imerss-main-filters > .imerss-filter {
+
+/* Each filter row runs the full width of the panel, and an autocomplete fills what its label leaves */
+    display: grid;
+    grid-template-columns: 6.5em minmax(0, 1fr);
+    align-items: center;
+    column-gap: 10px;
+    margin: 0;
+    padding: 6px 0;
+    border-top: 1px solid #e5e7eb;
+    box-sizing: border-box;
+    width: 100%;
+}
+#imerss-main-filters > .imerss-status-filter {
+    border-top: 0;
+}
+#imerss-main-filters .imerss-filter-title {
+    width: auto;
+    margin: 0;
+    color: #4b778f;
+    font-size: var(--story-data);
+    font-weight: 700;
+}
+#imerss-main-filters .imerss-filter-body {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+}
+#imerss-main-filters .autocomplete__wrapper,
+#imerss-main-filters .autocomplete__input {
+    width: 100%;
+}
+#imerss-main-filters .autocomplete__input {
+    height: 28px;
+    padding: 0 30px 0 12px;
+    font-size: var(--story-data);
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 100px;
+}
+#imerss-main-filters .autocomplete__input:focus {
+    outline: 2px solid #4b778f;
+    outline-offset: 0;
+}
+#imerss-main-filters .imerss-filter-clear {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    z-index: 1;
+}
+#imerss-main-filters .imerss-status-filter .imerss-filter-row {
+    align-items: center;
+    margin: 0;
+    padding: 2px 10px 2px 6px;
+    font-size: var(--story-data);
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid var(--mxcw-status-chip, #a8c8d0);
+    border-radius: 100px;
+}
+#imerss-main-filters .imerss-status-filter .imerss-row-label {
+    text-transform: capitalize;
+}
+#imerss-main-filters .imerss-filter-row:has([data-row-id="confirmed"]) {
+    --mxcw-status-chip: #5a96d2;
+}
+#imerss-main-filters .imerss-filter-row:has([data-row-id="unconfirmed"]) {
+    --mxcw-status-chip: #decb90;
+}
+#imerss-main-filters .imerss-filter-row:has([data-row-id="new"]) {
+    --mxcw-status-chip: #7562b4;
+}
+/* The headers of the panels of records and species - Filters and Plants - are set as the labels of the filters
+   within them, so that the panels read as one scale with the reading text rather than shouting over it */
+.imerss-container .imerss-panel-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px 4px 4px;
+    color: #4b778f;
+    font-size: var(--story-data);
+    font-weight: 700;
+    line-height: 1.3;
+}
+.imerss-container .imerss-panel-label button,
+.imerss-container .imerss-filters-toggle {
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+.imerss-container .imerss-panel-label .imerss-download-button svg,
+.imerss-container .imerss-panel-label .imerss-filter-controls svg {
+    width: 18px;
+    height: 18px;
+}
+.imerss-container .autocomplete__input {
+    height: 26px;
+    font-size: var(--story-data);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+}
+/* The time, recorder and locality filters' own elements hold their titles and controls, so each takes the label and control grid of the other filters */
+#imerss-main-filters > .imerss-time-filter > .imerss-time-filter,
+#imerss-main-filters > .imerss-filter > .imerss-collector-filter {
+    display: contents;
+}
+#imerss-main-filters .imerss-filter-autocomplete > div {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+/* The autocomplete library marks a focused search with a heavy yellow outline; the site's searches take its own blue-grey
+   focus ring instead, still clearly visible against the pale panel */
+.imerss-container .autocomplete__input--focused,
+.imerss-container .autocomplete__input:focus {
+    outline: 2px solid #4b778f;
+    outline-offset: 0;
+    box-shadow: none;
+}
+/* The suggestions of a search are set at the size of the list of plants beneath it, not the library's large default */
+.imerss-container .imerss-filter-autocomplete .autocomplete__option {
+    padding: 4px 10px;
+    font-size: var(--story-data);
+    font-weight: 400;
+    line-height: 1.35;
+}
+.imerss-container .autocomplete__menu {
+    border-radius: var(--data-table-radius);
+}
+/* The search of the checklist fills the rest of its header after the label and the download button, so that the names
+   chosen in it are not cut short */
+.imerss-container .imerss-panel-label .imerss-search-checklist {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: 4px;
+}
+.imerss-container .imerss-search-checklist .imerss-filter-autocomplete,
+.imerss-container .imerss-search-checklist .imerss-filter-autocomplete > div:not(.imerss-filter-clear),
+.imerss-container .imerss-search-checklist .autocomplete__wrapper,
+.imerss-container .imerss-search-checklist .autocomplete__input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+}
+/* With the search filling its header, the button clearing it sits inside the right end of the box */
+.imerss-container .imerss-search-checklist .imerss-filter-autocomplete {
+    position: relative;
+}
+.imerss-container .imerss-search-checklist .imerss-filter-clear {
+    top: -1px;
+    right: 0;
+}
+
+@media (min-width: 768px) {
+    .mxcw-paneKey-TopContributions .mxcw-sectionInner {
+        flex: none;
+    }
+}
+
+:is(.mxcw-paneKey-Status, .mxcw-paneKey-TopContributions, .mxcw-paneKey-Solow, .mxcw-paneKey-Curation) h2 {
+    color: #a8c8d0;
+    font-size: var(--story-small);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 1.25rem 0 clamp(12px, 2.4vh, 26px);
+}
+
+:is(.mxcw-paneKey-Status, .mxcw-paneKey-Solow) h2 {
+    margin: 0.5rem 0 var(--story-gap);
+}
+
+:is(.mxcw-paneKey-Status, .mxcw-paneKey-TopContributions, .mxcw-paneKey-Solow) .mxcw-sectionColumn > p,
+.mxcw-curation-invitation p {
+    max-width: 31em;
+    margin: 0 auto clamp(10px, 2.2vh, 22px);
+    padding: 0;
+    color: #d6e8ee;
+    font-size: var(--story-reading-text);
+    line-height: 1.5;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+:is(.mxcw-paneKey-Status, .mxcw-paneKey-Solow) .mxcw-sectionColumn > p {
+    max-width: none;
+    margin-bottom: var(--story-gap);
+    padding: 0;
+    font-size: var(--story-tool-text);
+    line-height: 1.4;
+}
+
+/* ── Summaries shown in tooltips - of a cell of the map's grid, and the parts shared by any other summary, e.g. a
+   story's own summaries of its groups of species. See bioreportr.cellTooltip and bioreportr.tip in story.js ── */
+
+.imerss-tooltip-holder:has(.mxcw-cell-tip) {
+    max-width: none;
+    padding: 0;
+    border: 1px solid #4a9aaa;
+    border-radius: 8px;
+    background: #0d3040;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.mxcw-tip-title {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.mxcw-tip-title span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #a8c8d0;
+}
+
+.mxcw-tip-heading {
+    color: #a8c8d0;
+    margin: 8px 0 4px;
+}
+
+.mxcw-tip-bars {
+    display: grid;
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    gap: 3px 8px;
+    align-items: center;
+}
+
+.mxcw-tip-label {
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mxcw-tip-track {
+    display: block;
+    min-width: 60px;
+}
+
+.mxcw-tip-bar {
+    display: block;
+    height: 8px;
+    min-width: 2px;
+    border-radius: 0 4px 4px 0;
+    background: var(--tip-colour);
+}
+
+.mxcw-tip-value {
+    font-weight: 700;
+    text-align: right;
+}
+
+.mxcw-tip-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mxcw-tip-note {
+    margin-top: 8px;
+    color: #a8c8d0;
+}
+
+.mxcw-cell-tip {
+    width: 240px;
+    padding: 12px;
+    color: #eefaff;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.mxcw-cell-stack {
+    display: flex;
+    gap: 2px;
+    margin-top: 8px;
+}
+
+.mxcw-cell-stack span {
+    height: 8px;
+    min-width: 4px;
+}
+
+.mxcw-cell-stack span:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.mxcw-cell-stack span:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+/* The species and records of a cell of each reporting status, beneath the bar of its species - see
+   bioreportr.cellTooltip.render */
+.mxcw-cell-counts {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 3px 14px;
+    margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+.mxcw-cell-counts > span:nth-child(-n + 3) {
+    color: #a8c8d0;
+    font-size: 11px;
+}
+
+.mxcw-cell-counts > span:nth-child(3n + 2),
+.mxcw-cell-counts > span:nth-child(3n + 3) {
+    text-align: right;
+}
+
+.mxcw-cell-status i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 2px;
+}
+
+.mxcw-cell-tip .mxcw-tip-label {
+    max-width: 150px;
+    font-style: italic;
+}
+
+.mxcw-cell-tip .mxcw-tip-track {
+    min-width: 30px;
+}
+
+.mxcw-cell-tip .mxcw-tip-note {
+    margin-top: 2px;
+}
+
+/* The tooltip of a population of the extirpation risk map - its probability, with a swatch of its colour on the map,
+   above the figures from which it is computed. See bioreportr.solowMapLayer.renderTooltip */
+.mxcw-cell-tip.mxcw-population-tip {
+    width: auto;
+    min-width: 210px;
+    max-width: 260px;
+}
+
+/* It is shown as the map's own popup, framed as the page's tooltips are, without MapLibre's white box and arrow */
+.mxcw-population-popup {
+    z-index: 5;
+    pointer-events: none;
+}
+
+.mxcw-population-popup .maplibregl-popup-content {
+    padding: 0;
+    border: 1px solid #4a9aaa;
+    border-radius: 8px;
+    background: #0d3040;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.mxcw-population-popup .maplibregl-popup-tip {
+    display: none;
+}
+
+.mxcw-population-ep {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(168, 200, 208, 0.3);
+    font-size: 13px;
+}
+
+.mxcw-population-ep b {
+    margin-left: auto;
+    color: #fdf2ce;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+}
+
+.mxcw-population-swatch {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(238, 250, 255, 0.6);
+    border-radius: 50%;
+}
+
+.mxcw-population-stats {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 3px 14px;
+    margin: 0;
+}
+
+.mxcw-population-stats dt {
+    color: #a8c8d0;
+}
+
+.mxcw-population-stats dd {
+    margin: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.mxcw-population-stats dd span {
+    color: #a8c8d0;
+}
+
+/* ── Community curation - see notes/community-curation-design.md and static/bioreportr/js/curation.js ── */
+
+/* The speech bubble, outlined and filled, drawn as a mask so that it takes the colour of its background - beside each
+   taxon of the checklist, here, and each record of the table of records, in bioreportr-curationPane.vue */
+:root {
+    --mxcw-curation-bubble-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2.2' stroke-linejoin='round' d='M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z'/%3E%3C/svg%3E");
+    --mxcw-curation-bubble-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z'/%3E%3C/svg%3E");
+}
+
+/* The speech bubble beside each taxon of the checklist, shown on hovering over the taxon, and always, filled, once it
+   has notes. The bubble is drawn as a mask, so that it takes the colour of the checklist's labels */
+.imerss-checklist .mxcw-curation-bubble {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-left: 6px;
+    vertical-align: -2px;
+    cursor: pointer;
+    visibility: hidden;
+    background-color: #4b778f;
+    -webkit-mask: var(--mxcw-curation-bubble-outline) center / contain no-repeat;
+    mask: var(--mxcw-curation-bubble-outline) center / contain no-repeat;
+}
+
+.imerss-checklist .mxcw-curation-bubble.mxcw-curation-noted {
+    visibility: visible;
+    -webkit-mask-image: var(--mxcw-curation-bubble-filled);
+    mask-image: var(--mxcw-curation-bubble-filled);
+}
+
+/* Only the taxon under the pointer shows its bubble, not every taxon above it in the tree */
+.imerss-checklist .checklist-row:hover:not(:has(.checklist-row:hover)) > .mxcw-curation-bubble {
+    visibility: visible;
+}
+
+.imerss-checklist .mxcw-curation-bubble:hover {
+    background-color: #184e62;
+}
+
+/* The tooltip of a bubble ends by inviting a note */
+.mxcw-curation-tip .mxcw-curation-tip-action {
+    display: block;
+    margin-top: 8px;
+    color: #fdf2ce;
+    text-decoration: underline;
+}
+
+/* The votes given on a taxon, one line to each question answered */
+.mxcw-curation-brief {
+    margin-top: 6px;
+}
+
+/* A summary pinned by clicking its bubble takes the pointer, so that its link may be followed and its text selected */
+.imerss-tooltip-holder.mxcw-tip-pinned {
+    pointer-events: auto;
+    user-select: text;
+}
+
+.mxcw-curation-tip .mxcw-curation-comments li {
+    margin-top: 4px;
+}
+
+/* The note, in the extirpation risk pane's panel, of records set aside from the calculation of EP, e.g. as planted */
+.mxcw-solow-annotation-note {
+    margin-top: 4px;
+    color: #9a4a0a;
+    font-size: var(--story-small);
+}
+
+.mxcw-curation-tally {
+    display: grid;
+    grid-template-columns: auto repeat(3, auto);
+    gap: 2px 10px;
+    margin-top: 8px;
+}
+
+.mxcw-curation-tally-question {
+    color: #a8c8d0;
+}
+
+.mxcw-curation-tally-count {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* The curation pane's invitation gives way to the form once a taxon is chosen */
+.mxcw-content .section:has(.mxcw-curation-form:not(.fl-hidden)) .mxcw-curation-invitation {
+    display: none;
+}
+
+/* The form, after the design in notes/emma-curation-design.png */
+.mxcw-curation-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--story-gap);
+    font-size: var(--story-data);
+    color: #eefaff;
+}
+
+.mxcw-curation-pending {
+    padding: 6px 10px;
+    border-left: 4px solid #fdf2ce;
+    border-radius: 4px;
+    background: rgba(253, 242, 206, 0.15);
+    color: #fdf2ce;
+    font-weight: 700;
+}
+
+/* The chosen taxon: its photo spans the column, keeping its proportions, and its name runs beneath as elsewhere */
+.mxcw-curation-taxon {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* The photo fills its holder, whose width is capped instead of the photo's height, so that the link to iNaturalist,
+   placed in the holder's corner, always sits on the photo's corner */
+.mxcw-curation-photo .taxonDisplay-image-holder {
+    display: block;
+    max-width: calc(42vh * 4 / 3);
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mxcw-curation-photo .taxonDisplay-iNat-extern {
+    right: 6px;
+    bottom: 6px;
+}
+
+.mxcw-curation-photo .imerss-photo {
+    width: 100%;
+    /* Not the 300px to which imerss-core.css confines a photo, which would leave the link beyond its edge */
+    max-width: none;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--data-table-radius, 8px);
+    background-size: cover;
+    background-position: center;
+}
+
+.mxcw-curation-taxon .mxcw-taxon-name {
+    text-align: center;
+}
+
+.mxcw-curation-note-form fieldset {
+    margin: 0 0 var(--story-gap);
+    padding: 8px 12px 10px;
+    border: 1px solid rgba(168, 200, 208, 0.45);
+    border-radius: var(--data-table-radius, 8px);
+}
+
+.mxcw-curation-note-form legend {
+    padding: 0 6px;
+    color: #a8c8d0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.mxcw-curation-vote-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) repeat(3, 5.5em);
+    align-items: center;
+    justify-items: center;
+    gap: 6px 0;
+}
+
+.mxcw-curation-vote-grid .mxcw-curation-vote-label {
+    justify-self: start;
+}
+
+.mxcw-curation-vote-head {
+    color: #a8c8d0;
+}
+
+.mxcw-curation-vote-grid input {
+    accent-color: #fdf2ce;
+    width: 16px;
+    height: 16px;
+}
+
+.mxcw-curation-comment textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 4px;
+    background: #eefaff;
+    color: #123;
+    font: inherit;
+    resize: vertical;
+}
+
+.mxcw-curation-account {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+}
+
+.mxcw-curation-account a {
+    color: #fdf2ce;
+}
+
+.mxcw-curation-button {
+    padding: 4px 14px;
+    border: 1px solid #fdf2ce;
+    border-radius: 4px;
+    background: #fdf2ce;
+    color: #0d3040;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mxcw-curation-submit {
+    margin-left: auto;
+}
+
+.mxcw-curation-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fdf2ce;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.mxcw-curation-choose {
+    align-self: flex-start;
+}
+
+.mxcw-curation-status:empty {
+    display: none;
+}
+
+.mxcw-curation-consensus h3 {
+    margin: 0 0 4px;
+    color: #a8c8d0;
+    font-size: var(--story-data);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.mxcw-curation-consensus .mxcw-curation-tally {
+    margin: 0 0 var(--story-gap);
+}
+
+/* Outweighs the reading text's markers of the lists of a pane */
+.mxcw-curation-consensus .mxcw-curation-notes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mxcw-curation-account .mxcw-curation-link {
+    margin-left: 4px;
+}
+
+.mxcw-curation-note {
+    padding: 6px 0;
+    border-top: 1px solid rgba(168, 200, 208, 0.25);
+}
+
+.mxcw-curation-note-head a {
+    margin-left: 6px;
+    color: #fdf2ce;
+}
+
+.mxcw-curation-note-answers {
+    color: #a8c8d0;
+}
+
+.mxcw-curation-note-comment {
+    margin-top: 2px;
+    white-space: pre-wrap;
+}
+
+/* ── The story page's own structure - see static/bioreportr/sfc/bioreportr-storyPage.vue ── */
+
+/* Each pane's section is rendered within a wrapper of its own, which is marked when it is the active pane */
+.mxcw-content .mxcw-storyPane:not(.mxcw-activePane) {
+    display: none;
+}
+
+.mxcw-content .mxcw-activePane .section {
+    display: flex;
+}
+
+/* Each pane's data pane is rendered within a holder of its own - this leaves the data panes children of .mxcw-data
+ for its layout */
+.mxcw-data > .mxcw-dataPanes {
+    display: contents;
+}
+
+/* Likewise the holder of a pane's iNaturalist panels, so that each is a child of its data pane for its height */
+.mxcw-dataPane > .mxcw-iNatPanels {
+    display: contents;
+}
+
+/* The filter panel takes the width of its column - imerss-bioinfo's imerss-core.css, which the story page's components
+ bring in after this sheet, narrows it to 35% for its own layout */
+.imerss-container .imerss-filter-panel {
+    width: 100%;
+}
+
+/* Each pane's heading. The rule is given no more weight than a bare h2, so that any pane may restyle its heading, e.g.
+ the reading panes above */
+:where(.mxcw-storyPane) h2 {
+    margin-bottom: 1.1rem;
+    text-align: center;
+}

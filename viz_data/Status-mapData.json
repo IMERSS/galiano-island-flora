@@ -1,0 +1,22 @@
+{
+  "id": "Status",
+  "view": {
+    "type": "view",
+    "lon": -123.45,
+    "lat": 48.936,
+    "zoom": 10.3
+  },
+  "layers": [
+    {
+      "id": "plotly-carto-positron",
+      "type": "raster",
+      "source": "plotly-carto-positron",
+      "minzoom": 0,
+      "maxzoom": 22,
+      "metadata": {
+        "sortKey": 0.5
+      }
+    }
+  ],
+  "highlightedSources": {}
+}

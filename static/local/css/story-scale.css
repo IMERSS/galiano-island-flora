@@ -1,0 +1,217 @@
+/* The story page's styles for the panes and material of the Galiano site alone - the gallery of lost plants, the
+   Traces timeline, Harvey's footsteps, the atlas's status tiles and summaries, and the filters only this site defines.
+   Everything shared with the other bioReportR sites is in static/bioreportr/css, chiefly imerss-story.css. This sheet
+   loads after the shared ones, and is to be kept to the minimum. */
+
+/* ── Atlas links to status groups ────────────────────────── */
+
+.galiano-status-link {
+    font-weight: 700;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 4px;
+    margin-left: -4px;
+}
+
+.galiano-status-link:hover,
+.galiano-status-link:focus-visible {
+    text-decoration-style: solid;
+}
+
+.galiano-status-link[aria-pressed="true"] {
+    color: #0d3040;
+    background: #FDF2CE;
+    text-decoration: none;
+}
+
+/* ── Group summaries in the atlas ────────────────────────── */
+
+.galiano-tip {
+    position: fixed;
+    z-index: 1000;
+    width: 300px;
+    padding: 12px;
+    display: none;
+    pointer-events: none;
+    color: #eefaff;
+    background: #0d3040;
+    border: 1px solid #4a9aaa;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.galiano-tip-visible {
+    display: block;
+}
+
+/* The group summaries are framed as the summaries of map cells are - see imerss-story.css */
+.imerss-tooltip-holder:has(.galiano-tip) {
+    max-width: none;
+    padding: 0;
+    border: 1px solid #4a9aaa;
+    border-radius: 8px;
+    background: #0d3040;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* The group summaries are placed by the IMERSS framework's tooltip holder, which supplies the frame */
+.imerss-tooltip-holder .galiano-tip {
+    position: static;
+    border: 0;
+    box-shadow: none;
+}
+
+/* ── Atlas tiles for the three groups of species ─────────── */
+
+.galiano-status-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--story-gap);
+    margin: 0 0 0.6em;
+}
+
+.galiano-status-tile {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 0;
+    padding: var(--story-gap);
+    text-align: left;
+    font-weight: 400;
+    color: #eefaff;
+    text-decoration: none;
+    background: #0d3040;
+    border-top: 3px solid var(--tip-colour);
+    border-radius: var(--data-table-radius);
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+}
+
+.galiano-status-tile:hover,
+.galiano-status-tile:focus-visible,
+.galiano-status-tile[aria-pressed="true"] {
+    color: #eefaff;
+    background: #0d3040;
+    outline-color: #FDF2CE;
+}
+
+.galiano-tile-name {
+    font-size: var(--story-data);
+    font-weight: 700;
+}
+
+.galiano-tile-count {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.galiano-tile-count small {
+    font-size: var(--story-small);
+    font-weight: 400;
+    color: #a8c8d0;
+}
+
+.galiano-tile-meaning {
+    flex: 1;
+    font-size: var(--story-small);
+    line-height: 1.3;
+    color: #a8c8d0;
+    margin-top: 2px;
+}
+
+/* ── Callouts within the text of the panes ───────────────── */
+
+.galiano-callout {
+    color: #FDF2CE;
+    font-weight: 700;
+}
+
+/* ── Traces: the opening timeline ────────────────────────── */
+
+/* The text is spare and unhurried, and sized by the height of the screen as well as its width so that it fits without scrolling */
+
+/* A leaf skeleton left alone drifts away on the air */
+
+.galiano-time-range label span {
+    width: 2.6em;
+}
+
+/* ── Reading panes of this site alone, at the scale of the opening vignette - see the shared reading panes in
+   imerss-story.css ──── */
+
+/* The lead-in, the callout and the project link are all emphasised alike: cream, never bold */
+.mxcw-paneKey-TopContributions .mxcw-sectionColumn > p .galiano-callout {
+    color: #FDF2CE;
+    font-weight: 400;
+}
+
+.galiano-howto {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(168, 200, 208, 0.35);
+    color: #c4dbe2;
+    font-size: var(--story-body);
+    line-height: 1.45;
+}
+
+.galiano-howto p,
+.galiano-howto ol {
+    margin: 0 0 var(--story-gap);
+}
+
+.galiano-howto ol {
+    padding-left: 1.5em;
+}
+
+.galiano-howto li {
+    margin-bottom: 4px;
+}
+
+.galiano-howto em,
+.galiano-howto strong {
+    color: #FDF2CE;
+}
+
+/* One margin for every pane: 16px either side of the content, counting the scrollbar's space, which is always reserved
+   so that the text does not shift between panes */
+
+#imerss-main-filters .imerss-region-filter-rows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+#imerss-main-filters .galiano-time-range {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    align-items: stretch;
+    gap: 2px;
+}
+
+#imerss-main-filters .galiano-time-range label {
+    display: grid;
+    grid-template-columns: 2.6em minmax(0, 1fr) 3em;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--story-data);
+}
+
+#imerss-main-filters .galiano-time-range label span {
+    width: auto;
+    color: #4b778f;
+}
+
+#imerss-main-filters .galiano-time-range output {
+    text-align: right;
+}
+
+/* The species of the Community Science pane open on the Atlas */
+.mxcw-inat-components article {
+    cursor: pointer;
+}

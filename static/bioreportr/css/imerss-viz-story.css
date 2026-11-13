@@ -1,0 +1,450 @@
+
+.imerss-container {
+    flex-direction: column;
+    margin-top: 0;
+    background: #eefaff;
+    color: black;
+}
+
+.imerss-main {
+    --data-table-surface: #eefaff;
+    --data-table-border: #ddd;
+}
+
+.mxcw-data-widget-text {
+    color: #eefaff;
+}
+
+.mxcw-data-pane-widget {
+    margin-left: 8px;
+    margin-right: 8px;
+    height: calc(100% - 8px);
+}
+
+.mxcw-obs-table-holder {
+    flex-direction: column;
+    display: flex;
+    overflow: auto; /* Without this, massive horizontal overflow on parent */
+}
+
+/* The records' panel takes the whole width of the data pane, open or collapsed, so that the controls at the right of its
+   header stay put as it opens and closes - collapsed, it would otherwise shrink to its header */
+.mxcw-data > .mxcw-obs-table-holder {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* The records' header is spaced alike above and below, open or collapsed - from the map's edge, the resize bar between
+   them being counted in the space above, and allowing for the label's glyphs riding high in its box */
+.mxcw-obs-table-controls {
+    display: flex;
+    margin-left: 1rem;
+    margin-top: -5.5px;
+    margin-bottom: 7.5px;
+}
+
+/* The colour of the records' label beside it - imerss-bioinfo's download icon is now stroked in currentColor */
+.mxcw-obs-table-controls .imerss-download-button {
+    fill: #ddd;
+    color: #eefaff;
+}
+
+/* The header's icons are kept a touch smaller than its label and level with its foot, so that the resize bar above the
+   open panel, which overlaps the header's top, leaves them whole */
+.mxcw-obs-table-controls > .imerss-download-button {
+    display: flex;
+    align-self: flex-end;
+}
+
+.mxcw-obs-table-controls > .imerss-download-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* The button clearing the selected record, styled as the download button beside it */
+.mxcw-obs-table-controls .mxcw-record-reset {
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+}
+
+.mxcw-obs-table-controls .mxcw-record-reset:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.mxcw-obs-table-controls .mxcw-record-reset:disabled:hover {
+    background: none;
+}
+
+.mxcw-obs-table {
+    height: 100%;
+    min-height: 0;
+}
+
+.imerss-panel-label {
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 0.2rem 1rem 0.2rem 0.3rem;
+}
+
+/* Taken from R Leaflet's ".info" */
+.mxcw-legend {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: #555;
+    color: #eee;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    /* Solution from https://stackoverflow.com/a/21335440 */
+    visibility: visible;
+    transition-property: opacity, visibility;
+    transition-duration: 400ms;
+}
+
+.mxcw-region-legend .imerss-legend-preview {
+    margin: 2px;
+}
+
+.mxcw-hidden.mxcw-legend {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* As in xetthecum.css */
+.imerss-legend-preview {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    outline: 1px solid #353030;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.imerss-legend-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    width: 8rem;
+    margin-left: 6px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
+
+.imerss-selected .imerss-legend-preview {
+    outline: 2px solid #FCFF63;
+}
+
+/** Clicking a taxon in the main checklist filters by it - see hortis.checklist.withSingleSearch */
+.imerss-main-checklist .imerss-checklist p {
+    cursor: pointer;
+}
+
+/** Weird 1-pixel fight over height - see why it seems we want -2px in 3rd position in core */
+.imerss-checklist-decoration {
+    margin: -2px -0.3em -3px -0.8em;
+}
+
+.imerss-photo {
+    height: 300px;
+}
+
+@media screen and ( max-height: 1024px ){
+    .imerss-photo {
+        height: 200px;
+        max-width: 300px;
+    }
+}
+
+/* Records panel as an accordion - !important overrides any heights set by dragging mapResizeBar, restored on opening */
+.mxcw-records-toggle {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    cursor: pointer;
+    min-width: 0;
+    font-size: var(--story-body);
+    font-weight: 700;
+}
+
+.mxcw-records-toggle::before {
+    content: "\25B8";
+    margin-right: 0.3rem;
+    transform: rotate(90deg);
+}
+
+.mxcw-records-collapsed .mxcw-records-toggle::before {
+    transform: none;
+}
+
+.mxcw-records-collapsed .mxcw-obs-table {
+    display: none;
+}
+
+.mxcw-leftPane:has(.mxcw-records-collapsed:not(.fl-hidden)):not(:has(.mxcw-atlas-has-taxon)) {
+    --mxcw-records-header-height: 40px;
+}
+
+/* Collapsed, the header sits in its strip directly below the map, with no resize bar to count in the space above */
+.mxcw-records-collapsed .mxcw-obs-table-controls {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.mxcw-leftPane:has(.mxcw-records-collapsed:not(.fl-hidden)):not(:has(.mxcw-atlas-has-taxon)) .mxcw-map {
+    height: calc(100% - var(--mxcw-records-header-height)) !important;
+}
+
+.mxcw-leftPane:has(.mxcw-records-collapsed:not(.fl-hidden)):not(:has(.mxcw-atlas-has-taxon)) > .resize-bar {
+    display: none;
+}
+
+.mxcw-leftPane:has(.mxcw-records-collapsed:not(.fl-hidden)):not(:has(.mxcw-atlas-has-taxon)) > .mxcw-data {
+    height: var(--mxcw-records-header-height) !important;
+    min-height: 0;
+    align-items: center;
+}
+
+/* Records panel of the Extirpation Risk vignette, listing the records of the selected species below the Solow widgets.
+   Non-!important heights leave any drag of mapResizeBar in force. */
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-widgets-holder:not(.fl-hidden)) .mxcw-map {
+    height: calc(100% - 280px - 2.25rem);
+}
+
+.mxcw-leftPane > .mxcw-data:has(> .mxcw-solow-widgets-holder:not(.fl-hidden)) {
+    flex-direction: column;
+    height: calc(266px + 2.25rem);
+}
+
+.mxcw-data > .mxcw-solow-widgets-holder {
+    flex: 1 1 0;
+    min-height: 0;
+    width: auto;
+}
+
+.mxcw-data > .mxcw-solow-records-holder {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: auto;
+}
+
+.mxcw-data > .mxcw-solow-records-holder.fl-hidden {
+    display: none;
+}
+
+.mxcw-solow-records-table {
+    height: 100%;
+    min-height: 0;
+}
+
+.mxcw-data > .mxcw-solow-records-collapsed {
+    flex: 0 0 2.25rem;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mxcw-solow-records-collapsed .mxcw-records-toggle::before {
+    transform: none;
+}
+
+.mxcw-solow-records-collapsed .mxcw-solow-records-table {
+    display: none;
+}
+
+/* While the table is open the Solow widgets compact to share the space with it, drawing a default extra height from the map */
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-records-holder:not(.mxcw-solow-records-collapsed):not(.fl-hidden)) .mxcw-map {
+    height: calc(100% - var(--solow-widgets-open-height) - 250px);
+}
+
+.mxcw-leftPane > .mxcw-data:has(> .mxcw-solow-records-holder:not(.mxcw-solow-records-collapsed):not(.fl-hidden)) {
+    height: calc(var(--solow-widgets-open-height) + 236px);
+}
+
+.mxcw-data:has(> .mxcw-solow-records-holder:not(.mxcw-solow-records-collapsed)) > .mxcw-solow-widgets-holder {
+    flex: 0 1 auto;
+    margin-bottom: 0.5rem;
+    height: min(var(--solow-widgets-open-height), 45%);
+}
+
+.mxcw-solow-records-species {
+    margin-left: 0.4rem;
+}
+
+/* Clarifies what a records panel is listing - long combinations of filters are cut short, with the full text in a tooltip */
+.mxcw-records-filter-label {
+    margin-left: 0.4rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Holds the species panel of the atlas, shown only while a species is selected - see .mxcw-atlas-has-taxon */
+.mxcw-atlas-taxon-holder {
+    display: none;
+}
+
+/* The bars between a taxon panel and its records are only shown while the records are open beneath it */
+.mxcw-data > .resize-bar {
+    display: none;
+}
+
+.mxcw-solow-widgets-holder:not(.fl-hidden) + .resize-bar:has(+ .mxcw-solow-records-holder:not(.mxcw-solow-records-collapsed)),
+.mxcw-atlas-has-taxon + .resize-bar:has(+ .mxcw-obs-table-holder:not(.mxcw-records-collapsed):not(.fl-hidden)) {
+    display: block;
+    flex-shrink: 0;
+    margin: 2px 8px;
+}
+
+/* With no species selected on the extirpation pane the map takes the whole column until one is chosen */
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-widgets-holder:not(.fl-hidden):not(.mxcw-solow-has-taxon)) .mxcw-map {
+    height: 100% !important;
+}
+
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-widgets-holder:not(.fl-hidden):not(.mxcw-solow-has-taxon)) > .mxcw-data {
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-widgets-holder:not(.fl-hidden):not(.mxcw-solow-has-taxon)) > .resize-bar {
+    display: none;
+}
+
+/* ... and its panels must not spill out of the empty space left for them */
+.mxcw-data > .mxcw-solow-widgets-holder:not(.mxcw-solow-has-taxon),
+.mxcw-data:has(> .mxcw-solow-widgets-holder:not(.mxcw-solow-has-taxon)) > .mxcw-solow-records-holder {
+    display: none;
+}
+
+/* The filter of the extirpation risk analysis's taxa by their range of extirpation probability */
+.mxcw-ep-range {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 170px;
+}
+
+.mxcw-ep-range label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--story-data);
+}
+
+.mxcw-ep-range label span {
+    width: 2em;
+}
+
+.mxcw-ep-range input {
+    flex: 1;
+    min-width: 0;
+    accent-color: #4b778f;
+}
+
+/* ── Story page panes: type, spacing and layout shared by every bioReportR site's story page, gathered from the projects' own sheets ── */
+
+.mxcw-records-filter-label,
+.mxcw-solow-records-species {
+    font-weight: 400;
+}
+
+.mxcw-leftPane:has(> .mxcw-data > .mxcw-solow-widgets-holder:not(.fl-hidden)):has(.mxcw-solow-records-collapsed) .mxcw-map {
+    height: calc(100% - var(--solow-widgets-height) - 14px - 2.25rem);
+}
+
+.mxcw-leftPane > .mxcw-data:has(> .mxcw-solow-records-collapsed:not(.fl-hidden)) {
+    height: calc(var(--solow-widgets-height) + 2.25rem);
+}
+
+/* The Atlas's panel sits within a wrapper added by the story page, which must fill the holder for the photo, sized to the
+   panel's height as in the extirpation risk pane, to have any size at all */
+
+.mxcw-atlas-taxon-holder > div {
+    height: 100%;
+}
+
+.mxcw-data:has(> .mxcw-atlas-has-taxon) {
+    flex-direction: column;
+}
+
+.mxcw-data > .mxcw-atlas-has-taxon {
+    display: block;
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto;
+    width: auto;
+}
+
+.mxcw-atlas-taxon-holder .mxcw-solow-taxon-pane,
+.mxcw-atlas-has-taxon.mxcw-solow-taxon-pane {
+    display: flex;
+    margin-right: 0;
+}
+
+.mxcw-data:has(> .mxcw-atlas-has-taxon) > .mxcw-records-collapsed {
+    flex: 0 0 2.25rem;
+    height: auto !important;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.mxcw-data:has(> .mxcw-atlas-has-taxon) > .mxcw-obs-table-holder:not(.mxcw-records-collapsed) {
+    flex: 1 1 auto;
+    height: 50%;
+    min-height: 0;
+}
+
+.mxcw-data:has(> .mxcw-atlas-has-taxon):has(> .mxcw-obs-table-holder:not(.mxcw-records-collapsed)) > .mxcw-atlas-has-taxon {
+    flex: 0 1 auto;
+    height: min(var(--solow-widgets-open-height), 45%);
+}
+
+.mxcw-leftPane:has(.mxcw-atlas-has-taxon):has(.mxcw-records-collapsed) .mxcw-map {
+    height: calc(100% - var(--solow-widgets-height) - 14px - 2.25rem);
+}
+
+.mxcw-leftPane > .mxcw-data:has(> .mxcw-atlas-has-taxon):has(> .mxcw-records-collapsed) {
+    height: calc(var(--solow-widgets-height) + 2.25rem);
+}
+
+.mxcw-leftPane:has(.mxcw-atlas-has-taxon):not(:has(.mxcw-records-collapsed:not(.mxcw-solow-records-collapsed))) .mxcw-map {
+    height: calc(100% - var(--solow-widgets-open-height) - 250px);
+}
+
+.mxcw-leftPane > .mxcw-data:has(> .mxcw-atlas-has-taxon):has(> .mxcw-obs-table-holder:not(.mxcw-records-collapsed)) {
+    height: calc(var(--solow-widgets-open-height) + 236px);
+}
+
+.mxcw-data > .mxcw-solow-records-holder:not(.mxcw-solow-records-collapsed) {
+    flex: 1 1 auto;
+    height: 50%;
+}
+
+@media (min-width: 768px) {
+
+    .mxcw-leftPane,
+    .imerss-page {
+        min-height: 0;
+    }
+}
+
+.mxcw-georef-note {
+    margin-top: var(--story-gap);
+    font-size: var(--story-small);
+    line-height: 1.35;
+    color: #7a4f00;
+}
+
+.mxcw-georef-flag {
+    color: #7a4f00;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mxcw-ep-range output {
+    font-variant-numeric: tabular-nums;
+}

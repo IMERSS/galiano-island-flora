@@ -1,0 +1,188 @@
+# Configuration
+baseURL: "/"
+title: Flora of Galiano Island
+
+relativeUrls: true
+publishDir: docs
+
+# The knitted panes of content/story are read from there by src/js/storyBuild.js, which writes what the story page
+# uses into static/story. Since content/story/index.md makes the directory a page bundle, Hugo would otherwise publish
+# them as its resources too, at the same paths as the files of static/story, racing them and leaving the tail of a
+# longer knitted page after a shorter one written over it - its scripts and duplicated text then reach the page
+ignoreFiles:
+  - 'content[/\\]story[/\\][^/\\]+\.(html|Rmd)$'
+  - 'content[/\\]story[/\\][^/\\]+\.knit\.md~$'
+  - 'content[/\\]story[/\\](content_lib|img|[^/\\]+_files)([/\\]|$)'
+
+theme: "hextra"
+
+enableRobotsTXT: true
+enableGitInfo: false
+# enableEmoji: false
+hasCJKLanguage: false
+
+# services:
+#   googleAnalytics:
+#     ID: G-MEASUREMENT_ID
+
+outputs:
+  home: [HTML]
+  page: [HTML]
+  section: [HTML, RSS]
+
+defaultContentLanguage: en
+languages:
+  en:
+    languageName: English
+    weight: 1
+    title:
+
+markup:
+  defaultMarkdownHandler: goldmark
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        delimiters:
+          block: [['\[', '\]'], ['$$', '$$']]
+          inline: [['\(', '\)']]
+        enable: true
+
+
+enableInlineShortcodes: true
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: "https://salishseabiodiversity.org/"
+      weight: 1
+    - identifier: data
+      name: Data
+      url: "https://salishseabiodiversity.org/data/"
+      weight: 2
+    - identifier: projects
+      name: Projects
+      url: "https://salishseabiodiversity.org/projects/"
+      weight: 3
+    - identifier: docs
+      name: Docs
+      url: "https://salishseabiodiversity.org/documentation/"
+      weight: 4
+    - name: GitHub
+      weight: 6
+      url: "https://github.com/IMERSS/galiano-island-flora"
+      params:
+        icon: github
+
+params:
+  # The id of the site's module, holding its pages, whose module map static/fluid-modules.json is written by
+  # "npm run vendor"
+  siteModule: galiano-island-flora
+  # The story page - its driver static/local/story/<storyDriver>.vue defines the layer <storyLayer> configuring it,
+  # which names its data files, each beside its placeholder, a short file of the same shape which a static build
+  # renders from - see layouts/story/baseof.html
+  storyDriver: galiano-story
+  storyLayer: galiano.story
+  # The IMERSS index site, linked from the top left of the navigation banner
+  indexSite:
+    title: Salish Sea Biodiversity Atlas
+    url: "https://salishseabiodiversity.org/"
+
+  description: Flora of Galiano Island
+
+  # The image shown when a page of the site is shared, e.g. on social media - a Licmophora diatom, as the site's icon.
+  # Given in full, since sites fetching it need an absolute address, which relativeUrls would otherwise not give
+  images:
+    - "https://imerss.github.io/galiano-island-flora/local/images/social-preview.jpg"
+  # The site's address on GitHub Pages, from which a shared page gives its own address in full as its og:url - see
+  # layouts/partials/opengraph.html. Facebook follows og:url, and a bare "/story/" led it to the root of github.io.
+  # baseURL itself stays "/", since relativeUrls makes every link within the site relative to it
+  siteURL: "https://imerss.github.io/galiano-island-flora"
+
+  # Displays bizarrely on hextra once we change background colour
+  toc: false
+
+  navbar:
+    displayTitle: true
+    # The site's home page is only a placeholder - see content/_index.md
+    titleLink: story/
+    displayLogo: true
+    logo:
+      path: local/images/imerss-mark.svg
+      width: 35
+      height: 30
+      wordmark: IMERSS
+      # The logo links to IMERSS, while the site title links to this site's home page
+      link: https://www.imerss.org/
+    width: wide
+
+  page:
+    # full (100%), wide (90rem), normal (1280px)
+    width: normal
+
+  theme:
+    # light | dark | system
+    default: system
+    displayToggle: false
+
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: true
+    width: normal
+
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+
+  # Search
+  # Disabled since the static search index only covers this site - Hextra's search has no query URL through which we could
+  # dispatch to the Salish Sea Biodiversity Atlas instead
+  search:
+    enable: false
+    type: flexsearch
+
+    flexsearch:
+      # index page by: content | summary | heading | title
+      index: content
+      # full | forward | reverse | strict
+      # https://github.com/nextapps-de/flexsearch/#tokenizer-prefix-search
+      tokenize: forward
+
+  editURL:
+    enable: false
+    base: "https://github.com/imfing/hextra/edit/main/exampleSite/content"
+
+  blog:
+    list:
+      displayTags: true
+      # date | lastmod | publishDate | title | weight
+      sortBy: date
+      sortOrder: desc # or "asc"
+
+  highlight:
+    copy:
+      enable: true
+      # hover | always
+      display: hover
+
+  comments:
+    enable: false
+    type: giscus
+
+    # https://giscus.app/
+    giscus:
+      repo: imfing/hextra
+      repoId: R_kgDOJ9fJag
+      category: General
+      categoryId: DIC_kwDOJ9fJas4CY7gW
+      # mapping: pathname
+      # strict: 0
+      # reactionsEnabled: 1
+      # emitMetadata: 0
+      # inputPosition: top
+      # lang: en
+      # theme: noborder_dark

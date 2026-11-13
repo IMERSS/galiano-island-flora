@@ -1,0 +1,280 @@
+/* The panels of iNaturalist's observations, e.g. a project's Community Science pane, rendered by the
+   @imerss/inat-components library into a pane's data pane - see bioreportr.iNatPanel in bioreportr-dataPane.vue. Styled
+   to match the story's dark panes, as the gallery of lost plants is on the Saanich site.
+
+   The library's own styles arrive after these, so each rule is given the weight of an id to outweigh them: the panels
+   are .mxcw-inat-components, and #mxcw-inat-weight, an id which no element bears, lends the weight of an id to the
+   :is() which names them both. The sizes are those of the story's type scale, defined in imerss-story.css, or else the
+   same values here */
+
+/* On the solid ground of the column behind it */
+/* ── The panels' margins and tab row - the rules of this sheet which follow outweigh these where they meet ── */
+/* The photos of the iNaturalist widget highlight as those of the gallery of lost plants do */
+:is(.mxcw-inat-components, #mxcw-inat-weight) article {
+    outline: 2px solid transparent;
+    transition: outline-color 150ms;
+    background: #0d3040;
+    border-radius: var(--data-table-radius, 8px);
+    overflow: hidden;
+    padding: 0 0 var(--story-gap, 8px);
+    text-align: left;
+}
+:is(.mxcw-inat-components, #mxcw-inat-weight) article:hover {
+    outline-color: #FDF2CE;
+}
+/* Community Science: the photos sit on the same margins as the gallery of lost plants, without captions, whose tab labels already say what is shown */
+:is(.mxcw-inat-components, #mxcw-inat-weight) > div {
+/* With the captions gone the year filter joins the row of tabs, so that it displaces nothing beneath it */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    padding: 0 0 0 12px;
+}
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs {
+    padding: 0 var(--story-gap);
+    margin-bottom: 0;
+    border-color: rgba(238, 250, 255, 0.2);
+}
+:is(.mxcw-inat-components, #mxcw-inat-weight) > div > div:last-child {
+    padding: 12px var(--story-gap) var(--story-gap) 12px;
+    flex: 1 1 0;
+    height: auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 0;
+    scrollbar-gutter: stable;
+}
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tab-desc {
+    display: none;
+    font-size: var(--story-body, clamp(14px, 0.35vw + 10px, 16px));
+    font-weight: 700;
+    margin: var(--story-gap, 8px) 0;
+}
+@media (min-width: 1024px) {
+    :is(.mxcw-inat-components, #mxcw-inat-weight) .inat-years-dropdown {
+        position: absolute;
+        top: 4px;
+        right: 16px;
+        margin: 0;
+    }
+}
+.mxcw-dataPane:has(.mxcw-inat-components) {
+    flex: 1 1 auto;
+    min-width: 0;
+    background-color: #184e62;
+}
+
+/* Fill the whole left hand column */
+:is(.mxcw-inat-components, #mxcw-inat-weight),
+:is(.mxcw-inat-components, #mxcw-inat-weight) > div {
+    height: 100%;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) > div > div:last-child::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 12px;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) > div > div:last-child::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 6px;
+    background-clip: padding-box;
+    background-color: #c1c1c1;
+}
+
+/* ── Tabs ── */
+
+:is(.mxcw-inat-components, #mxcw-inat-weight),
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tab-desc,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-page-headings {
+    color: #eefaff;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs button,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs a,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs li {
+    font-size: var(--story-body, clamp(14px, 0.35vw + 10px, 16px));
+    margin: 0 4px;
+    padding: 4px 12px;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs li {
+    color: #a8c8d0;
+    border-bottom-color: transparent !important;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs li[class*="selected"] {
+    color: #fdf2ce;
+    border-bottom-color: #fdf2ce !important;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs li a,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-tabs li button {
+    color: inherit;
+}
+
+/* The widget's own title repeats its tab label, so each tab's description serves as its header */
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-page-headings {
+    display: none;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-years-dropdown {
+    margin: 4px 12px 0 0;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) select {
+    background-color: #0d3040;
+    color: #eefaff;
+    border: 1px solid rgba(238, 250, 255, 0.25);
+    border-radius: 4px;
+    font-size: var(--story-data, clamp(13px, 0.15vw + 11px, 14px));
+}
+
+/* ── The loading indicator, shown while the observations arrive - the library's spinner, in the panel's colours in
+   place of black on a grey box. It is drawn where the grid will be, so nothing shifts when the grid replaces it ── */
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_loaderBg"] {
+    display: none;
+}
+
+/* On the General stats tab the library places the spinner over the pale blocks, against which it would vanish - it is
+   drawn on a disc of the panel's own ground, unseen elsewhere. Its position is left alone, so that nothing moves */
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_loader"] {
+    z-index: 1;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_loader"] > span {
+    background-color: #184e62;
+    border-radius: 50%;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_loader"] > span > span:first-child {
+    background-color: #fdf2ce !important;
+    opacity: 1 !important;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_loader"] > span > span:last-child {
+    border-color: #eefaff !important;
+    opacity: 0.2 !important;
+}
+
+/* ── Observations, as cards matching the gallery of lost plants ── */
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_grid"] {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important;
+    gap: var(--story-gap, 8px);
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) article > div:first-child {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1;
+    border-radius: 0 !important;
+    margin: 0 0 4px !important;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) article > div:first-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) article [class*="obsLabel"] {
+    padding: 0 var(--story-gap, 8px);
+    text-align: left;
+    color: #eefaff;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-title,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-data,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-name {
+    font-size: var(--story-data, clamp(13px, 0.15vw + 11px, 14px));
+    line-height: 1.4;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-title {
+    font-weight: 700;
+    color: #eefaff;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-data,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-name,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observation-label-name a {
+    color: #a8c8d0;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) article label[class*="count"] {
+    display: inline-block;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    color: #fdf2ce;
+    font-size: var(--story-data, clamp(13px, 0.15vw + 11px, 14px));
+    font-weight: 700;
+}
+
+/* ── General stats ── */
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-stats-count-summary {
+    font-size: var(--story-body, clamp(14px, 0.35vw + 10px, 16px));
+    color: #eefaff;
+    margin: 0 12px var(--story-gap, 8px) 0;
+}
+
+/* The chart and the observers are drawn in dark ink, so they sit on the same pale surface as the site's data tables */
+:is(.mxcw-inat-components, #mxcw-inat-weight) section {
+    display: flex;
+    gap: var(--story-gap, 8px);
+    margin-right: 12px;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="seasonalityBlock"],
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="observersBlock"] {
+    background: #eefaff;
+    color: #123;
+    border-radius: var(--data-table-radius, 8px);
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+/* The chart's rotated month labels are drawn beyond its stated height */
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="seasonalityBlock"] {
+    height: 500px;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="observersBlock"] {
+    min-height: 500px;
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="seasonalityBlock"] h1,
+:is(.mxcw-inat-components, #mxcw-inat-weight) [class*="observersBlock"] h1 {
+    font-size: var(--story-body, clamp(14px, 0.35vw + 10px, 16px));
+    font-weight: 700;
+    color: #123;
+    border-color: rgba(18, 34, 51, 0.2);
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observers-list a,
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observers-list h3 {
+    color: #123;
+    font-size: var(--story-data, clamp(13px, 0.15vw + 11px, 14px));
+}
+
+:is(.mxcw-inat-components, #mxcw-inat-weight) .inat-observers-list label {
+    font-size: var(--story-data, clamp(13px, 0.15vw + 11px, 14px));
+    font-weight: 700;
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: #123;
+}
+
+/* Phones: two photos across, rather than one filling the screen */
+@media (max-width: 767.98px) {
+    :is(.mxcw-inat-components, #mxcw-inat-weight) [class*="module_grid"] {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    }
+}

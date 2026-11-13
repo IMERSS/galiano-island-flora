@@ -1,0 +1,25 @@
+---
+title: In Memory of Plants
+shortTitle: In Memoriam
+weight: 1
+knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
+# The component rendering this pane's section, into whose template npm run story writes it - see AGENTS.md
+paneComponent: galiano.tracesPane
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("scripts/record_period.R")
+period <- recordPeriod()
+```
+
+## In Memory of Plants
+
+<!-- DRAFT acknowledgement for Galiano Island - to be confirmed by the project team before publication -->
+Galiano Island lies within the unceded traditional territories of the Penelakut, Lamalcha, Hwlitsum and other
+Hul’q’umi’num-speaking peoples, who have cared for these lands and waters since time immemorial.
+
+The memory preserved here is much more limited: collected specimens, names written down on lists, and observations shared through iNaturalist, reaching back to `r period$first`.
+
+Each record is a moment when someone stopped to take note of a plant.
+
+Some plants have long been recorded, while others have appeared only in more recent years. Still others have gone unseen for decades, [quietly disappearing from the record.](#pane:LostPlants){.galiano-traces-next}
