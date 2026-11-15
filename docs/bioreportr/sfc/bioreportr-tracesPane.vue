@@ -1,47 +1,50 @@
-<script src="../../bioreportr/js/story.js"></script>
-<script src="../js/galiano.js"></script>
+<fluid-import src="bioreportr-atlasPanel.vue"></fluid-import>
+<script src="../js/story.js"></script>
 <script>
 "use strict";
 
 /* global maplibregl */
 
-// The opening pane of the Galiano story, In Memory of Plants - its section, knitted from content/story/Traces.Rmd, and
-// the timeline of plants' key moments which plays across the map beside it. The timeline is configured onto the
-// story page by galiano-story.vue as its member traces
+// The opening pane of a story, In Memory of Plants - its section, knitted from content/story/Traces.Rmd, and the
+// timeline of plants' key moments which plays across the map beside it. The timeline is configured onto the story
+// page, as its member traces, by the layer bioreportr.storyPageTraces, defined in bioreportr-storyPageTraces.vue,
+// which a project names in the $layers of its <project>-story.vue, together with bioreportr.atlasPanel
 
-// noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
-var galiano = fluid.registerNamespace("galiano");
 // noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
 var hortis = fluid.registerNamespace("hortis");
 // noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
 var bioreportr = fluid.registerNamespace("bioreportr");
 
 // The timeline of the opening pane: its key moments appear across the map as it plays
-fluid.def("galiano.traces", {
+fluid.def("bioreportr.traces", {
     $layers: "fluid.component",
     paused: false,
     scrubbing: false,
+    // The settings of the timeline's pacing which a story gives for its own record, over bioreportr.traces.pacingDefaults
+    pacing: {},
     active: "$compute:bioreportr.storyPage.isActive({storyPage}.activePaneKey, Traces)",
-    events: "$compute:galiano.traces.buildEvents({storyPage}.taxa.allRows, {storyPage}.byTaxon)",
-    control: "$effect:galiano.traces.control({self}, {storyPage}, {storyPage}.map.readyMap, {self}.events, {self}.active, {storyPage}.loaded, {global})",
-    showPlayback: "$effect:galiano.traces.showPlayback({self}, {self}.paused)"
+    events: "$compute:bioreportr.traces.buildEvents({storyPage}.taxa.allRows, {storyPage}.byTaxon, {storyPage}.statusById, {storyPage}.recentYear)",
+    // The classes of the story's left pane while the timeline shows - see bioreportr.traces.leftPaneClass
+    leftPaneClass: "$compute:bioreportr.traces.leftPaneClass({self}.active, {self}.paused, {self}.scrubbing)",
+    control: "$effect:bioreportr.traces.control({self}, {storyPage}, {storyPage}.map.readyMap, {self}.events, {self}.active, {storyPage}.loaded, {global})",
+    showPlayback: "$effect:bioreportr.traces.showPlayback({self}, {self}.paused)"
 });
 
 // The pane's section, rendered from the template below
-fluid.def("galiano.tracesPane", {
+fluid.def("bioreportr.tracesPane", {
     $layers: "fluid.component"
 });
 
 /** The opening timeline, in memory of plants **/
 
-// The opening pane of the story: plants' key moments appear across the landscape as a timeline plays, starting from a
-// random year on each visit. Everything is derived from the site's data whenever it loads
-fluid.registerNamespace("galiano.traces");
+// The opening pane of the story: plants' key moments appear across the landscape as a timeline plays, paced by year and
+// starting from the year the story's pacing names, else a random year, on each visit. Everything is derived from the site's data whenever it loads
+fluid.registerNamespace("bioreportr.traces");
 
 // The map is a dim blue, so orange, its complement, is kept for the plants last seen alone: the others stay cool or neutral.
 // Marker icons, recoloured. From https://game-icons.net, CC BY 3.0: Newly noticed, "Dandelion flower" by Delapouite; First noted, "Acorn"
 // and Last seen, "Leaf skeleton", by Lorc. Seen again: "Plant" from Phosphor Icons, MIT licence, Copyright (c) 2023 Phosphor Icons.
-galiano.traces.kinds = {
+bioreportr.traces.kinds = {
     first: {
         label: "First noted",
         significance: "The earliest record of this plant in the atlas.",
@@ -64,12 +67,12 @@ galiano.traces.kinds = {
     }
 };
 
-galiano.traces.icon = kind => `<svg viewBox="0 0 24 24" aria-hidden="true">${galiano.traces.kinds[kind].icon}</svg>`;
+bioreportr.traces.icon = kind => `<svg viewBox="0 0 24 24" aria-hidden="true">${bioreportr.traces.kinds[kind].icon}</svg>`;
 
 // How many seconds a marker takes to fade away: the last record of a plant lingers
-galiano.traces.life = kind => kind === "last" ? 18 : 12;
+bioreportr.traces.life = kind => kind === "last" ? 18 : 12;
 
-galiano.traces.playIcons = {
+bioreportr.traces.playIcons = {
     play: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>`,
     pause: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>`
 };
@@ -78,7 +81,7 @@ galiano.traces.playIcons = {
  * One key moment in the record of a species, shown as a marker on the map.
  * @typedef {Object} TraceEvent
  * @property {TaxonRow} taxon - The species
- * @property {String} kind - The kind of moment, a key of `galiano.traces.kinds`
+ * @property {String} kind - The kind of moment, a key of `bioreportr.traces.kinds`
  * @property {Object} record - The record of the moment
  * @property {Number} year - The year of the record
  */
@@ -88,32 +91,35 @@ galiano.traces.playIcons = {
  * concerned can be mapped. A record which is both the first and last of a lost plant appears once, as its last.
  * @param {TaxonRow[]} taxaRows - All taxa
  * @param {Map<String, Object[]>} byTaxon - Dated records indexed by taxon id
+ * @param {Object<String, String>} statusById - The reporting status of each taxon, by id - see hortis.reportingStatusById
+ * @param {Number} recentYear - The year from which a record counts as recent
  * @return {TraceEvent[]} The events, in date order
  */
-galiano.traces.buildEvents = function (taxaRows, byTaxon) {
+bioreportr.traces.buildEvents = function (taxaRows, byTaxon, statusById, recentYear) {
     const events = [];
     const add = (taxon, kind, record) => {
         if (record && bioreportr.hasCoordinates(record)) {
             events.push({taxon, kind, record, year: parseInt(record.eventDate, 10)});
         }
     };
+    const statusOf = taxon => statusById[taxon.id];
     taxaRows.filter(taxon => taxon.inSummary).forEach(taxon => {
-        const records = (byTaxon.get(taxon.id) || []).slice().sort(galiano.obsDateComparator);
+        const records = (byTaxon.get(taxon.id) || []).slice().sort(bioreportr.obsDateComparator);
         if (records.length > 0) {
             const first = records[0], last = fluid.peek(records);
-            if (taxon.reportingStatus === "unconfirmed") {
+            if (statusOf(taxon) === "unconfirmed") {
                 add(taxon, "last", last);
                 add(taxon, "first", first === last ? null : first);
-            } else if (taxon.reportingStatus === "confirmed") {
-                const found = records.find(record => parseInt(record.eventDate, 10) >= 2000);
+            } else if (statusOf(taxon) === "confirmed") {
+                const found = records.find(record => parseInt(record.eventDate, 10) >= recentYear);
                 add(taxon, "found", found);
                 add(taxon, "first", first === found ? null : first);
-            } else if (taxon.reportingStatus === "new") {
+            } else if (statusOf(taxon) === "new") {
                 add(taxon, "fresh", first);
             }
         }
     });
-    return events.filter(event => Number.isFinite(event.year)).sort((a, b) => galiano.obsDateComparator(a.record, b.record));
+    return events.filter(event => Number.isFinite(event.year)).sort((a, b) => bioreportr.obsDateComparator(a.record, b.record));
 };
 
 /**
@@ -121,9 +127,9 @@ galiano.traces.buildEvents = function (taxaRows, byTaxon) {
  * @param {String} eventDate - The date of the record
  * @return {String} The formatted date
  */
-galiano.traces.formatDate = function (eventDate) {
+bioreportr.traces.formatDate = function (eventDate) {
     const [year, month, day] = eventDate.substring(0, 10).split("-").map(Number);
-    return day ? new Date(Date.UTC(year, month - 1, day)).toLocaleDateString(galiano.locale, {year: "numeric", month: "long", day: "numeric", timeZone: "UTC"}) :
+    return day ? new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-CA", {year: "numeric", month: "long", day: "numeric", timeZone: "UTC"}) :
         String(year);
 };
 
@@ -132,17 +138,17 @@ galiano.traces.formatDate = function (eventDate) {
  * @param {TraceEvent} event - The event of the marker
  * @return {String} The markup of the card
  */
-galiano.traces.renderCard = function (event) {
+bioreportr.traces.renderCard = function (event) {
     const {taxon, kind, record} = event;
     const encode = hortis.dataTable.encode;
     const recorder = (record.recordedBy || "").split(";")[0].trim();
-    const common = taxon.commonName ? `<div class="galiano-trace-common">${encode(taxon.commonName)}</div>` : "";
+    const common = taxon.commonName ? `<div class="mxcw-trace-common">${encode(taxon.commonName)}</div>` : "";
     const place = record.locality ? `<div>${encode(record.locality)}</div>` : "";
-    return `<div class="galiano-trace-photo"></div><div class="galiano-trace-kind" data-kind="${kind}">${galiano.traces.icon(kind)}${galiano.traces.kinds[kind].label}</div>
-        <div class="galiano-trace-name">${encode(taxon.scientificName)}</div>${common}
-        <div>${galiano.traces.formatDate(record.eventDate)}${recorder ? ", " + encode(recorder) : ""}</div>${place}
-        <div class="galiano-trace-significance">${galiano.traces.kinds[kind].significance}</div>
-        <div class="galiano-trace-action">Find this plant &rarr;</div>`;
+    return `<div class="mxcw-trace-photo"></div><div class="mxcw-trace-kind" data-kind="${kind}">${bioreportr.traces.icon(kind)}${bioreportr.traces.kinds[kind].label}</div>
+        <div class="mxcw-trace-name">${encode(taxon.scientificName)}</div>${common}
+        <div>${bioreportr.traces.formatDate(record.eventDate)}${recorder ? ", " + encode(recorder) : ""}</div>${place}
+        <div class="mxcw-trace-significance">${bioreportr.traces.kinds[kind].significance}</div>
+        <div class="mxcw-trace-action">Find this plant &rarr;</div>`;
 };
 
 /**
@@ -151,16 +157,15 @@ galiano.traces.renderCard = function (event) {
  * @param {Boolean} active - Whether the timeline's pane is showing
  * @param {Boolean} paused - Whether the timeline is paused
  * @param {Boolean} scrubbing - Whether the timeline's slider is being dragged
- * @param {Boolean} rememberingActive - Whether the pane in memory of Harvey Janszen is shown
  * @return {String} The classes
  */
-galiano.traces.leftPaneClass = function (active, paused, scrubbing, rememberingActive) {
-    const classes = rememberingActive ? ["galiano-remembering-active"] : [];
+bioreportr.traces.leftPaneClass = function (active, paused, scrubbing) {
+    const classes = [];
     if (active) {
-        classes.push("galiano-traces-active");
+        classes.push("mxcw-traces-active");
     }
     if (active && (paused || scrubbing)) {
-        classes.push("galiano-traces-still");
+        classes.push("mxcw-traces-still");
     }
     return classes.join(" ");
 };
@@ -177,6 +182,8 @@ galiano.traces.leftPaneClass = function (active, paused, scrubbing, rememberingA
  * @property {Number} index - The index of the next event to be shown
  * @property {Set<maplibregl.Marker>} markers - The markers on the map
  * @property {Number} holding - The number of markers, or the card, on which the pointer rests, which holds the timeline while positive
+ * @property {Object} pacing - The settings of the pacing in full, see bioreportr.traces.pacingSettings
+ * @property {Number[]} delays - The time in milliseconds after each event before the next - see bioreportr.traces.pace
  * @property {Number|null} timer - The timer of the next step
  * @property {TraceEvent|null} cardEvent - The event whose card is shown
  * @property {Number|null} hideTimer - The timer hiding the card once the pointer has left it and its marker
@@ -185,7 +192,7 @@ galiano.traces.leftPaneClass = function (active, paused, scrubbing, rememberingA
  */
 
 // The state of each timeline, by its component
-galiano.traces.states = new WeakMap();
+bioreportr.traces.states = new WeakMap();
 
 /**
  * Create the elements laid over the map: the year, the controls of the timeline, the key and the card shown on hover.
@@ -194,24 +201,24 @@ galiano.traces.states = new WeakMap();
  * @param {Number} lastYear - The year of the latest event
  * @return {Object} The elements which change during playback
  */
-galiano.traces.createOverlay = function (mapElement, firstYear, lastYear) {
+bioreportr.traces.createOverlay = function (mapElement, firstYear, lastYear) {
     const dokkument = mapElement.ownerDocument;
     const overlay = dokkument.createElement("div");
-    overlay.className = "galiano-traces-overlay";
-    overlay.innerHTML = `<div class="galiano-traces-year"></div>
-        <div class="galiano-traces-controls">
-            <button type="button" class="galiano-traces-play"></button>
-            <input type="range" class="galiano-traces-slider" min="${firstYear}" max="${lastYear}" step="1" aria-label="Year">
+    overlay.className = "mxcw-traces-overlay";
+    overlay.innerHTML = `<div class="mxcw-traces-year"></div>
+        <div class="mxcw-traces-controls">
+            <button type="button" class="mxcw-traces-play"></button>
+            <input type="range" class="mxcw-traces-slider" min="${firstYear}" max="${lastYear}" step="1" aria-label="Year">
         </div>
-        <div class="galiano-traces-key">${["last", "first", "found", "fresh"].map(kind =>
-        `<span data-kind="${kind}">${galiano.traces.icon(kind)}${galiano.traces.kinds[kind].label}</span>`).join("")}</div>`;
+        <div class="mxcw-traces-key">${["last", "first", "found", "fresh"].map(kind =>
+        `<span data-kind="${kind}">${bioreportr.traces.icon(kind)}${bioreportr.traces.kinds[kind].label}</span>`).join("")}</div>`;
     mapElement.appendChild(overlay);
     const card = dokkument.createElement("div");
-    card.className = "galiano-trace-card";
+    card.className = "mxcw-trace-card";
     card.setAttribute("role", "tooltip");
     dokkument.body.appendChild(card);
-    return {year: overlay.querySelector(".galiano-traces-year"), play: overlay.querySelector(".galiano-traces-play"),
-        slider: overlay.querySelector(".galiano-traces-slider"), card};
+    return {year: overlay.querySelector(".mxcw-traces-year"), play: overlay.querySelector(".mxcw-traces-play"),
+        slider: overlay.querySelector(".mxcw-traces-slider"), card};
 };
 
 /**
@@ -219,11 +226,11 @@ galiano.traces.createOverlay = function (mapElement, firstYear, lastYear) {
  * @param {fluid.component} that - The timeline
  * @param {Boolean} paused - Whether the timeline is paused
  */
-galiano.traces.showPlayback = function (that, paused) {
-    const state = galiano.traces.states.get(that);
+bioreportr.traces.showPlayback = function (that, paused) {
+    const state = bioreportr.traces.states.get(that);
     if (state) {
         const {play} = state.overlay, action = paused ? "Play" : "Pause";
-        play.innerHTML = galiano.traces.playIcons[action.toLowerCase()];
+        play.innerHTML = bioreportr.traces.playIcons[action.toLowerCase()];
         play.setAttribute("aria-label", action);
         play.title = action;
     }
@@ -235,7 +242,7 @@ galiano.traces.showPlayback = function (that, paused) {
  * @param {fluid.component} that - The timeline, whose `paused` and `scrubbing` are written
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.bindControls = function (that, state) {
+bioreportr.traces.bindControls = function (that, state) {
     const {play, slider} = state.overlay;
     const release = () => {
         that.scrubbing = false;
@@ -248,7 +255,7 @@ galiano.traces.bindControls = function (that, state) {
     });
     slider.addEventListener("input", () => {
         that.scrubbing = true;
-        galiano.traces.seek(state, Number(slider.value));
+        bioreportr.traces.seek(state, Number(slider.value));
     });
     slider.addEventListener("change", release);
     // Not on the slider, since the pointer may be let go anywhere and a click which moves nothing fires no change
@@ -261,11 +268,11 @@ galiano.traces.bindControls = function (that, state) {
  * @param {TraceState} state - The state of the playback
  * @param {Number} year - The year
  */
-galiano.traces.showYear = function (state, year) {
+bioreportr.traces.showYear = function (state, year) {
     const {year: label, slider} = state.overlay;
     label.textContent = year;
     slider.value = year;
-    slider.style.setProperty("--galiano-progress", ((year - state.firstYear) / Math.max(1, state.lastYear - state.firstYear) * 100) + "%");
+    slider.style.setProperty("--mxcw-progress", ((year - state.firstYear) / Math.max(1, state.lastYear - state.firstYear) * 100) + "%");
 };
 
 /**
@@ -274,25 +281,25 @@ galiano.traces.showYear = function (state, year) {
  * @param {TraceEvent} event - The event of the marker
  * @param {HTMLElement} element - The element of the marker
  */
-galiano.traces.showCard = function (state, event, element) {
+bioreportr.traces.showCard = function (state, event, element) {
     const {card} = state.overlay, {innerWidth, innerHeight} = state.window;
-    galiano.traces.cancelHide(state);
-    galiano.traces.holdMarker(state, element);
-    card.innerHTML = galiano.traces.renderCard(event);
-    card.classList.add("galiano-trace-card-visible");
+    bioreportr.traces.cancelHide(state);
+    bioreportr.traces.holdMarker(state, element);
+    card.innerHTML = bioreportr.traces.renderCard(event);
+    card.classList.add("mxcw-trace-card-visible");
     const anchor = element.getBoundingClientRect(), box = card.getBoundingClientRect();
     // Close beside the marker, so that the pointer can cross to the card before it hides
-    const gap = galiano.traces.cardGap;
+    const gap = bioreportr.traces.cardGap;
     const fitsRight = anchor.right + gap + box.width <= innerWidth - 8;
     const left = fitsRight ? anchor.right + gap : anchor.left - box.width - gap;
     // Within the screen however narrow - on a phone the card may sit over its marker
     card.style.left = Math.max(8, Math.min(left, innerWidth - box.width - 8)) + "px";
     card.style.top = Math.min(Math.max(8, anchor.top - 16), innerHeight - box.height - 8) + "px";
-    galiano.traces.loadPhoto(state, event);
+    bioreportr.traces.loadPhoto(state, event);
 };
 
 // The lookups of each taxon's photo, by taxon id
-galiano.traces.photos = new Map();
+bioreportr.traces.photos = new Map();
 
 /**
  * Look up an openly licensed photo of a taxon on iNaturalist, once only for each taxon.
@@ -300,14 +307,14 @@ galiano.traces.photos = new Map();
  * @param {Function} fetch - The window's `fetch`
  * @return {Promise<Object|undefined>} Resolves to the photo record, or undefined if there is none or it cannot be fetched
  */
-galiano.traces.photoFor = function (taxonId, fetch) {
-    if (!galiano.traces.photos.has(taxonId)) {
-        galiano.traces.photos.set(taxonId, fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`)
+bioreportr.traces.photoFor = function (taxonId, fetch) {
+    if (!bioreportr.traces.photos.has(taxonId)) {
+        bioreportr.traces.photos.set(taxonId, fetch(`https://api.inaturalist.org/v1/taxa/${taxonId}`)
             .then(response => response.json())
-            .then(body => galiano.lostPlants.licensedPhoto(body.results[0]))
+            .then(body => bioreportr.atlas.licensedPhoto(body.results[0]))
             .catch(() => undefined));
     }
-    return galiano.traces.photos.get(taxonId);
+    return bioreportr.traces.photos.get(taxonId);
 };
 
 /**
@@ -315,11 +322,11 @@ galiano.traces.photoFor = function (taxonId, fetch) {
  * @param {TraceState} state - The state of the playback
  * @param {TraceEvent} event - The event shown on the card
  */
-galiano.traces.loadPhoto = function (state, event) {
+bioreportr.traces.loadPhoto = function (state, event) {
     const encode = hortis.dataTable.encode;
     state.cardEvent = event;
-    galiano.traces.photoFor(event.taxon.id, state.window.fetch.bind(state.window)).then(photo => {
-        const holder = state.overlay.card.querySelector(".galiano-trace-photo");
+    bioreportr.traces.photoFor(event.taxon.id, state.window.fetch.bind(state.window)).then(photo => {
+        const holder = state.overlay.card.querySelector(".mxcw-trace-photo");
         if (state.cardEvent === event && holder) {
             if (photo) {
                 const credit = photo.attribution.replace(/, uploaded by .*$/, "").replace(", some rights reserved", "");
@@ -332,18 +339,18 @@ galiano.traces.loadPhoto = function (state, event) {
 };
 
 // The distance in pixels between a marker and its card
-galiano.traces.cardGap = 4;
+bioreportr.traces.cardGap = 4;
 
 // The time in milliseconds for which a card stays once the pointer has left its marker, so that it may be reached
-galiano.traces.hideDelay = 350;
+bioreportr.traces.hideDelay = 350;
 
-galiano.traces.hideCard = function (state) {
-    galiano.traces.cancelHide(state);
-    galiano.traces.holdMarker(state, null);
-    state.overlay.card.classList.remove("galiano-trace-card-visible");
+bioreportr.traces.hideCard = function (state) {
+    bioreportr.traces.cancelHide(state);
+    bioreportr.traces.holdMarker(state, null);
+    state.overlay.card.classList.remove("mxcw-trace-card-visible");
 };
 
-galiano.traces.cancelHide = function (state) {
+bioreportr.traces.cancelHide = function (state) {
     state.window.clearTimeout(state.hideTimer);
     state.hideTimer = null;
 };
@@ -352,9 +359,9 @@ galiano.traces.cancelHide = function (state) {
  * Hide the card once the pointer has stayed away from both it and its marker for a moment.
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.scheduleHide = function (state) {
-    galiano.traces.cancelHide(state);
-    state.hideTimer = state.window.setTimeout(() => galiano.traces.hideCard(state), galiano.traces.hideDelay);
+bioreportr.traces.scheduleHide = function (state) {
+    bioreportr.traces.cancelHide(state);
+    state.hideTimer = state.window.setTimeout(() => bioreportr.traces.hideCard(state), bioreportr.traces.hideDelay);
 };
 
 /**
@@ -362,13 +369,13 @@ galiano.traces.scheduleHide = function (state) {
  * @param {TraceState} state - The state of the playback
  * @param {HTMLElement|null} element - The marker's element, or null if no card is shown
  */
-galiano.traces.holdMarker = function (state, element) {
+bioreportr.traces.holdMarker = function (state, element) {
     if (state.heldMarker && state.heldMarker !== element) {
-        state.heldMarker.classList.remove("galiano-trace-held");
+        state.heldMarker.classList.remove("mxcw-trace-held");
     }
     state.heldMarker = element;
     if (element) {
-        element.classList.add("galiano-trace-held");
+        element.classList.add("mxcw-trace-held");
     }
 };
 
@@ -378,22 +385,22 @@ galiano.traces.holdMarker = function (state, element) {
  * @param {TraceState} state - The state of the playback
  * @return {Boolean} `true` if presses are touches
  */
-galiano.traces.isTouch = state => state.pointerType === "touch" || state.window.matchMedia("(hover: none)").matches;
+bioreportr.traces.isTouch = state => state.pointerType === "touch" || state.window.matchMedia("(hover: none)").matches;
 
 /**
  * Hide a card shown by a tap, releasing the hold it put on the timeline.
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.releaseTouch = function (state) {
+bioreportr.traces.releaseTouch = function (state) {
     if (state.touchHold) {
         state.touchHold = false;
         state.holding = Math.max(0, state.holding - 1);
     }
-    galiano.traces.hideCard(state);
+    bioreportr.traces.hideCard(state);
 };
 
 // How far in pixels a finger may move between touching and lifting for its touch to count as a tap
-galiano.traces.tapSlop = 10;
+bioreportr.traces.tapSlop = 10;
 
 /**
  * Respond to taps and clicks on an element of the playback - a marker or the card. Touches on it are kept from the map,
@@ -402,7 +409,7 @@ galiano.traces.tapSlop = 10;
  * @param {HTMLElement} element - The element
  * @param {Function} handler - Called on each tap or click
  */
-galiano.traces.onTap = function (element, handler) {
+bioreportr.traces.onTap = function (element, handler) {
     let start = null;
     let tappedAt = 0;
     element.addEventListener("touchstart", touchEvent => {
@@ -414,7 +421,7 @@ galiano.traces.onTap = function (element, handler) {
     element.addEventListener("touchend", touchEvent => {
         touchEvent.stopPropagation();
         const touch = touchEvent.changedTouches[0];
-        if (start && Math.hypot(touch.clientX - start.x, touch.clientY - start.y) <= galiano.traces.tapSlop) {
+        if (start && Math.hypot(touch.clientX - start.x, touch.clientY - start.y) <= bioreportr.traces.tapSlop) {
             // Stops the click, and any zoom, which would follow
             touchEvent.preventDefault();
             tappedAt = Date.now();
@@ -438,16 +445,16 @@ galiano.traces.onTap = function (element, handler) {
  * @param {TraceEvent} event - The event of the marker
  * @param {HTMLElement} element - The element of the marker
  */
-galiano.traces.markerClick = function (state, event, element) {
-    if (galiano.traces.isTouch(state) && !(state.touchHold && state.heldMarker === element)) {
+bioreportr.traces.markerClick = function (state, event, element) {
+    if (bioreportr.traces.isTouch(state) && !(state.touchHold && state.heldMarker === element)) {
         if (!state.touchHold) {
             state.touchHold = true;
             state.holding++;
         }
-        galiano.traces.showCard(state, event, element);
+        bioreportr.traces.showCard(state, event, element);
     } else {
-        galiano.traces.releaseTouch(state);
-        galiano.traces.openTaxon(state.storyPage, event.taxon, state.window);
+        bioreportr.traces.releaseTouch(state);
+        bioreportr.traces.openTaxon(state.storyPage, event.taxon, state.window);
     }
 };
 
@@ -455,35 +462,35 @@ galiano.traces.markerClick = function (state, event, element) {
  * Bind the card, which holds the timeline while the pointer rests on it, and opens its species when clicked.
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.bindCard = function (state) {
+bioreportr.traces.bindCard = function (state) {
     const {card} = state.overlay;
     card.addEventListener("mouseenter", () => {
         state.holding++;
-        galiano.traces.cancelHide(state);
+        bioreportr.traces.cancelHide(state);
     });
     card.addEventListener("mouseleave", () => {
         state.holding = Math.max(0, state.holding - 1);
-        galiano.traces.scheduleHide(state);
+        bioreportr.traces.scheduleHide(state);
     });
-    galiano.traces.onTap(card, () => {
+    bioreportr.traces.onTap(card, () => {
         if (state.cardEvent) {
             const taxon = state.cardEvent.taxon;
-            galiano.traces.releaseTouch(state);
-            galiano.traces.openTaxon(state.storyPage, taxon, state.window);
+            bioreportr.traces.releaseTouch(state);
+            bioreportr.traces.openTaxon(state.storyPage, taxon, state.window);
         }
     });
     // Whether presses are touches, noted before any of the events they lead to. A press anywhere but on the card or a
     // marker puts away a card shown by a tap, as for every other tooltip on the page
     state.window.addEventListener("pointerdown", pointerEvent => {
         state.pointerType = pointerEvent.pointerType;
-        if (state.touchHold && !pointerEvent.target.closest?.(".galiano-trace, .galiano-trace-card")) {
-            galiano.traces.releaseTouch(state);
+        if (state.touchHold && !pointerEvent.target.closest?.(".mxcw-trace, .mxcw-trace-card")) {
+            bioreportr.traces.releaseTouch(state);
         }
     }, true);
     // A tap on the map away from the markers puts away a card shown by a tap
     state.map.on("click", mapEvent => {
-        if (state.touchHold && !mapEvent.originalEvent?.target?.closest?.(".galiano-trace")) {
-            galiano.traces.releaseTouch(state);
+        if (state.touchHold && !mapEvent.originalEvent?.target?.closest?.(".mxcw-trace")) {
+            bioreportr.traces.releaseTouch(state);
         }
     });
 };
@@ -494,15 +501,9 @@ galiano.traces.bindCard = function (state) {
  * @param {TaxonRow} taxon - The species
  * @param {Window} window - The window holding the story page
  */
-galiano.traces.openTaxon = function (storyPage, taxon, window) {
-    galiano.lostPlants.showTaxon(storyPage, taxon.id, "Solow", window.document, window);
-    // Once the map has taken up its size in the newly visible pane
-    window.requestAnimationFrame(() => {
-        const row = storyPage.solowTaxa.taxaTable.selectedRow;
-        if (row) {
-            storyPage.solowFitTaxon = {taxon: row};
-        }
-    });
+bioreportr.traces.openTaxon = function (storyPage, taxon, window) {
+    bioreportr.atlas.showSolowTaxon(storyPage, taxon.id, "Solow", window.document, window);
+    // The map then pans and zooms to the plant's records - see bioreportr.atlas.fitToTaxon
 };
 
 /**
@@ -511,29 +512,30 @@ galiano.traces.openTaxon = function (storyPage, taxon, window) {
  * @param {TraceEvent} event - The event to show
  * @param {Number} [age] - How many seconds into its fade the marker should begin
  */
-galiano.traces.addMarker = function (state, event, age = 0) {
+bioreportr.traces.addMarker = function (state, event, age = 0) {
     const element = state.window.document.createElement("div");
-    element.className = "galiano-trace";
+    element.className = "mxcw-trace";
     element.dataset.kind = event.kind;
-    element.innerHTML = `<div class="galiano-trace-mark" style="animation-duration: ${galiano.traces.life(event.kind)}s; animation-delay: ${-age}s">${galiano.traces.icon(event.kind)}</div>`;
+    element.innerHTML = `<div class="mxcw-trace-mark" style="animation-duration: ${bioreportr.traces.life(event.kind)}s; animation-delay: ${-age}s">${bioreportr.traces.icon(event.kind)}</div>`;
     const marker = new maplibregl.Marker({element}).setLngLat(bioreportr.obsPoint(event.record)).addTo(state.map);
     state.markers.add(marker);
+    bioreportr.traces.trimMarkers(state);
     // A touch also sends these, which would show and then schedule the hiding of the card a tap is about to show
     element.addEventListener("mouseenter", () => {
         if (state.pointerType !== "touch") {
             state.holding++;
-            galiano.traces.showCard(state, event, element);
+            bioreportr.traces.showCard(state, event, element);
         }
     });
     element.addEventListener("mouseleave", () => {
         if (state.pointerType !== "touch") {
             state.holding = Math.max(0, state.holding - 1);
             if (!state.touchHold) {
-                galiano.traces.scheduleHide(state);
+                bioreportr.traces.scheduleHide(state);
             }
         }
     });
-    galiano.traces.onTap(element, () => galiano.traces.markerClick(state, event, element));
+    bioreportr.traces.onTap(element, () => bioreportr.traces.markerClick(state, event, element));
     element.firstElementChild.addEventListener("animationend", () => {
         marker.remove();
         state.markers.delete(marker);
@@ -544,41 +546,111 @@ galiano.traces.addMarker = function (state, event, age = 0) {
  * Remove every marker from the map, and the card of any.
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.clearMarkers = function (state) {
+bioreportr.traces.clearMarkers = function (state) {
     state.markers.forEach(marker => marker.remove());
     state.markers.clear();
     state.holding = 0;
-    galiano.traces.hideCard(state);
+    bioreportr.traces.hideCard(state);
 };
 
-// The time in milliseconds before the next event: the quiet stretches of the record pass more slowly than the busy ones,
-// though never for long
-galiano.traces.delayAfter = (event, next) => Math.min(1600, 600 + Math.max(0, next.year - event.year) * 200);
+/** The pacing of the timeline **/
+
+// Time is given to each year rather than to each key moment, so that a record crowded into a few years, as many are once
+// community science begins, neither holds the timeline on one year for a minute nor races through the quiet decades
+// before it. Each year with moments is given a slot of time growing with the square root of its number of moments,
+// between `minYearMs` and `maxYearMs`, scaled so that a full pass takes about `targetMs`; its moments are spread evenly
+// through its slot; and each year without moments between them passes in `emptyYearMs`, a stretch of them never taking
+// more than `maxGapMs`. A story gives the settings fitting its own record as the member `pacing` of its timeline, over
+// these defaults
+bioreportr.traces.pacingDefaults = {
+    targetMs: 180000,
+    minYearMs: 1000,
+    maxYearMs: 12000,
+    emptyYearMs: 150,
+    maxGapMs: 1500,
+    // The year a visit opens on, or null for a random year
+    startYear: null,
+    // The most markers left on the map at once, the oldest giving way first, so that a busy year does not bury the map
+    maxMarkers: 40
+};
+
+/**
+ * The settings of a timeline's pacing: those a story gives, over the defaults.
+ * @param {Object} [pacing] - The settings the story gives
+ * @return {Object} The settings in full
+ */
+bioreportr.traces.pacingSettings = pacing => ({...bioreportr.traces.pacingDefaults, ...pacing});
+
+/**
+ * Compute the time in milliseconds after each event of a timeline before the next, by the pacing described above.
+ * @param {TraceEvent[]} events - The events, in date order
+ * @param {Object} pacing - The settings of the pacing in full, see bioreportr.traces.pacingSettings
+ * @return {Number[]} The delay after each event, the last being that before the timeline begins again
+ */
+bioreportr.traces.pace = function (events, pacing) {
+    const counts = new Map();
+    events.forEach(event => counts.set(event.year, (counts.get(event.year) || 0) + 1));
+    const years = [...counts.keys()].sort((a, b) => a - b);
+    const gapMs = (from, to) => Math.min(pacing.maxGapMs, Math.max(0, to - from - 1) * pacing.emptyYearMs);
+    const gaps = years.slice(1).reduce((total, year, i) => total + gapMs(years[i], year), 0);
+    const slot = (count, scale) => Math.min(pacing.maxYearMs, Math.max(pacing.minYearMs, scale * Math.sqrt(count)));
+    const total = scale => years.reduce((sum, year) => sum + slot(counts.get(year), scale), 0) + gaps;
+    // The scale bringing a full pass nearest its target, found by bisection since the slots are clamped
+    let low = 0, high = pacing.maxYearMs;
+    for (let i = 0; i < 40; ++i) {
+        const mid = (low + high) / 2;
+        if (total(mid) < pacing.targetMs) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    const slots = new Map(years.map(year => [year, slot(counts.get(year), low)]));
+    return events.map((event, i) => {
+        const next = events[(i + 1) % events.length];
+        const within = slots.get(event.year) / counts.get(event.year);
+        return within + (next.year > event.year ? gapMs(event.year, next.year) : 0);
+    });
+};
+
+/**
+ * Remove the oldest markers beyond the most the pacing leaves on the map, unless the pointer rests on one.
+ * @param {TraceState} state - The state of the playback
+ */
+bioreportr.traces.trimMarkers = function (state) {
+    if (state.holding === 0) {
+        for (const old of state.markers) {
+            if (state.markers.size <= state.pacing.maxMarkers) {
+                break;
+            }
+            old.remove();
+            state.markers.delete(old);
+        }
+    }
+};
 
 // The time in milliseconds before trying again to show an event, while the timeline is held
-galiano.traces.retryDelay = 300;
+bioreportr.traces.retryDelay = 300;
 
 /**
  * Show the next event, unless the timeline is held, and schedule the step after.
  * @param {fluid.component} that - The timeline
  * @param {TraceState} state - The state of the playback
  */
-galiano.traces.step = function (that, state) {
-    let delay = galiano.traces.retryDelay;
+bioreportr.traces.step = function (that, state) {
+    let delay = bioreportr.traces.retryDelay;
     if (!that.paused && !that.scrubbing && state.holding === 0 && !state.window.document.hidden) {
         const event = state.events[state.index];
-        galiano.traces.addMarker(state, event);
-        galiano.traces.showYear(state, event.year);
+        bioreportr.traces.addMarker(state, event);
+        bioreportr.traces.showYear(state, event.year);
+        delay = state.delays[state.index];
         state.index = (state.index + 1) % state.events.length;
-        delay = galiano.traces.delayAfter(event, state.events[state.index]);
     }
-    state.timer = state.window.setTimeout(() => galiano.traces.step(that, state), delay);
+    state.timer = state.window.setTimeout(() => bioreportr.traces.step(that, state), delay);
 };
 
-// As many markers as playback could have left on the map, at its quickest and with the longest fade
-galiano.traces.trailLength = 30;
 // Far enough into its fade that a marker has finished appearing, so that it shows even while the timeline is frozen
-galiano.traces.trailStartAge = 1.2;
+bioreportr.traces.trailStartAge = 1.2;
 
 /**
  * Lay out the markers playback would have left on the map by the time it reached a given event, each as far through its
@@ -586,15 +658,15 @@ galiano.traces.trailStartAge = 1.2;
  * @param {TraceState} state - The state of the playback
  * @param {Number} end - The index following the most recent event to show
  */
-galiano.traces.placeTrail = function (state, end) {
+bioreportr.traces.placeTrail = function (state, end) {
     const {events} = state;
-    let age = galiano.traces.trailStartAge;
-    for (let i = end - 1; i >= Math.max(0, end - galiano.traces.trailLength); --i) {
-        if (age < galiano.traces.life(events[i].kind)) {
-            galiano.traces.addMarker(state, events[i], age);
+    let age = bioreportr.traces.trailStartAge;
+    for (let i = end - 1; i >= Math.max(0, end - state.pacing.maxMarkers); --i) {
+        if (age < bioreportr.traces.life(events[i].kind)) {
+            bioreportr.traces.addMarker(state, events[i], age);
         }
         if (i > 0) {
-            age += galiano.traces.delayAfter(events[i - 1], events[i]) / 1000;
+            age += state.delays[i - 1] / 1000;
         }
     }
 };
@@ -604,17 +676,18 @@ galiano.traces.placeTrail = function (state, end) {
  * @param {TraceState} state - The state of the playback
  * @param {Number} year - The year to move to
  */
-galiano.traces.seek = function (state, year) {
+bioreportr.traces.seek = function (state, year) {
     const next = state.events.findIndex(event => event.year > year);
     const end = next === -1 ? state.events.length : next;
     state.index = end % state.events.length;
-    galiano.traces.clearMarkers(state);
-    galiano.traces.placeTrail(state, end);
-    galiano.traces.showYear(state, year);
+    bioreportr.traces.clearMarkers(state);
+    bioreportr.traces.placeTrail(state, end);
+    bioreportr.traces.showYear(state, year);
 };
 
 /**
- * Create the state of a timeline once its map and events are ready, starting from a random year.
+ * Create the state of a timeline once its map and events are ready, starting from the year its pacing names, or else a
+ * random one.
  * @param {fluid.component} that - The timeline
  * @param {bioreportr.storyPage} storyPage - The story page
  * @param {maplibregl.Map} map - The story's map
@@ -622,17 +695,19 @@ galiano.traces.seek = function (state, year) {
  * @param {Window} window - The window holding the story page
  * @return {TraceState} The state of the playback
  */
-galiano.traces.createState = function (that, storyPage, map, events, window) {
+bioreportr.traces.createState = function (that, storyPage, map, events, window) {
     const firstYear = events[0].year, lastYear = fluid.peek(events).year;
-    const startYear = firstYear + Math.floor(Math.random() * (lastYear - firstYear + 1));
-    const state = {storyPage, map, window, events, firstYear, lastYear, markers: new Set(), holding: 0, timer: null, cardEvent: null,
+    const pacing = bioreportr.traces.pacingSettings(that.pacing);
+    const startYear = pacing.startYear ?? firstYear + Math.floor(Math.random() * (lastYear - firstYear + 1));
+    const state = {storyPage, map, window, events, firstYear, lastYear, pacing, delays: bioreportr.traces.pace(events, pacing),
+        markers: new Set(), holding: 0, timer: null, cardEvent: null,
         hideTimer: null, heldMarker: null,
         index: Math.max(0, events.findIndex(event => event.year >= startYear)),
-        overlay: galiano.traces.createOverlay(map.getContainer(), firstYear, lastYear)};
-    galiano.traces.states.set(that, state);
-    galiano.traces.bindControls(that, state);
-    galiano.traces.bindCard(state);
-    galiano.traces.showPlayback(that, that.paused);
+        overlay: bioreportr.traces.createOverlay(map.getContainer(), firstYear, lastYear)};
+    bioreportr.traces.states.set(that, state);
+    bioreportr.traces.bindControls(that, state);
+    bioreportr.traces.bindCard(state);
+    bioreportr.traces.showPlayback(that, that.paused);
     return state;
 };
 
@@ -646,13 +721,13 @@ galiano.traces.createState = function (that, storyPage, map, events, window) {
  * @param {Boolean} loaded - `true` once the page's data is real rather than placeholders
  * @param {Window} window - The window holding the story page
  */
-galiano.traces.control = function (that, storyPage, map, events, active, loaded, window) {
+bioreportr.traces.control = function (that, storyPage, map, events, active, loaded, window) {
     const ready = map && loaded && events.length > 0;
-    const state = ready ? galiano.traces.states.get(that) ?? galiano.traces.createState(that, storyPage, map, events, window) :
-        galiano.traces.states.get(that);
+    const state = ready ? bioreportr.traces.states.get(that) ?? bioreportr.traces.createState(that, storyPage, map, events, window) :
+        bioreportr.traces.states.get(that);
     if (state) {
         window.clearTimeout(state.timer);
-        galiano.traces.clearMarkers(state);
+        bioreportr.traces.clearMarkers(state);
         if (active) {
             const camera = bioreportr.storyMap.firstCamera(storyPage.mapData);
             if (camera) {
@@ -662,9 +737,9 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
             state.timer = window.setTimeout(() => {
                 // Someone returning to a timeline they paused finds it as they left it
                 if (that.paused) {
-                    galiano.traces.placeTrail(state, state.index || state.events.length);
+                    bioreportr.traces.placeTrail(state, state.index || state.events.length);
                 }
-                galiano.traces.step(that, state);
+                bioreportr.traces.step(that, state);
             }, 0);
         }
     }
@@ -673,20 +748,22 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 
 <style>
 /* The map takes the whole column, dimmed so that the records stand out against it */
-.mxcw-leftPane.galiano-traces-active .mxcw-map {
+.mxcw-leftPane.mxcw-traces-active .mxcw-map {
     height: 100% !important;
 }
-.mxcw-leftPane.galiano-traces-active > .mxcw-data,
-.mxcw-leftPane.galiano-traces-active > .resize-bar {
+.mxcw-leftPane.mxcw-traces-active > .mxcw-data,
+.mxcw-leftPane.mxcw-traces-active > .resize-bar {
     display: none !important;
 }
-.mxcw-leftPane.galiano-traces-active .maplibregl-canvas {
-    filter: brightness(0.45) saturate(0.6);
+/* How far the map is dimmed suits the landscape a story shows - a story whose imagery is dark already, e.g. Galiano
+   Island's forest and sea, lightens it by setting these properties in its own stylesheet */
+.mxcw-leftPane.mxcw-traces-active .maplibregl-canvas {
+    filter: brightness(var(--mxcw-traces-brightness, 0.45)) saturate(var(--mxcw-traces-saturation, 0.6));
 }
-.mxcw-leftPane:not(.galiano-traces-active) .galiano-traces-overlay {
+.mxcw-leftPane:not(.mxcw-traces-active) .mxcw-traces-overlay {
     display: none;
 }
-.galiano-traces-overlay {
+.mxcw-traces-overlay {
     position: absolute;
     left: 20px;
     /* Clear of the map's attribution */
@@ -696,21 +773,21 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     color: #eefaff;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
-.galiano-traces-year {
+.mxcw-traces-year {
     font-size: 56px;
     font-weight: 300;
     line-height: 1;
     letter-spacing: 0.04em;
     font-variant-numeric: tabular-nums;
 }
-.galiano-traces-controls {
+.mxcw-traces-controls {
     display: flex;
     align-items: center;
     gap: 6px;
     margin: 4px 0 10px;
     pointer-events: auto;
 }
-.galiano-traces-play {
+.mxcw-traces-play {
     flex: none;
     width: 28px;
     height: 28px;
@@ -720,14 +797,14 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     cursor: pointer;
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
 }
-.galiano-traces-play:focus-visible,
-.galiano-traces-slider:focus-visible {
+.mxcw-traces-play:focus-visible,
+.mxcw-traces-slider:focus-visible {
     outline: 2px solid #FDF2CE;
     outline-offset: 2px;
 }
-.galiano-traces-slider {
-    --galiano-progress: 0%;
-    --galiano-track: linear-gradient(to right, #FDF2CE var(--galiano-progress), rgba(238, 250, 255, 0.3) var(--galiano-progress));
+.mxcw-traces-slider {
+    --mxcw-progress: 0%;
+    --mxcw-track: linear-gradient(to right, #FDF2CE var(--mxcw-progress), rgba(238, 250, 255, 0.3) var(--mxcw-progress));
     appearance: none;
     -webkit-appearance: none;
     width: min(360px, calc(100vw - 96px));
@@ -736,15 +813,15 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     background: transparent;
     cursor: pointer;
 }
-.galiano-traces-slider::-webkit-slider-runnable-track {
+.mxcw-traces-slider::-webkit-slider-runnable-track {
     height: 2px;
-    background: var(--galiano-track);
+    background: var(--mxcw-track);
 }
-.galiano-traces-slider::-moz-range-track {
+.mxcw-traces-slider::-moz-range-track {
     height: 2px;
-    background: var(--galiano-track);
+    background: var(--mxcw-track);
 }
-.galiano-traces-slider::-webkit-slider-thumb {
+.mxcw-traces-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
@@ -753,7 +830,7 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     border-radius: 50%;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
-.galiano-traces-slider::-moz-range-thumb {
+.mxcw-traces-slider::-moz-range-thumb {
     width: 14px;
     height: 14px;
     background: #FDF2CE;
@@ -762,52 +839,52 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 /* Markers hold still while the timeline is paused or being dragged */
-.galiano-traces-still .galiano-trace-mark {
+.mxcw-traces-still .mxcw-trace-mark {
     animation-play-state: paused;
 }
-.galiano-traces-key {
+.mxcw-traces-key {
     display: flex;
     flex-wrap: wrap;
     gap: 4px 14px;
     max-width: 420px;
     font-size: var(--story-small);
 }
-.galiano-traces-key span {
+.mxcw-traces-key span {
     display: inline-flex;
     align-items: center;
     gap: 4px;
 }
-.galiano-traces-key svg,
-.galiano-trace-kind svg {
+.mxcw-traces-key svg,
+.mxcw-trace-kind svg {
     width: 14px;
     height: 14px;
 }
-.galiano-trace {
+.mxcw-trace {
 
 /* Traces: a quicker timeline, with its marks shaped as acorn, plant, leaf skeleton and dandelion */
     cursor: pointer;
     width: 24px;
     height: 24px;
 }
-.galiano-trace-mark {
+.mxcw-trace-mark {
     width: 100%;
     height: 100%;
-    animation: galiano-trace-life 16s ease-out forwards;
+    animation: mxcw-trace-life 16s ease-out forwards;
 }
-.galiano-trace[data-kind="last"] {
+.mxcw-trace[data-kind="last"] {
     width: 32px;
     height: 32px;
     z-index: 2;
 }
-.galiano-trace[data-kind="last"] .galiano-trace-mark {
+.mxcw-trace[data-kind="last"] .mxcw-trace-mark {
     filter: drop-shadow(0 0 3px rgba(255, 138, 0, 0.5));
 }
-.galiano-trace:hover .galiano-trace-mark,
-.galiano-trace-held .galiano-trace-mark {
+.mxcw-trace:hover .mxcw-trace-mark,
+.mxcw-trace-held .mxcw-trace-mark {
     animation-play-state: paused;
     opacity: 1;
 }
-.galiano-trace-card {
+.mxcw-trace-card {
     position: fixed;
     z-index: 1000;
     display: none;
@@ -823,30 +900,30 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     font-size: 12px;
     line-height: 1.4;
 }
-.galiano-trace-card-visible {
+.mxcw-trace-card-visible {
     display: block;
 }
-.galiano-trace-kind {
+.mxcw-trace-kind {
     display: flex;
     align-items: center;
     gap: 5px;
     color: #a8c8d0;
     margin-bottom: 4px;
 }
-.galiano-trace-name {
+.mxcw-trace-name {
     font-size: 14px;
     font-style: italic;
     font-weight: 700;
 }
-.galiano-trace-common {
+.mxcw-trace-common {
     color: #a8c8d0;
     margin-bottom: 4px;
 }
-.galiano-trace-significance {
+.mxcw-trace-significance {
     margin-top: 6px;
     color: #FDF2CE;
 }
-.galiano-trace-action {
+.mxcw-trace-action {
     margin-top: 6px;
     color: #a8c8d0;
 }
@@ -869,12 +946,12 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     margin: 2rem 0 clamp(14px, 3vh, 32px);
 }
 .mxcw-paneKey-Traces p {
-    --galiano-traces-text: clamp(16px, min(0.55vw + 11px, 2.3vh), 21px);
+    --mxcw-traces-text: clamp(16px, min(0.55vw + 11px, 2.3vh), 21px);
     max-width: 31em;
     margin: 0 auto clamp(10px, 2.2vh, 22px);
     padding: 0 1.5rem;
     color: #d6e8ee;
-    font-size: var(--galiano-traces-text);
+    font-size: var(--mxcw-traces-text);
     line-height: 1.5;
     text-align: center;
     text-wrap: balance;
@@ -883,10 +960,10 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 .mxcw-paneKey-Traces p:first-of-type {
     margin-bottom: clamp(16px, 3.6vh, 36px);
     color: #FDF2CE;
-    font-size: calc(var(--galiano-traces-text) * 1.2);
+    font-size: calc(var(--mxcw-traces-text) * 1.2);
     line-height: 1.4;
 }
-.mxcw-paneKey-Traces .galiano-traces-next {
+.mxcw-paneKey-Traces .mxcw-traces-next {
     color: #FDF2CE;
     cursor: pointer;
     text-decoration: underline;
@@ -894,19 +971,19 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     text-underline-offset: 5px;
     transition: text-decoration-color 0.2s;
 }
-.galiano-traces-next:hover {
+.mxcw-traces-next:hover {
     text-decoration-color: currentColor;
 }
-.galiano-traces-next:focus-visible {
+.mxcw-traces-next:focus-visible {
     outline: 2px solid #FDF2CE;
     outline-offset: 4px;
 }
 @media (prefers-reduced-motion: no-preference) {
-    .galiano-trace[data-kind="last"] .galiano-trace-mark {
-        animation-name: galiano-trace-drift;
+    .mxcw-trace[data-kind="last"] .mxcw-trace-mark {
+        animation-name: mxcw-trace-drift;
     }
 
-    @keyframes galiano-trace-drift {
+    @keyframes mxcw-trace-drift {
         0% {
             opacity: 0;
             transform: scale(0.3);
@@ -928,7 +1005,7 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
         }
     }
 }
-.galiano-trace-photo {
+.mxcw-trace-photo {
     margin: -12px -12px 8px;
     height: 150px;
     background: #184E62;
@@ -936,12 +1013,12 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     overflow: hidden;
     position: relative;
 }
-.galiano-trace-photo img {
+.mxcw-trace-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.galiano-trace-photo span {
+.mxcw-trace-photo span {
     position: absolute;
     left: 0;
     right: 0;
@@ -952,10 +1029,10 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
     background: rgba(13, 48, 64, 0.7);
 }
 /* The most numerous marks step back, leaving the plants last seen to stand out */
-.galiano-trace[data-kind="first"] svg {
+.mxcw-trace[data-kind="first"] svg {
     opacity: 0.7;
 }
-@keyframes galiano-trace-life {
+@keyframes mxcw-trace-life {
     0% {
         opacity: 0;
         transform: scale(0.3);
@@ -976,7 +1053,7 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 }
 
 @media (prefers-reduced-motion: reduce) {
-    @keyframes galiano-trace-life {
+    @keyframes mxcw-trace-life {
         0%, 65% {
             opacity: 1;
         }
@@ -990,25 +1067,25 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 /* Phones: the map leaves room for the text beneath it, the timeline's controls and key sit clear of the map's credits,
    and the markers, which are small and brief, take a larger area for a fingertip */
 @media (max-width: 767.98px) {
-    .mxcw-leftPane.galiano-traces-active {
+    .mxcw-leftPane.mxcw-traces-active {
         height: max(360px, 62vh);
     }
 
-    .galiano-traces-overlay {
+    .mxcw-traces-overlay {
         left: 12px;
         right: 12px;
         bottom: 56px;
     }
 
-    .galiano-traces-year {
+    .mxcw-traces-year {
         font-size: 40px;
     }
 
-    .galiano-traces-key {
+    .mxcw-traces-key {
         gap: 2px 10px;
     }
 
-    .galiano-trace-card {
+    .mxcw-trace-card {
         width: min(260px, calc(100vw - 16px));
     }
 
@@ -1022,7 +1099,7 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 }
 
 @media (pointer: coarse) {
-    .galiano-trace::after {
+    .mxcw-trace::after {
         content: "";
         position: absolute;
         inset: -12px;
@@ -1031,10 +1108,11 @@ galiano.traces.control = function (that, storyPage, map, events, active, loaded,
 </style>
 
 <!-- The <template> block below is written by src/js/storyBuild.js and must not be edited here: it holds the section
-     knitted from content/story/Traces.Rmd, whose front matter names galiano.tracesPane as its paneComponent. Edit the
-     R Markdown and knit it, then run "npm run story", which replaces everything between <template> and </template>
-     and nothing else in this file. The markup is a template, which may bind members of galiano.tracesPane with
-     @{...} - written in the R Markdown as raw HTML, e.g. `<span>@{count}</span>`{=html}, which pandoc leaves as it is -->
+     knitted from each project's content/story/Traces.Rmd, whose front matter names bioreportr.tracesPane as its
+     paneComponent - so that it holds the section of whichever project was built last. Edit the R Markdown and knit it,
+     then run "npm run story", which replaces everything between <template> and </template> and nothing else in this
+     file. The markup is a template, which may bind members of bioreportr.tracesPane with @{...} - written in the R Markdown
+     as raw HTML, e.g. `<span>@{count}</span>`{=html}, which pandoc leaves as it is -->
 <template>
 <div id="in-memory-of-plants" class="section level2 mxcw-paneKey-Traces"><h2>In Memory of Plants</h2><div class="mxcw-sectionInner"><div class="mxcw-sectionColumn">
 
@@ -1048,7 +1126,7 @@ iNaturalist, reaching back to 1958.</p>
 <p>Each record is a moment when someone stopped to take note of a
 plant.</p>
 <p>Some plants have long been recorded, while others have appeared only
-in more recent years. Still others have gone unseen for decades, <a href="#pane:LostPlants" class="galiano-traces-next">quietly disappearing
+in more recent years. Still others have gone unseen for decades, <a href="#pane:LostPlants" class="mxcw-traces-next">quietly disappearing
 from the record.</a></p>
 </div></div></div>
 </template>

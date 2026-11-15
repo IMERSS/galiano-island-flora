@@ -6,7 +6,7 @@ source("scripts/utils.R")
 # Prepare the history of the curatorial notes on each taxon, shown by the History tab of the curation pane. For the
 # Saanich Peninsula these are drawn from the accounts of Szczawinski & Harrison, Harvey Janszen and the Flora of the
 # Pacific Northwest. For Galiano Island, which has no such accounts, the only notes are those of the Biodiversity Galiano
-# summary's Notes column, shown as the reviewers' critical notes. Each taxon is given the id by which the site knows it,
+# summary's Notes column, in the column "notes" - the one source named by curationHistorySources in galiano-story.vue. Each taxon is given the id by which the site knows it,
 # matched on its scientific name in the prepared summary, which must be prepared first - see scripts/prepare_summary.R.
 # The output is copied into the site by R/build.R
 
@@ -28,10 +28,10 @@ taxa <- timedFread(taxa_file) %>%
   distinct(scientificName, .keep_all = TRUE)
 
 history <- summary %>%
-  transmute(scientificName = Taxon, original = "", harvey = "", fpnw = "", critical = clean(Notes), reviewedBy = "") %>%
+  transmute(scientificName = Taxon, notes = clean(Notes)) %>%
   distinct(scientificName, .keep_all = TRUE) %>%
   inner_join(taxa, by = "scientificName") %>%
-  filter(critical != "") %>%
-  select(id, scientificName, original, harvey, fpnw, critical, reviewedBy)
+  filter(notes != "") %>%
+  select(id, scientificName, notes)
 
 timedWrite(history, history_file)

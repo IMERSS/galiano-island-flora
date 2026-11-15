@@ -10,10 +10,10 @@
         <script src="../vendor/infusion/src/framework/core/js/FluidBoot.js"></script>
         <!-- The site, as the module holding the page, and its map of the modules it depends upon, written by
              "npm run vendor" (Infusion 6's copyOut.js) as it copies them into static/vendor -->
-        <fluid-module id="saanich-peninsula-flora" src="../" modules="fluid-modules.json"></fluid-module>
+        <fluid-module id="galiano-island-flora" src="../" modules="fluid-modules.json"></fluid-module>
         <!-- A development page for the story, standing in for the page Hugo renders from layouts/story/baseof.html - see
-             static/local/story/saanich-story.vue -->
-        <fluid-import src="../local/story/saanich-story.vue"></fluid-import>
+             static/local/story/galiano-story.vue -->
+        <fluid-import src="../local/story/galiano-story.vue"></fluid-import>
         <link rel="stylesheet" href="../bioreportr/css/imerss-story.css"/>
         <link rel="stylesheet" href="../bioreportr/css/imerss-viz-story.css"/>
         <link rel="stylesheet" href="../bioreportr/css/imerss-blitzr.css"/>
@@ -21,6 +21,6 @@
     </head>
     <body>
         <template id="site-subnav"><div class="imerss-subnav"><nav>Site navigation</nav></div></template>
-        <div fluid-layers="saanich.story"></div>
+        <div fluid-layers="galiano.story"></div>
     </body>
 </html>

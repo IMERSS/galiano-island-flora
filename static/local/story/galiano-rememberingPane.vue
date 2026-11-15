@@ -315,8 +315,8 @@ first journal, which records collections from Galiano alongside those of
 Saturna and the neighbouring islands, through to his later inventories
 of the island’s rock bluffs and meadows. His <em>Outer Gulf Islands
 Vascular Plant Checklist</em> (2003) remains a cornerstone of this
-flora: together with his specimens, it accounts for 700 of the records
-in this atlas, documenting 539 of Galiano’s plants between 1973 and
+flora: together with his specimens, it accounts for 806 of the records
+in this atlas, documenting 542 of Galiano’s plants between 1973 and
 2003. The photograph above was taken on Galiano Island on May 3,
 2019.</p>
 <p>Through the <a href="https://imerss.github.io/janszen-legacy-storymap/Janszen_Legacy_Project.html">Janszen

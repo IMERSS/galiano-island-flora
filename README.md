@@ -9,47 +9,33 @@ was copied, using the Galiano Island vascular plant data of
 
 ## Status of the Galiano adaptation - outstanding items
 
-The site builds and runs from provisional data. Still to be filled in:
+The site parallels the Saanich atlas as of its commit aa3e0b1 (14 November 2026): the same eight panes, built on the
+shared bioReportR framework - the atlas panel and the Traces, Lost Plants and Protected Areas panes are shared Single File
+Components in `static/bioreportr/sfc`, given Galiano's settings in `static/local/story/galiano-story.vue`; the data
+files are named in `bioreportr.yaml`; and the shared R scripts read Galiano's settings from `scripts/project.R`. Still
+to be filled in:
 
+* **Vendored libraries.** `static/vendor` is copied from saanich-peninsula-flora, which Antranig vendored from his own
+  checkouts of imerss-bioinfo and Infusion. Here `npm run vendor` (Infusion's copyout) finishes silently without
+  copying, as it does in a Saanich checkout without those checkouts, so take `static/vendor` from Saanich, or vendor
+  with a `moduleOverrides.json5`, rather than from `node_modules`.
 * **iNaturalist taxonomy and images.** `scripts/prepare_provisional_taxa.R` stands in for imerss-bioinfo's
-  `assignBNames.js`, building the tree of taxa from the Biodiversity Galiano summary's own hierarchy: species carry
-  their real iNaturalist ids, while higher taxa have negative placeholder ids, and no taxon has a common name above
-  species or an image. Run `assignBNames.js` (see `scripts/prepare_summary.R` for the whole pipeline) to replace
-  `tabular_data/Galiano_Tracheophyta_summary_2026-04-04-assigned*.csv`, then rerun the later steps. From the published
-  npm package it fails for want of `data/ranks.json` and the taxon cache.
-* **Extirpation probability.** `solow_EP` is computed by `scripts/prepare_sources.R` with the same Solow (1993)
-  formula as `scripts/apply_record_annotations.R`, from the years of every record of a taxon.
-* **Regions.** `tabular_data/Galiano Shapefile Index.csv` holds only the island's outline, since the BEC source used
-  for Saanich wasn't available. Add a clipped BEC layer, or others, there.
+  `assignBNames.js`: species carry their iNaturalist ids from the summary, higher taxa have negative placeholder ids,
+  and no taxon has an image. Run `assignBNames.js` (see `scripts/prepare_summary.R`) and the later steps.
+* **Data to correct at source.** Alchemilla arvensis repeats the iNaturalist id 866483 of Alchemilla occidentalis in
+  the Biodiversity Galiano summary. `tabular_data/Galiano_Tracheophyta_bad-coordinates.csv` lists 31 records whose
+  positions are far from the island (e.g. latitude 8.87, or 1986 Crins specimens at longitude -122.38), and
+  `tabular_data/Galiano_Tracheophyta_offshore-coordinates.csv` 131 lying more than 100 m from any shore. Their
+  positions are withheld by `scripts/prepare_obs.R`; the records are kept.
+* **Key Biodiversity Areas.** Galiano Island has no published KBA, so the Protected Areas pane shows only the two
+  proposed ones, Mount Sutil & Mount Galiano Bluffs and Active Pass, as rings. Rerun `scripts/fetch_protected_areas.R`
+  and the later steps once either is published.
+* **Regions.** The shapefile index holds the island, protected areas and KBAs, but no BEC layer.
 * **Curation.** `static/curation/config.json` needs the GitHub node ids of this repository and its Curation
-  discussion category, and the curation worker must be enrolled for it. `scripts/prepare_curation_history.R` takes
-  only the summary's Notes, shown as critical notes.
-* **Text to confirm.** The territorial acknowledgement in `content/story/Traces.Rmd` is a draft. The supporters of
-  `content/story/Remembering.Rmd` are left as a commented template. The iNaturalist project linked throughout is
-  Biodiversity Galiano Island, and the Community Science panels use iNaturalist place 94935, Galiano Island.
-* **Images.** The favicons, `static/local/images/social-preview.jpg` and the site's icons are still Saanich's.
-
-You can browse the published output of this project at [https://imerss.github.io/galiano-island-flora/story](Flora
-of Galiano Island].
-
-The project's publishing pipeline is based on the [bioReportR](https://IMERSS/bioreportr) publishing system, which
-is based on R and R Markdown, using free tools such as git, R and R studio, and published and hosted for free using
-[GitHub Pages](https://pages.github.com/). BioReportR is based on the [blogdown](https://pkg.yihui.org/blogdown/)
-R package for publishing web sites using the popular [hugo](https://gohugo.io/) framework.
-
-This system grew out of work done in 2023 for the
-[Maxwell Creek Watershed Project](https://transitionsaltspring.com/maxwell-creek-watershed-project/) which is being
-undertaken by [Transition Salt Spring](https://transitionsaltspring.com/).
-
-To see the potential of storymapping frameworks to use data to tell stories, you can visit two
-thoroughly elaborated [data explorations](https://www.data-arc.org/my-front-page/example-data-explorations/) from
-the dataARC project which present two stories, "Quantifying an ever-changing landscape" and "Data mining the past"
-using two mature storymapping frameworks, [ESRI/ArcGIS Storymaps](https://storymaps.arcgis.com/) and [HTML + Binder/Jupyter](https://mybinder.org/).
-
-Here we operate a homegrown approach showing how readily available and widely understood open source tools can be
-orchestrated to produce a basic end-to-end authoring and hosting environment.
-Consult [Knitting Data Communities](https://lichen-community-systems/knitting-data-communities/) for some values
-underlying this work.
+  discussion category, and the curation worker must be enrolled for it. The history holds only the summary's notes.
+* **Text and images to confirm.** The territorial acknowledgement in `content/story/Traces.Rmd` is a draft; the
+  supporters of `content/story/Remembering.Rmd` are a commented template; the favicons and social preview image are
+  still Saanich's.
 
 ## Installation instructions
 

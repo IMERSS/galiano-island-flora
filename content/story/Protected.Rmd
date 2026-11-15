@@ -1,0 +1,45 @@
+---
+title: Native plant diversity within protected areas
+shortTitle: Protected Areas
+weight: 5.5
+knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
+paneHandlerLayers: ["reknitr.obsMapPaneHandler"]
+regionField: Protected
+visibleGrid: false
+# The component rendering this pane's section, into whose template npm run story writes it - see AGENTS.md
+paneComponent: bioreportr.protectedPane
+---
+
+## Native plant diversity within protected areas
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="1024px"}
+source("scripts/Protected_map_mapbox.R")
+
+protectedAreaMap
+```
+
+```{r, echo=FALSE}
+# A summary of the selection on the map - all the protected areas, a category, an area or the KBAs - see
+# bioreportr-protectedPane.vue
+protected.area.summaries
+# The chart of species by category, or by area within the selected category, shown beneath the map - see
+# mxcw-data-pane-html in src/js/storyBuild.js
+protected.area.bars
+```
+
+This preliminary evaluation is limited by biases in sampling effort and other gaps in the data, but it is a starting
+point for a more thorough assessment of progress toward conserving the region's plant diversity. Help improve it by
+reporting your observations to the [Biodiversity Galiano Island iNaturalist project](https://www.inaturalist.org/projects/biodiversity-galiano-island).
+
+:::: {.mxcw-howto}
+The map shows protected and conserved areas by category. Galiano Island has as yet no published Key Biodiversity
+Area, but two are proposed - Mount Sutil & Mount Galiano Bluffs, and Active Pass - and since their boundaries are not
+yet public, each is marked by a ring at its point.
+Click an area on the map, or in the chart below it, to show only the plants recorded there and its summary above, or
+a category in the map's legend or the chart to show those recorded in all its areas. Choose *Unprotected native plant
+diversity* in the chart to show, as a grid on the map, where the native plants not yet reported in any protected
+area have been recorded.
+Protected areas are from the [Canadian Protected and Conserved Areas Database](https://www.canada.ca/en/environment-climate-change/services/national-wildlife-areas/protected-conserved-areas-database.html)
+(Environment and Climate Change Canada), and Key Biodiversity Areas from [KBA Canada](https://kbacanada.org/)
+(CC BY-NC-SA 4.0).
+::::

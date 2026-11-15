@@ -291,12 +291,13 @@ bioreportr.regionSelectionFilter = function (obsRows, selectedRegion, indirectio
  * @param {maplibregl.Map} map - The map
  * @param {Object} event - A MapLibre mouse event
  * @param {String[]} selectableRegions - The ids of the layers of the active pane which may be selected
- * @return {String|null} The id of the region's layer, or null if there is none
+ * @return {String|null} The region - the id of its layer, or, for a layer holding many regions, the property `region`
+ * of the shape under the event - or null if there is none
  */
 bioreportr.storyMap.eventToRegion = function (map, event, selectableRegions) {
     const features = map.queryRenderedFeatures(event.point);
     const match = features.find(feature => feature.layer.paint?.["fill-opacity"] > 0 && selectableRegions.includes(feature.layer.id));
-    return match?.layer.id || null;
+    return match ? match.properties?.region || match.layer.id : null;
 };
 
 bioreportr.storyMap.handleRegionClick = function (storyPage, map, event, selectableRegions) {
@@ -310,14 +311,67 @@ bioreportr.storyMap.handleRegionClick = function (storyPage, map, event, selecta
 /**
  * Outline the selected region on the map.
  * @param {maplibregl.Map} map - The map, once its style has applied
- * @param {String|null} selectedRegion - The id of the selected region's layer, whose source is of the same name
+ * @param {String|null} selectedRegion - The selected region - the id of its layer, whose source is of the same name, or,
+ * in a source holding many regions, the property `region` of its shape, or `group` of the shapes of a group of regions
+ * @param {Object} [mapData] - The story's map data, as written by storyBuild.js, whose sources are searched for such
+ * shapes - rather than the map's style, which would copy every source to be read
  */
-bioreportr.storyMap.highlightRegion = function (map, selectedRegion) {
+bioreportr.storyMap.highlightRegion = function (map, selectedRegion, mapData) {
     if (map.getLayer("region-highlight")) {
         map.removeLayer("region-highlight");
     }
+    const paint = {"line-color": "yellow", "line-width": 3};
     if (selectedRegion && map.getSource(selectedRegion)) {
-        map.addLayer({id: "region-highlight", type: "line", source: selectedRegion, paint: {"line-color": "yellow", "line-width": 3}});
+        map.addLayer({id: "region-highlight", type: "line", source: selectedRegion, paint});
+    } else if (selectedRegion && mapData) {
+        const sources = mapData.style.sources;
+        const holds = feature => feature.properties?.region === selectedRegion || feature.properties?.group === selectedRegion;
+        const holding = Object.keys(sources).find(id => sources[id].data?.features?.some(holds));
+        if (holding && map.getSource(holding)) {
+            map.addLayer({id: "region-highlight", type: "line", source: holding, paint,
+                filter: ["any", ["==", ["get", "region"], selectedRegion], ["==", ["get", "group"], selectedRegion]]});
+        }
+    }
+};
+
+// Whether the map was shown by the previous pane, by map
+bioreportr.storyMap.mapWasShown = new WeakMap();
+
+/**
+ * Place the map on the active pane's camera again once it has its full size, when the previous pane hid it - e.g. on
+ * moving from Lost Plants to the atlas. The story page moves the camera as the pane opens, when the map is still without
+ * size, which leaves it centred in the wrong place once the map has grown. A pane whose settings have `framesItself`,
+ * which places the map by a camera of its own, is left alone.
+ * @param {maplibregl.Map} map - The story's map, once ready
+ * @param {Object} mapData - The story's map data, with each pane's camera
+ * @param {Object} activePane - The active pane's settings, with its `paneKey`, `visibleMap` and any `framesItself`
+ */
+bioreportr.storyMap.recentre = function (map, mapData, activePane) {
+    if (map && activePane) {
+        const wasShown = bioreportr.storyMap.mapWasShown.get(map);
+        bioreportr.storyMap.mapWasShown.set(map, !!activePane.visibleMap);
+        const camera = mapData?.panes?.[activePane.paneKey];
+        if (wasShown === false && activePane.visibleMap && camera?.center && !activePane.framesItself) {
+            hortis.libreMap.afterLayout(map, () => {
+                map.resize();
+                map.jumpTo({center: camera.center, zoom: camera.zoom});
+            });
+        }
+    }
+};
+
+/**
+ * On a phone, where the map spans the screen and the page scrolls past it, let one finger scroll the page and two move
+ * the map, as MapLibre's cooperative gestures do, so that the map can't trap the reader. Larger screens are unchanged.
+ * @param {maplibregl.Map} map - The story's map, once ready
+ * @param {Window} window - The window holding the story page
+ */
+bioreportr.storyMap.phoneGestures = function (map, window) {
+    if (map && map.cooperativeGestures) {
+        const phone = window.matchMedia("(max-width: 767.98px)");
+        const apply = () => phone.matches ? map.cooperativeGestures.enable() : map.cooperativeGestures.disable();
+        apply();
+        phone.addEventListener("change", apply);
     }
 };
 
@@ -434,12 +488,16 @@ bioreportr.dataPane.fetch = function (storyBase, dataFile) {
  */
 bioreportr.dataPane.resize = function (widgets, active, resizeHeight, Plotly) {
     if (active && Plotly) {
-        setTimeout(() => widgets.forEach(widget => {
+        // A pane shown as the page loads is shown before htmlwidgets has drawn its plots, so wait a little for each
+        const fit = (widget, tries) => {
             const holder = widget.closest(".mxcw-data");
             if (holder && holder.clientWidth > 0 && widget.layout) {
                 Plotly.relayout(widget, resizeHeight ? {width: holder.clientWidth, height: holder.clientHeight} : {width: holder.clientWidth});
+            } else if (tries > 0) {
+                setTimeout(() => fit(widget, tries - 1), 100);
             }
-        }), 0);
+        };
+        setTimeout(() => widgets.forEach(widget => fit(widget, 50)), 0);
     }
 };
 
@@ -591,7 +649,8 @@ fluid.registerNamespace("bioreportr.iNatPanel");
 // The options of an iNaturalist panel, as rendered by @imerss/inat-components, which a pane's settings refine
 bioreportr.iNatPanel.defaults = {
     dataSource: "autoLoad",
-    itemWidth: 180,
+    // The least width of each photo's card, matching the gallery of lost plants
+    itemWidth: 190,
     features: [
         {feature: "recentObservations", numResults: 40},
         {feature: "commonTaxa", numResults: 40, numYears: 10},
@@ -622,25 +681,32 @@ bioreportr.iNatPanel.options = function (options) {
 };
 
 /**
- * Render an iNaturalist panel into its container, which the library thereafter owns.
+ * Render an iNaturalist panel into its container, which the library thereafter owns until the panel is destroyed.
  * @param {fluid.component} that - The panel's component
  * @param {Element} container - The panel's rendered container
- * @param {String} containerId - The id of the container, by which the library finds it
  * @param {Object} options - The panel's options
  * @param {Object} [inatComponents] - The @imerss/inat-components library
- * @return {Boolean|Unavailable} `true` once rendered, or an unavailable value if the library is not loaded
+ * @return {Object|Unavailable} The panel, with methods `update` and `destroy`, or an unavailable value if the library
+ *     is not loaded
  */
-bioreportr.iNatPanel.bind = function (that, container, containerId, options, inatComponents) {
+bioreportr.iNatPanel.bind = function (that, container, options, inatComponents) {
     let togo;
     if (inatComponents) {
         fluid.disableRendering(that);
-        container.id = containerId;
-        inatComponents.initTaxonPanel(containerId, fluid.copy(options));
-        togo = true;
+        togo = inatComponents.initTaxonPanel(container, fluid.copy(options)) ||
+            fluid.unavailable({message: "The iNaturalist panel could not be rendered", variety: "config"});
     } else {
         togo = fluid.unavailable({message: "The inat-components library is not loaded", variety: "config"});
     }
     return togo;
+};
+
+/**
+ * Remove an iNaturalist panel, leaving its container empty.
+ * @param {Object} panel - The panel, as returned by `bioreportr.iNatPanel.bind`
+ */
+bioreportr.iNatPanel.unbind = function (panel) {
+    panel.destroy();
 };
 
 /** Records panels **/
@@ -761,7 +827,7 @@ bioreportr.storyMap.homeCamera = function (mapData, activePaneKey) {
 
 bioreportr.storyPage.noRecordSelected = filterState => !hortis.isValue(filterState);
 
-// The pane last shown by each story page, so that a record selected in it is cleared on moving to another
+// The pane last shown by each story page, so that a record or plant chosen in it is cleared on moving to another
 bioreportr.storyPage.lastPaneKey = new WeakMap();
 
 // The id of a record selected together with a move to another pane, which is kept as the pane changes, e.g. on opening
@@ -774,9 +840,12 @@ bioreportr.storyPage.keepRecord = new WeakMap();
 bioreportr.storyPage.keepTaxon = new WeakSet();
 
 /**
- * Clear the selected record when the story page moves from one pane to another - but not as it first shows a pane,
- * so that a record held in the URL survives the page's loading, nor a record selected together with the move. A move to
- * the curation pane also clears the taxon chosen, unless it was chosen together with the move.
+ * Clear the selected record, and the plant chosen in the checklist, when the story page moves from one pane to another
+ * - but not as it first shows a pane, so that a record or plant held in the URL survives the page's loading, nor a
+ * record or plant chosen together with the move, e.g. by the speech bubble of the curation pane, or a species of the
+ * Community Science pane opening on the atlas - see bioreportr.storyPage.keepTaxon. A plant carried into another pane
+ * may have no records within that pane's selection - e.g. in the History pane's years before it was first recorded, or
+ * in a protected area where it has not been found - leaving the map nothing to show.
  * @param {bioreportr.storyPage} storyPage - The story page
  * @param {String} activePaneKey - The key of the active pane
  */
@@ -793,7 +862,7 @@ bioreportr.storyPage.clearRecordOnPaneChange = function (storyPage, activePaneKe
             }
             const keepTaxon = bioreportr.storyPage.keepTaxon.has(storyPage);
             bioreportr.storyPage.keepTaxon.delete(storyPage);
-            if (!keepTaxon && bioreportr.curation?.paneKey && activePaneKey === bioreportr.curation.paneKey(storyPage.panes)) {
+            if (!keepTaxon) {
                 storyPage.checklist.search.reset();
             }
         });
@@ -812,74 +881,3 @@ bioreportr.storyPane.click = function (storyPage, event) {
 bioreportr.storyMap.untrackSize = function (observer) {
     observer.disconnect();
 };
-
-/** Tooltips on touch screens **/
-
-fluid.registerNamespace("bioreportr.touchTooltips");
-
-/**
- * Put away every tooltip when the screen is touched. A tooltip is shown by hovering, which a touch screen imitates by
- * moving its pointer to whatever is tapped - but a tap on anything which does nothing when tapped sends no movement at
- * all, so a tooltip once shown would never be hidden. Every component showing tooltips, i.e. holding `hoverAt` as
- * hortis.withTooltip does, is cleared as the touch begins; a tap on something with a tooltip shows it again at once,
- * by the movement the browser then sends to it.
- * @param {Window} window - The window holding the story page
- */
-bioreportr.touchTooltips.install = function (window) {
-    if (!window.bioreportrTouchTooltips) {
-        window.bioreportrTouchTooltips = true;
-        window.addEventListener("pointerdown", event => {
-            // Noted for those showing a tooltip on a tap, which may not say how they were pressed - see bioreportr.storyMap.tapTooltip
-            bioreportr.touchTooltips.lastPointerType = event.pointerType;
-            if (event.pointerType === "touch" && !event.target.closest?.(".imerss-tooltip-holder")) {
-                Object.values(fluid.globalInstantiator.pathToComponent).forEach(shadow => {
-                    const that = shadow?.that;
-                    if (that && !shadow.inert && typeof that.hoverAt === "function") {
-                        that.hoverAt(null);
-                    }
-                });
-            }
-        }, true);
-    }
-};
-
-/**
- * Whether the screen was last pressed by touch, or cannot hover at all - when a tooltip shown by hovering is shown
- * instead by a tap.
- * @param {Window} window - The window
- * @return {Boolean} `true` if presses are touches
- */
-bioreportr.touchTooltips.isTouch = window => bioreportr.touchTooltips.lastPointerType === "touch" ||
-    !!window.matchMedia?.("(hover: none)").matches;
-
-// The maps given the listener showing the tooltip of a cell of the grid on a tap
-bioreportr.storyMap.tapBound = new WeakSet();
-
-/**
- * Show the tooltip of a cell of the map's grid when it is tapped, as hovering over it shows it with a mouse - a touch
- * moves no pointer over the map, so that the grid's own listener, to "mousemove", never hears of it. A tap also selects
- * the cell, as a click does. A population of the extirpation risk pane's layer, tapped, shows its own tooltip instead -
- * see bioreportr.solowMapLayer.bindHover.
- * @param {hortis.libreMap.gridSelector} gridSelector - The selector of the map's cells, which shows their tooltips
- * @param {maplibregl.Map} map - The map, once it is ready
- * @param {Window} window - The window holding it
- */
-bioreportr.storyMap.tapTooltip = function (gridSelector, map, window) {
-    if (map && map.on && !bioreportr.storyMap.tapBound.has(map)) {
-        bioreportr.storyMap.tapBound.add(map);
-        map.on("click", e => {
-            const onPopulation = bioreportr.solowMapLayer?.clusterAt && hortis.isValue(bioreportr.solowMapLayer.clusterAt(map, e.point));
-            if (bioreportr.touchTooltips.isTouch(window) && !onPopulation) {
-                const cellId = hortis.libreMap.eventToProp(map, e, "cellId");
-                // Placed by where the cell was tapped, since a touch need not carry the pointer's position
-                const rect = map.getCanvas().getBoundingClientRect();
-                gridSelector.hoverAt(cellId || null, {clientX: rect.left + e.point.x, clientY: rect.top + e.point.y});
-            }
-        });
-    }
-};
-
-// Only in a browser - the page is also rendered ahead of time by the build, see `npm run hydrate`
-if (typeof window !== "undefined" && window.addEventListener) {
-    bioreportr.touchTooltips.install(window);
-}

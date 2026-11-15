@@ -1,2 +1,56 @@
 regionField,id,label
 Island,1,Galiano Island
+ProtectedArea,1,Bellhouse Park
+ProtectedArea,2,Bluffs Park
+ProtectedArea,3,Bodega Ridge Park
+ProtectedArea,4,Collinson Point Park
+ProtectedArea,5,Dionisio Point Park
+ProtectedArea,6,Finlay Lake Nature Reserve
+ProtectedArea,7,Galiano Ecological Learning Centre
+ProtectedArea,8,Galiano Heritage Forest DL 30 & DL 31
+ProtectedArea,9,Galiano Heritage Forest DL 32
+ProtectedArea,10,Galiano Island - Qw'xwulwis - Cable Bay
+ProtectedArea,11,Galiano Island Ecological Reserve
+ProtectedArea,12,Great Beaver Swamp Nature Reserve
+ProtectedArea,13,Laughlin Lake
+ProtectedArea,14,Laughlin Lake Nature Reserve
+ProtectedArea,15,Matthews Point Regional Park
+ProtectedArea,16,Mid-Island Protected Network DL58
+ProtectedArea,17,Montague Harbour Marine Park
+ProtectedArea,18,Mount Galiano Park
+ProtectedArea,19,Mt. Sutil
+ProtectedArea,20,"Mt. Sutil, Galiano Island"
+ProtectedArea,21,Pebble Beach Nature Reserve (DL 63)
+ProtectedArea,22,Quadra Hill Nature Reserve
+ProtectedArea,23,Retreat Island Nature Reserve
+ProtectedArea,24,Talking Trees Nature Reserve
+ProtectedArea,25,Trincomali Nature Sanctuary
+ProtectedArea,1,Provincial park
+ProtectedArea,2,Private conservation land
+ProtectedArea,3,Provincial park
+ProtectedArea,4,Provincial park
+ProtectedArea,5,Provincial park
+ProtectedArea,6,Private conservation land
+ProtectedArea,7,Private conservation land
+ProtectedArea,8,Private conservation land
+ProtectedArea,9,Private conservation land
+ProtectedArea,10,Private conservation land
+ProtectedArea,11,Ecological reserve
+ProtectedArea,12,Private conservation land
+ProtectedArea,13,Private conservation land
+ProtectedArea,14,Private conservation land
+ProtectedArea,15,Regional park
+ProtectedArea,16,Private conservation land
+ProtectedArea,17,Provincial park
+ProtectedArea,18,Private conservation land
+ProtectedArea,19,Private conservation land
+ProtectedArea,20,Private conservation land
+ProtectedArea,21,Private conservation land
+ProtectedArea,22,Private conservation land
+ProtectedArea,23,Private conservation land
+ProtectedArea,24,Private conservation land
+ProtectedArea,25,Private conservation land
+Protected,1,Ecological reserve
+Protected,2,Private conservation land
+Protected,3,Provincial park
+Protected,4,Regional park

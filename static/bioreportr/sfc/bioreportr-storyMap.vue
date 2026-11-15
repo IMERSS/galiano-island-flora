@@ -38,9 +38,7 @@ fluid.def("bioreportr.storyMap", {
     // A summary of a map cell, by the reporting status of its species - see bioreportr.cellTooltip
     gridSelector: {
         $component: {
-            renderTooltip: "$method:bioreportr.cellTooltip.render({libreMap}.obsQuantiser.grid, {vizLoader}.taxa.rowById, {0}:cellId)",
-            // On a touch screen, the summary is shown by tapping a cell - see bioreportr.storyMap.tapTooltip
-            tapTooltip: "$effect:bioreportr.storyMap.tapTooltip({self}, {libreMap}.readyMap, {global})"
+            renderTooltip: "$method:bioreportr.cellTooltip.render({libreMap}.obsQuantiser.grid, {vizLoader}.taxa.rowById, {0}:cellId)"
         }
     },
     showPane: "$effect:bioreportr.storyMap.showPane({self}, {self}.readyMap, {storyPage}.mapData, {storyPage}.activePaneKey)",
@@ -52,7 +50,12 @@ fluid.def("bioreportr.storyMap", {
             noRegion: null
         }
     },
-    highlightRegion: "$effect:bioreportr.storyMap.highlightRegion({self}.readyMap, {storyPage}.selectedRegion)",
+    highlightRegion: "$effect:bioreportr.storyMap.highlightRegion({self}.readyMap, {storyPage}.selectedRegion, {storyPage}.mapData)",
+    // A pane opened from one without a map is placed on its camera once the map has its size - see
+    // bioreportr.storyMap.recentre
+    recentre: "$effect:bioreportr.storyMap.recentre({self}.readyMap, {storyPage}.mapData, {storyPage}.activePane)",
+    // On a phone one finger scrolls the page past the map, and two move the map - see bioreportr.storyMap.phoneGestures
+    phoneGestures: "$effect:bioreportr.storyMap.phoneGestures({self}.readyMap, {global})",
     legendRows: "$compute:bioreportr.storyMap.legendRows({storyPage}.activePane, {storyPage}.regionIndirection.rows, {storyPage}.mapData.style.layers)",
     legendRowsMarkup: "$compute:bioreportr.storyMap.legendMarkup({self}.legendRows, {storyPage}.selectedStatus, {storyPage}.selectedRegion)",
     regionLegend: {

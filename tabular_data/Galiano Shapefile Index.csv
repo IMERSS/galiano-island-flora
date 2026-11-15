@@ -1,2 +1,4 @@
-File,Field,Example value 1,Example value 2,Comment,Label,SortNumeric,NullAs
-Galiano.geojson,Name,Galiano Island,,The island itself - a stand-in until finer regions such as BEC are prepared,Island,,
+File,Field,Example value 1,Example value 2,Comment,Label,SortNumeric,NullAs,GroupField,GroupLabel
+Galiano.geojson,Name,Galiano Island,,The island itself - a stand-in until finer regions such as BEC are prepared,Island,,,,
+KBA/KBA.geojson,name,,,"Published Key Biodiversity Areas, KBA Canada - none as yet on Galiano Island",KBA,,,all,
+Protected_Areas/Protected_Areas.geojson,name,Mt. Sutil,Bodega Ridge Park,"Individual protected and conserved areas, CPCAD",ProtectedArea,,,category,Protected

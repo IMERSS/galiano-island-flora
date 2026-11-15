@@ -548,11 +548,11 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 -544,-48,Yabea,"",genus,,,,,unknown,,,,,,,,,
 -545,-142,Zostera,"",genus,,,,,unknown,,,,,,,,,
 75398,-163,Amaranthus powellii,Powell's amaranth,species,,Amaranthus powellii,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.134,powellii,"","",provisional,1
-77486,-326,Idahoa scapigera,scalepod,species,,Idahoa scapigera,species,non-infrataxon,no_voucher,secure,native,confirmed,0.047,scapigera,"","",provisional,1
+77486,-326,Idahoa scapigera,scalepod,species,,Idahoa scapigera,species,non-infrataxon,no_voucher,secure,native,confirmed,0.048,scapigera,"","",provisional,1
 47602,-508,Taraxacum officinale agg.,common dandelion,species,,Taraxacum officinale agg.,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,officinale,"","",provisional,1
 53089,-442,Pseudognaphalium stramineum,cotton-batting cudweed,species,,Pseudognaphalium stramineum,species,non-infrataxon,no_voucher,unknown,native,confirmed,0,stramineum,"","",provisional,1
-78979,-470,Sanicula graveolens,Sierra sanicle,species,,Sanicula graveolens,species,non-infrataxon,no_voucher,secure,native,unconfirmed,,graveolens,"","",provisional,1
-82740,-340,Lathyrus sylvestris,narrow-leaved everlasting peavine,species,,Lathyrus sylvestris,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,sylvestris,"","",provisional,1
+78979,-470,Sanicula graveolens,Sierra sanicle,species,,Sanicula graveolens,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.143,graveolens,"","",provisional,1
+82740,-340,Lathyrus sylvestris,narrow-leaved everlasting peavine,species,,Lathyrus sylvestris,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.126,sylvestris,"","",provisional,1
 1451052,-454,Rhamphospermum arvense,corn mustard,species,,Rhamphospermum arvense,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,arvense,"","",provisional,1
 79460,-529,Turritis glabra,tower mustard,species,,Turritis glabra,species,non-infrataxon,voucher,secure,native,confirmed,0,glabra,"","",provisional,1
 75494,-178,Arabis eschscholtziana,Eschscholtz's rockcress,species,,Arabis eschscholtziana,species,non-infrataxon,voucher,secure,native,confirmed,0,eschscholtziana,"","",provisional,1
@@ -572,8 +572,8 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 52994,-236,Claytonia perfoliata,miner's-lettuce,species,,Claytonia perfoliata,species,non-infrataxon,voucher,secure,native,confirmed,0,perfoliata,"","",provisional,1
 57724,-213,Calypso bulbosa var. occidentalis,western fairy-slipper,variety,,Calypso bulbosa var. occidentalis,variety,infrataxon,voucher,secure,native,confirmed,0,bulbosa,"",occidentalis,provisional,1
 57524,-252,Crocidium multicaule,gold star,species,,Crocidium multicaule,species,non-infrataxon,voucher,secure,native,confirmed,0.036,multicaule,"","",provisional,1
-58990,-385,Montia fontana,blinks,species,,Montia fontana,species,non-infrataxon,voucher,secure,native,confirmed,0.046,fontana,"","",provisional,1
-204364,-396,Neottia cordata,heart-leaved twayblade,species,,Neottia cordata,species,non-infrataxon,voucher,secure,native,confirmed,0.05,cordata,"","",provisional,1
+58990,-385,Montia fontana,blinks,species,,Montia fontana,species,non-infrataxon,voucher,secure,native,confirmed,0.048,fontana,"","",provisional,1
+204364,-396,Neottia cordata,heart-leaved twayblade,species,,Neottia cordata,species,non-infrataxon,voucher,secure,native,confirmed,0.052,cordata,"","",provisional,1
 78861,-458,Ribes lobbii,gummy gooseberry,species,,Ribes lobbii,species,non-infrataxon,voucher,secure,native,confirmed,0.015,lobbii,"","",provisional,1
 524900,-184,Argentina pacifica,Pacific silverweed,species,,Argentina pacifica,species,non-infrataxon,no_voucher,secure,native,confirmed,0,pacifica,"","",provisional,1
 57163,-205,Bromus sterilis,barren brome,species,,Bromus sterilis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,sterilis,"","",provisional,1
@@ -597,7 +597,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 64297,-205,Bromus carinatus var. carinatus,California brome,variety,,Bromus carinatus var. carinatus,variety,infrataxon,voucher,secure,native,confirmed,0,carinatus,"",carinatus,provisional,1
 57171,-279,Elymus glaucus ssp. glaucus,blue wildrye,subspecies,,Elymus glaucus ssp. glaucus,subspecies,infrataxon,voucher,secure,native,confirmed,0,glaucus,glaucus,"",provisional,1
 60307,-431,Poa pratensis,Kentucky bluegrass,species,,Poa pratensis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,pratensis,"","",provisional,1
-181758,-296,Festuca rubra ssp. pruinosa,rock red fescue,subspecies,,Festuca rubra ssp. pruinosa,subspecies,infrataxon,voucher,secure,native,confirmed,0.045,rubra,pruinosa,"",provisional,1
+181758,-296,Festuca rubra ssp. pruinosa,rock red fescue,subspecies,,Festuca rubra ssp. pruinosa,subspecies,infrataxon,voucher,secure,native,confirmed,0.051,rubra,pruinosa,"",provisional,1
 52812,-431,Poa howellii,Howell's bluegrass,species,,Poa howellii,species,non-infrataxon,voucher,secure,native,unconfirmed,0.434,howellii,"","",provisional,1
 70265,-388,Myosotis discolor,common forget-me-not,species,,Myosotis discolor,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,discolor,"","",provisional,1
 56121,-217,Capsella bursa-pastoris,shepherd's purse,species,,Capsella bursa-pastoris,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.06,bursa-pastoris,"","",provisional,1
@@ -611,7 +611,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 49130,-388,Myosotis scorpioides,European forget-me-not,species,,Myosotis scorpioides,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,scorpioides,"","",provisional,1
 47697,-316,Hesperis matronalis,sweet rocket,species,,Hesperis matronalis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.135,matronalis,"","",provisional,1
 63333,-322,Hordeum murinum ssp. murinum,wall barley,subspecies,,Hordeum murinum ssp. murinum,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0.046,murinum,murinum,"",provisional,1
-237139,-361,Luzula multiflora ssp. multiflora,many-flowered Wood-rush,subspecies,,Luzula multiflora ssp. multiflora,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0.036,multiflora,multiflora,"",provisional,1
+237139,-361,Luzula multiflora ssp. multiflora,many-flowered Wood-rush,subspecies,,Luzula multiflora ssp. multiflora,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0.037,multiflora,multiflora,"",provisional,1
 77567,-331,Juncus dudleyi,Dudley's rush,species,,Juncus dudleyi,species,non-infrataxon,voucher,secure,native,unconfirmed,0.578,dudleyi,"","",provisional,1
 1404861,-345,Leucanthemum vulgare,oxeye daisy,species,,Leucanthemum vulgare,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,vulgare,"","",provisional,1
 79109,-485,Silene latifolia,white cockle,species,,Silene latifolia,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,latifolia,"","",provisional,1
@@ -626,7 +626,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 62213,-241,Comarum palustre,marsh cinquefoil,species,,Comarum palustre,species,non-infrataxon,no_voucher,secure,native,confirmed,0,palustre,"","",provisional,1
 76063,-219,Carex lasiocarpa,slender sedge,species,,Carex lasiocarpa,species,non-infrataxon,voucher,secure,native,confirmed,0.143,lasiocarpa,"","",provisional,1
 205873,-422,Phragmites australis ssp. americanus,American reedgrass,subspecies,,Phragmites australis ssp. americanus,subspecies,infrataxon,no_voucher,secure,native,unconfirmed,0.436,australis,americanus,"",provisional,1
-77553,-331,Juncus bolanderi,Bolander's rush,species,,Juncus bolanderi,species,non-infrataxon,voucher,secure,native,confirmed,0.036,bolanderi,"","",provisional,1
+77553,-331,Juncus bolanderi,Bolander's rush,species,,Juncus bolanderi,species,non-infrataxon,voucher,secure,native,confirmed,0.037,bolanderi,"","",provisional,1
 77549,-331,Juncus acuminatus,tapered rush,species,,Juncus acuminatus,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,acuminatus,"","",provisional,1
 56174,-276,Echium vulgare,viper's bugloss,species,,Echium vulgare,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.075,vulgare,"","",provisional,1
 57053,-147,Acmispon americanus var. americanus,Spanish-clover,variety,,Acmispon americanus var. americanus,variety,infrataxon,no_voucher,secure,native,unconfirmed,0.285,americanus,"",americanus,provisional,1
@@ -634,55 +634,55 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 55730,-497,Spergularia rubra,red sand-spurry,species,,Spergularia rubra,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,rubra,"","",provisional,1
 56861,-505,Symphyotrichum chilense,common California aster,species,,Symphyotrichum chilense,species,non-infrataxon,voucher,secure,native,confirmed,0.054,chilense,"","",provisional,1
 71140,-162,Alopecurus geniculatus,water meadow-foxtail,species,,Alopecurus geniculatus,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.046,geniculatus,"","",provisional,1
-133918,-517,Torilis japonica,upright hedge-parsley,species,,Torilis japonica,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.033,japonica,"","",provisional,1
+133918,-517,Torilis japonica,upright hedge-parsley,species,,Torilis japonica,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.034,japonica,"","",provisional,1
 52996,-240,Collomia heterophylla,vari-leaved collomia,species,,Collomia heterophylla,species,non-infrataxon,voucher,secure,native,confirmed,0,heterophylla,"","",provisional,1
 57108,-331,Juncus effusus ssp. pacificus,Pacific rush,subspecies,,Juncus effusus ssp. pacificus,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,effusus,pacificus,"",provisional,1
 78952,-467,Salix prolixa,Mackenzie willow,species,,Salix prolixa,species,non-infrataxon,no_voucher,secure,native,unconfirmed,,prolixa,"","",provisional,1
-58069,-190,Athysanus pusillus,common sandweed,species,,Athysanus pusillus,species,non-infrataxon,voucher,secure,native,confirmed,0.058,pusillus,"","",provisional,1
+58069,-190,Athysanus pusillus,common sandweed,species,,Athysanus pusillus,species,non-infrataxon,voucher,secure,native,confirmed,0.06,pusillus,"","",provisional,1
 1419558,-277,Eleocharis palustris,common spike-rush,species,,Eleocharis palustris,species,non-infrataxon,voucher,secure,native,confirmed,0.2,palustris,"","",provisional,1
 76036,-219,Carex exsiccata,inflated sedge,species,,Carex exsiccata,species,non-infrataxon,no_voucher,secure,native,confirmed,0,exsiccata,"","",provisional,1
-77901,-361,Luzula subsessilis,short-stalked wood-rush,species,,Luzula subsessilis,species,non-infrataxon,voucher,secure,native,confirmed,0.038,subsessilis,"","",provisional,1
+77901,-361,Luzula subsessilis,short-stalked wood-rush,species,,Luzula subsessilis,species,non-infrataxon,voucher,secure,native,confirmed,0.043,subsessilis,"","",provisional,1
 890625,-361,Luzula macrantha,prairie woodrush,species,,Luzula macrantha,species,non-infrataxon,voucher,secure,native,confirmed,0,macrantha,"","",provisional,1
 52720,-259,Dactylis glomerata,orchard grass,species,,Dactylis glomerata,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,glomerata,"","",provisional,1
 81026,-350,Linnaea borealis ssp. longiflora,longtube twinflower,subspecies,,Linnaea borealis ssp. longiflora,subspecies,infrataxon,voucher,secure,native,confirmed,0,borealis,longiflora,"",provisional,1
-1150845,-461,Rosa rubiginosa,sweetbrier,species,,Rosa rubiginosa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.052,rubiginosa,"","",provisional,1
-67826,-451,Ranunculus flammula,lesser spearwort,species,,Ranunculus flammula,species,non-infrataxon,voucher,secure,native,confirmed,0.055,flammula,"","",provisional,1
+1150845,-461,Rosa rubiginosa,sweetbrier,species,,Rosa rubiginosa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.056,rubiginosa,"","",provisional,1
+67826,-451,Ranunculus flammula,lesser spearwort,species,,Ranunculus flammula,species,non-infrataxon,voucher,secure,native,confirmed,0.056,flammula,"","",provisional,1
 78174,-393,Nasturtium officinale,common watercress,species,,Nasturtium officinale,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.032,officinale,"","",provisional,1
 63898,-451,Ranunculus uncinatus,little buttercup,species,,Ranunculus uncinatus,species,non-infrataxon,voucher,secure,native,confirmed,0,uncinatus,"","",provisional,1
 75915,-205,Bromus vulgaris,Columbia brome,species,,Bromus vulgaris,species,non-infrataxon,voucher,secure,native,confirmed,0,vulgaris,"","",provisional,1
-1538926,-526,Graphephorum cernuum,nodding trisetum,species,,Graphephorum cernuum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.11,cernuum,"","",provisional,1
+1538926,-526,Graphephorum cernuum,nodding trisetum,species,,Graphephorum cernuum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.128,cernuum,"","",provisional,1
 48244,-177,Aquilegia formosa,western columbine,species,,Aquilegia formosa,species,non-infrataxon,voucher,secure,native,confirmed,0.017,formosa,"","",provisional,1
 78817,-451,Ranunculus aquatilis,white water-buttercup,species,,Ranunculus aquatilis,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,aquatilis,"","",provisional,1
 78990,-472,Sceptridium multifidum,leathery grape fern,species,,Sceptridium multifidum,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,multifidum,"","",provisional,1
 49477,-384,Monotropa uniflora,indian-pipe,species,,Monotropa uniflora,species,non-infrataxon,voucher,secure,native,confirmed,0,uniflora,"","",provisional,1
 77552,-331,Juncus articulatus,jointed rush,species,,Juncus articulatus,species,non-infrataxon,voucher,secure,native,confirmed,0,articulatus,"","",provisional,1
 79358,-512,Thlaspi arvense,field pennycress,species,,Thlaspi arvense,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.151,arvense,"","",provisional,1
-57107,-331,Juncus bufonius,toad rush,species,,Juncus bufonius,species,non-infrataxon,voucher,secure,native,confirmed,0.054,bufonius,"","",provisional,1
-78657,-431,Poa trivialis,rough bluegrass,species,,Poa trivialis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.094,trivialis,"","",provisional,1
-78636,-431,Poa compressa,Canada bluegrass,species,,Poa compressa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.049,compressa,"","",provisional,1
+57107,-331,Juncus bufonius,toad rush,species,,Juncus bufonius,species,non-infrataxon,voucher,secure,native,confirmed,0.034,bufonius,"","",provisional,1
+78657,-431,Poa trivialis,rough bluegrass,species,,Poa trivialis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.098,trivialis,"","",provisional,1
+78636,-431,Poa compressa,Canada bluegrass,species,,Poa compressa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.051,compressa,"","",provisional,1
 1091402,-219,Carex kelloggii var. limnophila,Hind's sedge,variety,,Carex kelloggii var. limnophila,variety,infrataxon,voucher,secure,native,unconfirmed,0.328,kelloggii,"",limnophila,provisional,1
-76124,-219,Carex utriculata,beaked sedge,species,,Carex utriculata,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,utriculata,"","",provisional,1
+76124,-219,Carex utriculata,beaked sedge,species,,Carex utriculata,species,non-infrataxon,voucher,secure,native,unconfirmed,0.163,utriculata,"","",provisional,1
 80373,-183,Arenaria serpyllifolia var. serpyllifolia,thyme-leaved sandwort,variety,,Arenaria serpyllifolia var. serpyllifolia,variety,infrataxon,voucher,unknown,exotic,unconfirmed,0.328,serpyllifolia,"",serpyllifolia,provisional,1
 76069,-219,Carex leptalea,bristle-stalked sedge,species,,Carex leptalea,species,non-infrataxon,voucher,secure,native,confirmed,0.049,leptalea,"","",provisional,1
 77569,-331,Juncus ensifolius,dagger-leaf rush,species,,Juncus ensifolius,species,non-infrataxon,voucher,secure,native,confirmed,0.016,ensifolius,"","",provisional,1
-69930,-331,Juncus tenuis,slender rush,species,,Juncus tenuis,species,non-infrataxon,voucher,secure,native,confirmed,0.051,tenuis,"","",provisional,1
+69930,-331,Juncus tenuis,slender rush,species,,Juncus tenuis,species,non-infrataxon,voucher,secure,native,confirmed,0.052,tenuis,"","",provisional,1
 76461,-248,Cotoneaster simonsii,Himalayan cotoneaster,species,,Cotoneaster simonsii,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.046,simonsii,"","",provisional,1
 75319,-154,Agrostis scabra,hair bentgrass,species,,Agrostis scabra,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,scabra,"","",provisional,1
 77287,-310,Glyceria borealis,northern mannagrass,species,,Glyceria borealis,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,borealis,"","",provisional,1
-55667,-465,Sagina procumbens,bird's-eye pearlwort,species,,Sagina procumbens,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.015,procumbens,"","",provisional,1
+55667,-465,Sagina procumbens,bird's-eye pearlwort,species,,Sagina procumbens,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.016,procumbens,"","",provisional,1
 81378,-497,Spergularia canadensis var. occidentalis,Canadian sand-spurry,variety,,Spergularia canadensis var. occidentalis,variety,infrataxon,voucher,secure,native,confirmed,0.048,canadensis,"",occidentalis,provisional,1
 78785,-447,Puccinellia pumila,dwarf alkaligrass,species,,Puccinellia pumila,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,pumila,"","",provisional,1
 78157,-390,Myriophyllum spicatum,Eurasian water-milfoil,species,,Myriophyllum spicatum,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.378,spicatum,"","",provisional,1
 75415,-165,Amelanchier alnifolia,saskatoon,species,,Amelanchier alnifolia,species,non-infrataxon,no_voucher,secure,native,confirmed,0,alnifolia,"","",provisional,1
 77156,-299,Frangula purshiana,cascara,species,,Frangula purshiana,species,non-infrataxon,no_voucher,secure,native,confirmed,0,purshiana,"","",provisional,1
 47687,-288,Erodium cicutarium,common stork's bill,subspecies,,Erodium cicutarium,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0,cicutarium,cicutarium,"",provisional,1
-58088,-514,Thysanocarpus curvipes,sand lacepod,species,,Thysanocarpus curvipes,species,non-infrataxon,voucher,concern,native,confirmed,0.058,curvipes,"","",provisional,1
-77970,-373,Meconella oregana,white meconella,species,,Meconella oregana,species,non-infrataxon,no_voucher,concern,native,confirmed,0.164,oregana,"","",provisional,1
+58088,-514,Thysanocarpus curvipes,sand lacepod,species,,Thysanocarpus curvipes,species,non-infrataxon,voucher,concern,native,confirmed,0.059,curvipes,"","",provisional,1
+77970,-373,Meconella oregana,white meconella,species,,Meconella oregana,species,non-infrataxon,no_voucher,concern,native,confirmed,0.046,oregana,"","",provisional,1
 57032,-283,Equisetum telmateia ssp. braunii,giant horsetail,subspecies,,Equisetum telmateia ssp. braunii,subspecies,infrataxon,voucher,secure,native,confirmed,0,telmateia,braunii,"",provisional,1
-58066,-427,Plagiobothrys tenellus,slender popcornflower,species,,Plagiobothrys tenellus,species,non-infrataxon,voucher,concern,native,unconfirmed,0.434,tenellus,"","",provisional,1
+58066,-427,Plagiobothrys tenellus,slender popcornflower,species,,Plagiobothrys tenellus,species,non-infrataxon,voucher,concern,native,unconfirmed,0.048,tenellus,"","",provisional,1
 52684,-445,Pteridium aquilinum ssp. pubescens,hairy brackenfern,subspecies,,Pteridium aquilinum ssp. pubescens,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,aquilinum,pubescens,"",provisional,1
 71076,-467,Salix scouleriana,Scouler's willow,species,,Salix scouleriana,species,non-infrataxon,no_voucher,secure,native,confirmed,0,scouleriana,"","",provisional,1
-77991,-378,Mentha canadensis,Canada mint,species,,Mentha canadensis,species,non-infrataxon,no_voucher,secure,native,confirmed,0.021,canadensis,"","",provisional,1
+77991,-378,Mentha canadensis,Canada mint,species,,Mentha canadensis,species,non-infrataxon,no_voucher,secure,native,confirmed,0.022,canadensis,"","",provisional,1
 79729,-233,Circaea alpina ssp. pacifica,Pacific enchanter's-nightshade,subspecies,,Circaea alpina ssp. pacifica,subspecies,infrataxon,no_voucher,secure,native,confirmed,0.104,alpina,pacifica,"",provisional,1
 52627,-501,Stachys chamissonis var. cooleyae,Cooley's hedge-nettle,variety,,Stachys chamissonis var. cooleyae,variety,infrataxon,no_voucher,secure,native,confirmed,0,chamissonis,"",cooleyae,provisional,1
 61100,-467,Salix sitchensis,Sitka willow,species,,Salix sitchensis,species,non-infrataxon,no_voucher,secure,native,confirmed,0,sitchensis,"","",provisional,1
@@ -690,26 +690,26 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 128204,-220,Castilleja hispida,harsh indian paintbrush,species,,Castilleja hispida,species,non-infrataxon,voucher,secure,native,confirmed,0,hispida,"","",provisional,1
 53910,-283,Equisetum hyemale ssp. affine,scouring-rush,subspecies,,Equisetum hyemale ssp. affine,subspecies,infrataxon,voucher,secure,native,confirmed,0.017,hyemale,affine,"",provisional,1
 61058,-155,Aira praecox,early hairgrass,species,,Aira praecox,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,praecox,"","",provisional,1
-57198,-431,Poa secunda,Sandberg's Bluegrass,species,,Poa secunda,species,non-infrataxon,voucher,secure,native,confirmed,0.051,secunda,"","",provisional,1
+57198,-431,Poa secunda,Sandberg's Bluegrass,species,,Poa secunda,species,non-infrataxon,voucher,secure,native,confirmed,0.034,secunda,"","",provisional,1
 153479,-264,Delphinium menziesii,Menzies' larkspur,species,,Delphinium menziesii,species,non-infrataxon,voucher,secure,native,confirmed,0,menziesii,"","",provisional,1
-60201,-522,Trifolium subterraneum,subterranean clover,species,,Trifolium subterraneum,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.017,subterraneum,"","",provisional,1
+60201,-522,Trifolium subterraneum,subterranean clover,species,,Trifolium subterraneum,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.018,subterraneum,"","",provisional,1
 79971,-343,Lepidium virginicum ssp. menziesii,Menzies' pepperweed,subspecies,,Lepidium virginicum ssp. menziesii,subspecies,infrataxon,voucher,secure,native,confirmed,0.034,virginicum,menziesii,"",provisional,1
 61179,-522,Trifolium dichotomum,Macrae's clover,species,,Trifolium dichotomum,species,non-infrataxon,no_voucher,concern,native,confirmed,0.048,dichotomum,"","",provisional,1
 57000,-465,Sagina decumbens ssp. occidentalis,western pearlwort,subspecies,,Sagina decumbens ssp. occidentalis,subspecies,infrataxon,voucher,secure,native,confirmed,0.034,decumbens,occidentalis,"",provisional,1
 61010,-360,Lupinus arboreus,tree lupine,species,,Lupinus arboreus,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.517,arboreus,"","",provisional,1
 57126,-204,Brodiaea coronaria,harvest brodiaea,species,,Brodiaea coronaria,species,non-infrataxon,voucher,secure,native,confirmed,0,coronaria,"","",provisional,1
-79576,-172,Anthoxanthum aristatum ssp. aristatum,annual vernalgrass,subspecies,,Anthoxanthum aristatum ssp. aristatum,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0.056,aristatum,aristatum,"",provisional,1
+79576,-172,Anthoxanthum aristatum ssp. aristatum,annual vernalgrass,subspecies,,Anthoxanthum aristatum ssp. aristatum,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0.058,aristatum,aristatum,"",provisional,1
 52976,-195,Barbarea orthoceras,American wintercress,species,,Barbarea orthoceras,species,non-infrataxon,voucher,secure,native,confirmed,0.016,orthoceras,"","",provisional,1
-75912,-205,Bromus sitchensis,Alaska brome,species,,Bromus sitchensis,species,non-infrataxon,voucher,secure,native,confirmed,0.054,sitchensis,"","",provisional,1
+75912,-205,Bromus sitchensis,Alaska brome,species,,Bromus sitchensis,species,non-infrataxon,voucher,secure,native,confirmed,0.055,sitchensis,"","",provisional,1
 79169,-497,Spergularia marina,saltmarsh sand spurry,species,,Spergularia marina,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.051,marina,"","",provisional,1
 57076,-522,Trifolium campestre,low hop-clover,species,,Trifolium campestre,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.102,campestre,"","",provisional,1
 840638,-429,Platanthera unalascensis,Alaska rein orchid,species,,Platanthera unalascensis,species,non-infrataxon,voucher,secure,native,confirmed,0.033,unalascensis,"","",provisional,1
 77068,-289,Erysimum cheiranthoides,wormseed mustard,species,,Erysimum cheiranthoides,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.328,cheiranthoides,"","",provisional,1
-59088,-154,Agrostis exarata,spike bentgrass,species,,Agrostis exarata,species,non-infrataxon,voucher,secure,native,confirmed,0.083,exarata,"","",provisional,1
+59088,-154,Agrostis exarata,spike bentgrass,species,,Agrostis exarata,species,non-infrataxon,voucher,secure,native,confirmed,0.09,exarata,"","",provisional,1
 76028,-219,Carex cusickii,Cusick's sedge,species,,Carex cusickii,species,non-infrataxon,voucher,secure,native,confirmed,0.112,cusickii,"","",provisional,1
 57165,-260,Danthonia californica,California oatgrass,species,,Danthonia californica,species,non-infrataxon,voucher,secure,native,confirmed,0,californica,"","",provisional,1
 1247945,-506,Symphytum officinale,hybrid comfrey,species,,Symphytum officinale,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,officinale,"","",provisional,1
-75312,-154,Agrostis capillaris,colonial bentgrass,species,,Agrostis capillaris,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.035,capillaris,"","",provisional,1
+75312,-154,Agrostis capillaris,colonial bentgrass,species,,Agrostis capillaris,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.036,capillaris,"","",provisional,1
 71141,-162,Alopecurus pratensis,meadow-foxtail,species,,Alopecurus pratensis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.046,pratensis,"","",provisional,1
 57156,-193,Avena sativa,common oat,species,,Avena sativa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.046,sativa,"","",provisional,1
 239373,-186,Arrhenatherum elatius ssp. elatius,tall oatgrass,subspecies,,Arrhenatherum elatius ssp. elatius,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0,elatius,elatius,"",provisional,1
@@ -717,7 +717,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 54663,-315,Hemitomes congestum,gnome-plant,species,,Hemitomes congestum,species,non-infrataxon,voucher,secure,native,unconfirmed,0.517,congestum,"","",provisional,1
 49870,-148,Actaea rubra,baneberry,species,,Actaea rubra,species,non-infrataxon,voucher,secure,native,unconfirmed,0.328,rubra,"","",provisional,1
 60287,-322,Hordeum jubatum,foxtail barley,species,,Hordeum jubatum,species,non-infrataxon,voucher,secure,native,unconfirmed,0.517,jubatum,"","",provisional,1
-77693,-344,Leptosiphon minimus,bicoloured linanthus,species,,Leptosiphon minimus,species,non-infrataxon,voucher,secure,native,confirmed,0.122,minimus,"","",provisional,1
+77693,-344,Leptosiphon minimus,bicoloured linanthus,species,,Leptosiphon minimus,species,non-infrataxon,voucher,secure,native,confirmed,0.128,minimus,"","",provisional,1
 61210,-381,Microsteris gracilis,pink twink,species,,Microsteris gracilis,species,non-infrataxon,voucher,secure,native,confirmed,0.055,gracilis,"","",provisional,1
 78832,-451,Ranunculus sardous,hairy buttercup,species,,Ranunculus sardous,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.054,sardous,"","",provisional,1
 62481,-160,Allotropa virgata,candystick,species,,Allotropa virgata,species,non-infrataxon,voucher,secure,native,confirmed,0,virgata,"","",provisional,1
@@ -726,14 +726,13 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 64157,-460,Rorippa palustris ssp. palustris,marsh yellowcress,subspecies,,Rorippa palustris ssp. palustris,subspecies,infrataxon,voucher,secure,native,unconfirmed,0.328,palustris,palustris,"",provisional,1
 56996,-487,Sisymbrium altissimum,tall tumble-mustard,species,,Sisymbrium altissimum,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.328,altissimum,"","",provisional,1
 57016,-249,Crassula connata,erect pigmyweed,species,,Crassula connata,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.285,connata,"","",provisional,1
-57276,-525,Triphysaria pusilla,dwarf owl-clover,species,,Triphysaria pusilla,species,non-infrataxon,voucher,secure,native,confirmed,0.054,pusilla,"","",provisional,1
+57276,-525,Triphysaria pusilla,dwarf owl-clover,species,,Triphysaria pusilla,species,non-infrataxon,voucher,secure,native,confirmed,0.055,pusilla,"","",provisional,1
 57007,-502,Stellaria nitens,shining starwort,species,,Stellaria nitens,species,non-infrataxon,voucher,secure,native,confirmed,0.087,nitens,"","",provisional,1
 78119,-385,Montia dichotoma,dwarf montia,species,,Montia dichotoma,species,non-infrataxon,voucher,secure,native,confirmed,0.052,dichotoma,"","",provisional,1
-57080,-522,Trifolium variegatum,white-tipped clover,species,,Trifolium variegatum,species,non-infrataxon,voucher,secure,native,confirmed,0.057,variegatum,"","",provisional,1
+57080,-522,Trifolium variegatum,white-tipped clover,species,,Trifolium variegatum,species,non-infrataxon,voucher,secure,native,confirmed,0.058,variegatum,"","",provisional,1
 866483,-158,Alchemilla occidentalis,western parsley-piert,species,,Alchemilla occidentalis,species,non-infrataxon,voucher,secure,native,confirmed,0,occidentalis,"","",provisional,1
-866483,-158,Alchemilla occidentalis,western parsley-piert,species,,Alchemilla arvensis,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.285,arvensis,"","",provisional,1
 55436,-166,Amsinckia menziesii,small-flowered fiddleneck,species,,Amsinckia menziesii,species,non-infrataxon,voucher,secure,native,confirmed,0.069,menziesii,"","",provisional,1
-78649,-431,Poa nemoralis,Woods bluegrass,species,,Poa nemoralis,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.486,nemoralis,"","",provisional,1
+78649,-431,Poa nemoralis,Woods bluegrass,species,,Poa nemoralis,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.358,nemoralis,"","",provisional,1
 550711,-439,Primula pauciflora var. pauciflora,pretty shootingstar,variety,,Primula pauciflora var. pauciflora,variety,infrataxon,voucher,secure,native,unconfirmed,0.328,pauciflora,"",pauciflora,provisional,1
 47359,-176,Apocynum androsaemifolium,spreading dogbane,species,,Apocynum androsaemifolium,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,androsaemifolium,"","",provisional,1
 52614,-545,Zostera marina,common eel-grass,species,,Zostera marina,species,non-infrataxon,no_voucher,secure,native,confirmed,0,marina,"","",provisional,1
@@ -752,7 +751,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 77986,-375,Melica subulata,Alaska oniongrass,species,,Melica subulata,species,non-infrataxon,voucher,secure,native,confirmed,0,subulata,"","",provisional,1
 53050,-281,Epilobium ciliatum,Purple-leaved Willowherb,species,,Epilobium ciliatum,species,non-infrataxon,voucher,secure,native,confirmed,0,ciliatum,"","",provisional,1
 52993,-234,Cirsium brevistylum,short-styled thistle,species,,Cirsium brevistylum,species,non-infrataxon,voucher,secure,native,confirmed,0,brevistylum,"","",provisional,1
-52722,-265,Deschampsia elongata,slender hairgrass,species,,Deschampsia elongata,species,non-infrataxon,voucher,secure,native,confirmed,0.08,elongata,"","",provisional,1
+52722,-265,Deschampsia elongata,slender hairgrass,species,,Deschampsia elongata,species,non-infrataxon,voucher,secure,native,confirmed,0.087,elongata,"","",provisional,1
 63875,-479,Selaginella wallacei,Wallace's selaginella,species,,Selaginella wallacei,species,non-infrataxon,voucher,secure,native,confirmed,0,wallacei,"","",provisional,1
 57353,-395,Nemophila parviflora,small-flowered woodland-lover,species,,Nemophila parviflora,species,non-infrataxon,voucher,secure,native,confirmed,0,parviflora,"","",provisional,1
 53137,-170,Anisocarpus madioides,woodland tarweed,species,,Anisocarpus madioides,species,non-infrataxon,voucher,secure,native,confirmed,0,madioides,"","",provisional,1
@@ -760,8 +759,8 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 47691,-484,Sherardia arvensis,field madder,species,,Sherardia arvensis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.08,arvensis,"","",provisional,1
 132710,-301,Fumaria reuteri,few-flowered fumitory,species,,Fumaria reuteri,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.045,reuteri,"","",provisional,1
 58185,-418,Phacelia tanacetifolia,lacy phacelia,species,,Phacelia tanacetifolia,species,non-infrataxon,voucher,unknown,native,unconfirmed,0.456,tanacetifolia,"","",provisional,1
-78122,-385,Montia linearis,narrow-leaved montia,species,,Montia linearis,species,non-infrataxon,voucher,secure,native,confirmed,0.033,linearis,"","",provisional,1
-56859,-153,Agoseris heterophylla ssp. heterophylla,annual agoseris,subspecies,,Agoseris heterophylla ssp. heterophylla,subspecies,infrataxon,voucher,secure,native,confirmed,0.032,heterophylla,heterophylla,"",provisional,1
+78122,-385,Montia linearis,narrow-leaved montia,species,,Montia linearis,species,non-infrataxon,voucher,secure,native,confirmed,0.034,linearis,"","",provisional,1
+56859,-153,Agoseris heterophylla ssp. heterophylla,annual agoseris,subspecies,,Agoseris heterophylla ssp. heterophylla,subspecies,infrataxon,voucher,secure,native,confirmed,0.033,heterophylla,heterophylla,"",provisional,1
 79072,-483,Shepherdia canadensis,soopolallie,species,,Shepherdia canadensis,species,non-infrataxon,voucher,secure,native,confirmed,0,canadensis,"","",provisional,1
 55563,-197,Bellis perennis,English daisy,species,,Bellis perennis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,perennis,"","",provisional,1
 78891,-462,Rubus laciniatus,cutleaf evergreen blackberry,species,,Rubus laciniatus,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,laciniatus,"","",provisional,1
@@ -772,17 +771,17 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 61432,-441,Prunus laurocerasus,cherry-laurel,species,,Prunus laurocerasus,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,laurocerasus,"","",provisional,1
 55845,-542,Viola odorata,sweet violet,species,,Viola odorata,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.061,odorata,"","",provisional,1
 47543,-462,Rubus spectabilis,salmonberry,species,,Rubus spectabilis,species,non-infrataxon,voucher,secure,native,confirmed,0,spectabilis,"","",provisional,1
-78434,-413,Perideridia gairdneri,common yampah,species,,Perideridia gairdneri,species,non-infrataxon,voucher,secure,native,confirmed,0.056,gairdneri,"","",provisional,1
+78434,-413,Perideridia gairdneri,common yampah,species,,Perideridia gairdneri,species,non-infrataxon,voucher,secure,native,confirmed,0.058,gairdneri,"","",provisional,1
 170140,-537,Verbascum phlomoides,woolly mullein,species,,Verbascum phlomoides,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.016,phlomoides,"","",provisional,1
 56840,-470,Sanicula bipinnatifida,purple sanicle,species,,Sanicula bipinnatifida,species,non-infrataxon,no_voucher,concern,native,unconfirmed,,bipinnatifida,"","",provisional,1
 545973,-290,Erythranthe nasuta,little yellow monkey-flower,species,,Erythranthe nasuta,species,non-infrataxon,voucher,secure,native,confirmed,0.039,nasuta,"","",provisional,1
 57183,-334,Koeleria macrantha,junegrass,species,,Koeleria macrantha,species,non-infrataxon,voucher,secure,native,confirmed,0,macrantha,"","",provisional,1
-81358,-467,Salix lasiandra var. lasiandra,Pacific willow,variety,,Salix lasiandra var. lasiandra,variety,infrataxon,no_voucher,secure,native,confirmed,0.016,lasiandra,"",lasiandra,provisional,1
+81358,-467,Salix lasiandra var. lasiandra,Pacific willow,variety,,Salix lasiandra var. lasiandra,variety,infrataxon,no_voucher,secure,native,confirmed,0.017,lasiandra,"",lasiandra,provisional,1
 76197,-221,Ceanothus sanguineus,redstem ceanothus,species,,Ceanothus sanguineus,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,sanguineus,"","",provisional,1
 160354,-226,Ceratophyllum echinatum,spring hornwort,species,,Ceratophyllum echinatum,species,non-infrataxon,voucher,secure,native,confirmed,0.087,echinatum,"","",provisional,1
 116364,-159,Allium cernuum,nodding onion,species,,Allium cernuum,species,non-infrataxon,voucher,secure,native,confirmed,0,cernuum,"","",provisional,1
 49341,-220,Castilleja attenuata,narrow-leaved paintbrush,species,,Castilleja attenuata,species,non-infrataxon,voucher,secure,native,confirmed,0.017,attenuata,"","",provisional,1
-58755,-257,Cystopteris fragilis,fragile fern,species,,Cystopteris fragilis,species,non-infrataxon,voucher,secure,native,confirmed,0.033,fragilis,"","",provisional,1
+58755,-257,Cystopteris fragilis,fragile fern,species,,Cystopteris fragilis,species,non-infrataxon,voucher,secure,native,confirmed,0.034,fragilis,"","",provisional,1
 63910,-443,Pseudotsuga menziesii var. menziesii,coast Douglas-fir,variety,,Pseudotsuga menziesii var. menziesii,variety,infrataxon,no_voucher,secure,native,confirmed,0,menziesii,"",menziesii,provisional,1
 56034,-161,Alnus rubra,red alder,species,,Alnus rubra,species,non-infrataxon,no_voucher,secure,native,confirmed,0,rubra,"","",provisional,1
 48252,-513,Thuja plicata,western redcedar,species,,Thuja plicata,species,non-infrataxon,no_voucher,secure,native,confirmed,0,plicata,"","",provisional,1
@@ -794,7 +793,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 61002,-189,Athyrium filix-femina ssp. cyclosorum,western lady fern,subspecies,,Athyrium filix-femina ssp. cyclosorum,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,filix-femina,cyclosorum,"",provisional,1
 61000,-219,Carex obnupta,slough sedge,species,,Carex obnupta,species,non-infrataxon,no_voucher,secure,native,confirmed,0,obnupta,"","",provisional,1
 59068,-475,Scirpus microcarpus,small-flowered bulrush,species,,Scirpus microcarpus,species,non-infrataxon,no_voucher,secure,native,confirmed,0,microcarpus,"","",provisional,1
-61112,-538,Veronica scutellata,marsh speedwell,species,,Veronica scutellata,species,non-infrataxon,no_voucher,secure,native,confirmed,0.05,scutellata,"","",provisional,1
+61112,-538,Veronica scutellata,marsh speedwell,species,,Veronica scutellata,species,non-infrataxon,no_voucher,secure,native,confirmed,0.051,scutellata,"","",provisional,1
 243048,-498,Spiraea douglasii var. douglasii,hardhack,variety,,Spiraea douglasii var. douglasii,variety,infrataxon,no_voucher,secure,native,confirmed,0,douglasii,"",douglasii,provisional,1
 78234,-397,Nuphar polysepala,western yellow pond-lily,species,,Nuphar polysepala,species,non-infrataxon,no_voucher,secure,native,confirmed,0,polysepala,"","",provisional,1
 180413,-456,Rhododendron groenlandicum,Labrador-tea,species,,Rhododendron groenlandicum,species,non-infrataxon,voucher,secure,native,confirmed,0.077,groenlandicum,"","",provisional,1
@@ -803,19 +802,19 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 52658,-271,Drosera rotundifolia,round-leaved sundew,species,,Drosera rotundifolia,species,non-infrataxon,voucher,secure,native,confirmed,0.04,rotundifolia,"","",provisional,1
 79675,-219,Carex echinata ssp. echinata,star sedge,subspecies,,Carex echinata ssp. echinata,subspecies,infrataxon,no_voucher,secure,native,confirmed,0.116,echinata,echinata,"",provisional,1
 162678,-286,Eriophorum chamissonis,Chamisso's cotton-grass,species,,Eriophorum chamissonis,species,non-infrataxon,no_voucher,secure,native,confirmed,0.034,chamissonis,"","",provisional,1
-76338,-231,Cicuta douglasii,Douglas' water-hemlock,species,,Cicuta douglasii,species,non-infrataxon,no_voucher,secure,native,confirmed,0.058,douglasii,"","",provisional,1
+76338,-231,Cicuta douglasii,Douglas' water-hemlock,species,,Cicuta douglasii,species,non-infrataxon,no_voucher,secure,native,confirmed,0.066,douglasii,"","",provisional,1
 1035494,-333,Kalmia microphylla var. occidentalis,western bog-laurel,variety,,Kalmia microphylla var. occidentalis,variety,infrataxon,no_voucher,secure,native,confirmed,0.038,microphylla,"",occidentalis,provisional,1
 716948,-365,Lysimachia europaea ssp. arctica,Arctic starflower,subspecies,,Lysimachia europaea ssp. arctica,subspecies,infrataxon,voucher,secure,native,confirmed,0.038,europaea,arctica,"",provisional,1
-77917,-365,Lysimachia thyrsiflora,tufted loosestrife,species,,Lysimachia thyrsiflora,species,non-infrataxon,no_voucher,secure,native,confirmed,0.034,thyrsiflora,"","",provisional,1
+77917,-365,Lysimachia thyrsiflora,tufted loosestrife,species,,Lysimachia thyrsiflora,species,non-infrataxon,no_voucher,secure,native,confirmed,0.035,thyrsiflora,"","",provisional,1
 77655,-341,Lemna trisulca,ivy-leaved duckweed,species,,Lemna trisulca,species,non-infrataxon,no_voucher,secure,native,confirmed,0.143,trisulca,"","",provisional,1
 62575,-495,Sparganium emersum,emersed bur-reed,species,,Sparganium emersum,species,non-infrataxon,no_voucher,secure,native,confirmed,0,emersum,"","",provisional,1
 77216,-304,Galium trifidum,small bedstraw,species,,Galium trifidum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.018,trifidum,"","",provisional,1
 77915,-363,Lycopus uniflorus,northern water horehound,species,,Lycopus uniflorus,species,non-infrataxon,no_voucher,secure,native,confirmed,0.187,uniflorus,"","",provisional,1
 1392347,-542,Viola minuscula,small white violet,species,,Viola minuscula,species,non-infrataxon,no_voucher,secure,native,confirmed,0.116,minuscula,"","",provisional,1
-80511,-219,Carex aquatilis var. dives,Sitka sedge,variety,,Carex aquatilis var. dives,variety,infrataxon,no_voucher,secure,native,confirmed,0.052,aquatilis,"",dives,provisional,1
+80511,-219,Carex aquatilis var. dives,Sitka sedge,variety,,Carex aquatilis var. dives,variety,infrataxon,no_voucher,secure,native,confirmed,0.062,aquatilis,"",dives,provisional,1
 60221,-358,Ludwigia palustris,water-purslane,species,,Ludwigia palustris,species,non-infrataxon,no_voucher,secure,native,confirmed,0.134,palustris,"","",provisional,1
 78450,-414,Persicaria amphibia,water smartweed,species,,Persicaria amphibia,species,non-infrataxon,no_voucher,secure,native,confirmed,0,amphibia,"","",provisional,1
-59076,-341,Lemna minuta,least duckweed,species,,Lemna minuta,species,non-infrataxon,no_voucher,concern,unknown,confirmed,0.097,minuta,"","",provisional,1
+59076,-341,Lemna minuta,least duckweed,species,,Lemna minuta,species,non-infrataxon,no_voucher,concern,unknown,confirmed,0.105,minuta,"","",provisional,1
 75314,-154,Agrostis gigantea,redtop,species,,Agrostis gigantea,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,gigantea,"","",provisional,1
 57862,-457,Rhynchospora alba,white beak-rush,species,,Rhynchospora alba,species,non-infrataxon,no_voucher,secure,native,confirmed,0.08,alba,"","",provisional,1
 78712,-437,Potamogeton natans,floating-leaved pondweed,species,,Potamogeton natans,species,non-infrataxon,no_voucher,secure,native,confirmed,0,natans,"","",provisional,1
@@ -862,7 +861,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 54840,-436,Populus tremuloides,trembling aspen,species,,Populus tremuloides,species,non-infrataxon,voucher,secure,native,confirmed,0.095,tremuloides,"","",provisional,1
 63960,-462,Rubus leucodermis,black raspberry,species,,Rubus leucodermis,species,non-infrataxon,no_voucher,secure,native,confirmed,0,leucodermis,"","",provisional,1
 48354,-535,Vaccinium parvifolium,red huckleberry,species,,Vaccinium parvifolium,species,non-infrataxon,no_voucher,secure,native,confirmed,0,parvifolium,"","",provisional,1
-68470,-470,Sanicula crassicaulis var. crassicaulis,Pacific sanicle,variety,,Sanicula crassicaulis var. crassicaulis,variety,infrataxon,no_voucher,secure,native,confirmed,0.571,crassicaulis,"",crassicaulis,provisional,1
+68470,-470,Sanicula crassicaulis var. crassicaulis,Pacific sanicle,variety,,Sanicula crassicaulis var. crassicaulis,variety,infrataxon,no_voucher,secure,native,confirmed,0.071,crassicaulis,"",crassicaulis,provisional,1
 53856,-327,Ilex aquifolium,English holly,species,,Ilex aquifolium,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,aquifolium,"","",provisional,1
 52989,-234,Cirsium vulgare,bull thistle,species,,Cirsium vulgare,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,vulgare,"","",provisional,1
 126887,-198,Berberis aquifolium,tall Oregon-grape,species,,Berberis aquifolium,species,non-infrataxon,no_voucher,secure,native,confirmed,0,aquifolium,"","",provisional,1
@@ -877,7 +876,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 53435,-458,Ribes sanguineum,red-flowering currant,species,,Ribes sanguineum,species,non-infrataxon,no_voucher,secure,native,confirmed,0,sanguineum,"","",provisional,1
 1087592,-502,Stellaria media,common chickweed,species,,Stellaria media,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,media,"","",provisional,1
 53203,-238,Clinopodium douglasii,yerba buena,species,,Clinopodium douglasii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,douglasii,"","",provisional,1
-71122,-522,Trifolium oliganthum,few-flowered clover,species,,Trifolium oliganthum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,oliganthum,"","",provisional,1
+71122,-522,Trifolium oliganthum,few-flowered clover,species,,Trifolium oliganthum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.047,oliganthum,"","",provisional,1
 1403902,-304,Galium aparine,cleavers,species,,Galium aparine,species,non-infrataxon,no_voucher,secure,native,confirmed,0,aparine,"","",provisional,1
 51655,-511,Tellima grandiflora,fringecup,species,,Tellima grandiflora,species,non-infrataxon,no_voucher,secure,native,confirmed,0,grandiflora,"","",provisional,1
 56726,-263,Daucus pusillus,American wild carrot,species,,Daucus pusillus,species,non-infrataxon,voucher,secure,native,confirmed,0,pusillus,"","",provisional,1
@@ -886,7 +885,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 236055,-298,Fragaria vesca ssp. bracteata,wood strawberry,subspecies,,Fragaria vesca ssp. bracteata,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,vesca,bracteata,"",provisional,1
 55749,-538,Veronica serpyllifolia,thyme-leaved speedwell,species,,Veronica serpyllifolia,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,serpyllifolia,"","",provisional,1
 76342,-233,Circaea alpina ssp. alpina,enchanter’s nightshade,species,,Circaea alpina ssp. alpina,species,non-infrataxon,no_voucher,secure,native,confirmed,0,alpina,"","",provisional,1
-51649,-515,Tiarella trifoliata var. trifoliata,three-leaved foamflower,variety,,Tiarella trifoliata var. trifoliata,variety,infrataxon,no_voucher,secure,native,confirmed,0.128,trifoliata,"",trifoliata,provisional,1
+51649,-515,Tiarella trifoliata var. trifoliata,three-leaved foamflower,variety,,Tiarella trifoliata var. trifoliata,variety,infrataxon,no_voucher,secure,native,confirmed,0.034,trifoliata,"",trifoliata,provisional,1
 77266,-308,Geum macrophyllum,large-leaved avens,species,,Geum macrophyllum,species,non-infrataxon,no_voucher,secure,native,confirmed,0,macrophyllum,"","",provisional,1
 78123,-385,Montia parvifolia,small-leaved montia,species,,Montia parvifolia,species,non-infrataxon,no_voucher,secure,native,confirmed,0,parvifolia,"","",provisional,1
 57048,-147,Acmispon parviflorus,small-flowered birds-foot trefoil,species,,Acmispon parviflorus,species,non-infrataxon,no_voucher,secure,native,confirmed,0,parviflorus,"","",provisional,1
@@ -908,7 +907,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 53104,-325,Hypochaeris radicata,hairy cat's-ear,species,,Hypochaeris radicata,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,radicata,"","",provisional,1
 47435,-357,Lotus corniculatus,bird's-foot trefoil,species,,Lotus corniculatus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.018,corniculatus,"","",provisional,1
 51875,-522,Trifolium pratense,red clover,species,,Trifolium pratense,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,pratense,"","",provisional,1
-564969,-227,Chamaenerion angustifolium,fireweed,species,,Chamaenerion angustifolium,species,non-infrataxon,no_voucher,secure,native,confirmed,0.042,angustifolium,"","",provisional,1
+564969,-227,Chamaenerion angustifolium,fireweed,species,,Chamaenerion angustifolium,species,non-infrataxon,no_voucher,secure,native,confirmed,0.044,angustifolium,"","",provisional,1
 77832,-356,Lonicera ciliosa,western trumpet,species,,Lonicera ciliosa,species,non-infrataxon,no_voucher,secure,native,confirmed,0,ciliosa,"","",provisional,1
 53307,-225,Cerastium fontanum,mouse-ear chickweed,species,,Cerastium fontanum,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,fontanum,"","",provisional,1
 60132,-234,Cirsium arvense,Canada thistle,species,,Cirsium arvense,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,arvense,"","",provisional,1
@@ -923,7 +922,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 63371,-463,Rumex obtusifolius,bitter dock,species,,Rumex obtusifolius,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,obtusifolius,"","",provisional,1
 59029,-537,Verbascum thapsus,great mullein,species,,Verbascum thapsus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,thapsus,"","",provisional,1
 51344,-317,Heuchera micrantha var. diversifolia,small-flowered alumroot,variety,,Heuchera micrantha var. diversifolia,variety,infrataxon,no_voucher,secure,native,confirmed,0,micrantha,"",diversifolia,provisional,1
-59253,-430,Plectritis congesta ssp. congesta,sea blush,subspecies,,Plectritis congesta ssp. congesta,subspecies,infrataxon,voucher,secure,native,confirmed,0.288,congesta,congesta,"",provisional,1
+59253,-430,Plectritis congesta ssp. congesta,sea blush,subspecies,,Plectritis congesta ssp. congesta,subspecies,infrataxon,voucher,secure,native,confirmed,0.428,congesta,congesta,"",provisional,1
 48525,-504,Symphoricarpos albus var. laevigatus,garden snowberry,variety,,Symphoricarpos albus var. laevigatus,variety,infrataxon,no_voucher,secure,native,confirmed,0,albus,"",laevigatus,provisional,1
 78699,-436,Populus trichocarpa,black cottonwood,species,,Populus trichocarpa,species,non-infrataxon,no_voucher,secure,native,confirmed,0,trichocarpa,"","",provisional,1
 489239,-209,Calandrinia menziesii,redmaids,species,,Calandrinia menziesii,species,non-infrataxon,no_voucher,concern,native,confirmed,0,menziesii,"","",provisional,1
@@ -936,7 +935,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 76048,-219,Carex hendersonii,Henderson's sedge,species,,Carex hendersonii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,hendersonii,"","",provisional,1
 51646,-462,Rubus parviflorus,thimbleberry,species,,Rubus parviflorus,species,non-infrataxon,no_voucher,secure,native,confirmed,0,parviflorus,"","",provisional,1
 60264,-523,Triglochin maritima,seaside arrow-grass,species,,Triglochin maritima,species,non-infrataxon,no_voucher,secure,native,confirmed,0.052,maritima,"","",provisional,1
-53211,-481,Senecio vulgaris,common groundsel,species,,Senecio vulgaris,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.123,vulgaris,"","",provisional,1
+53211,-481,Senecio vulgaris,common groundsel,species,,Senecio vulgaris,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.128,vulgaris,"","",provisional,1
 54141,-521,Tragopogon porrifolius,common salsify,species,,Tragopogon porrifolius,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,porrifolius,"","",provisional,1
 241251,-340,Lathyrus nevadensis var. pilosellus,purple peavine,variety,,Lathyrus nevadensis var. pilosellus,variety,infrataxon,no_voucher,secure,native,confirmed,0,nevadensis,"",pilosellus,provisional,1
 53320,-540,Vicia americana,American vetch,species,,Vicia americana,species,non-infrataxon,no_voucher,secure,native,confirmed,0,americana,"","",provisional,1
@@ -963,7 +962,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 58372,-269,Distichlis spicata,alkali saltgrass,species,,Distichlis spicata,species,non-infrataxon,voucher,secure,native,confirmed,0.017,spicata,"","",provisional,1
 61834,-322,Hordeum brachyantherum ssp. brachyantherum,meadow barley,subspecies,,Hordeum brachyantherum ssp. brachyantherum,subspecies,infrataxon,voucher,secure,native,confirmed,0.052,brachyantherum,brachyantherum,"",provisional,1
 75701,-191,Atriplex dioica,common orache,species,,Atriplex dioica,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.047,dioica,"","",provisional,1
-80219,-493,Sonchus arvensis ssp. arvensis,perennial sow thistle,subspecies,,Sonchus arvensis ssp. arvensis,subspecies,infrataxon,no_voucher,unknown,exotic,confirmed,0.086,arvensis,arvensis,"",provisional,1
+80219,-493,Sonchus arvensis ssp. arvensis,perennial sow thistle,subspecies,,Sonchus arvensis ssp. arvensis,subspecies,infrataxon,no_voucher,unknown,exotic,confirmed,0.089,arvensis,arvensis,"",provisional,1
 81248,-426,Pinus ponderosa var. ponderosa,ponderosa pine,variety,,Pinus ponderosa var. ponderosa,variety,infrataxon,no_voucher,secure,native,confirmed,0.033,ponderosa,"",ponderosa,provisional,1
 118426,-346,Leymus mollis ssp. mollis,dune wildrye,subspecies,,Leymus mollis ssp. mollis,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,mollis,mollis,"",provisional,1
 77638,-340,Lathyrus japonicus,beach pea,species,,Lathyrus japonicus,species,non-infrataxon,no_voucher,secure,native,confirmed,0,japonicus,"","",provisional,1
@@ -976,13 +975,13 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 50743,-499,Spiranthes romanzoffiana,hooded ladies' tresses,species,,Spiranthes romanzoffiana,species,non-infrataxon,no_voucher,secure,native,confirmed,0.016,romanzoffiana,"","",provisional,1
 52913,-230,Cichorium intybus,chicory,species,,Cichorium intybus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,intybus,"","",provisional,1
 55971,-507,Tanacetum vulgare,common tansy,species,,Tanacetum vulgare,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,vulgare,"","",provisional,1
-58961,-428,Plantago major,common plantain,species,,Plantago major,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.034,major,"","",provisional,1
+58961,-428,Plantago major,common plantain,species,,Plantago major,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.035,major,"","",provisional,1
 62223,-420,Philadelphus lewisii,mock-orange,species,,Philadelphus lewisii,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,lewisii,"","",provisional,1
 77948,-369,Malus fusca,Pacific crab apple,species,,Malus fusca,species,non-infrataxon,no_voucher,secure,native,confirmed,0,fusca,"","",provisional,1
 75597,-187,Artemisia suksdorfii,Suksdorf's mugwort,species,,Artemisia suksdorfii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,suksdorfii,"","",provisional,1
 58127,-228,Chenopodium album,common lamb's-quarters,species,,Chenopodium album,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,album,"","",provisional,1
 53021,-244,Convolvulus arvensis,field bindweed,species,,Convolvulus arvensis,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.047,arvensis,"","",provisional,1
-181694,-144,Acer glabrum var. douglasii,Douglas maple,variety,,Acer glabrum var. douglasii,variety,infrataxon,no_voucher,secure,native,confirmed,0.017,glabrum,"",douglasii,provisional,1
+181694,-144,Acer glabrum var. douglasii,Douglas maple,variety,,Acer glabrum var. douglasii,variety,infrataxon,no_voucher,secure,native,confirmed,0.018,glabrum,"",douglasii,provisional,1
 76793,-278,Elodea canadensis,Canadian waterweed,species,,Elodea canadensis,species,non-infrataxon,no_voucher,secure,native,confirmed,0.134,canadensis,"","",provisional,1
 118893,-294,Euphrasia nemorosa,common eyebright,species,,Euphrasia nemorosa,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,nemorosa,"","",provisional,1
 59205,-473,Schoenoplectus acutus,hard-stemmed bulrush,species,,Schoenoplectus acutus,species,non-infrataxon,no_voucher,secure,native,confirmed,0.16,acutus,"","",provisional,1
@@ -991,23 +990,24 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 59901,-377,Melissa officinalis,lemon balm,species,,Melissa officinalis,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,officinalis,"","",provisional,1
 55854,-262,Datura stramonium,jimsonweed,species,,Datura stramonium,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.143,stramonium,"","",provisional,1
 79025,-478,Sedum album,white stonecrop,species,,Sedum album,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.05,album,"","",provisional,1
+-546,-158,Alchemilla arvensis,field parsley-piert,species,,Alchemilla arvensis,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.153,arvensis,"","",provisional,1
 238479,-478,Sedum lanceolatum var. nesioticum,lanceleaf stonecrop,variety,,Sedum lanceolatum var. nesioticum,variety,infrataxon,no_voucher,concern,native,confirmed,0,lanceolatum,"",nesioticum,provisional,1
 55844,-541,Vinca minor,common periwinkle,species,,Vinca minor,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,minor,"","",provisional,1
 487175,-439,Primula hendersonii,broad-leaved shootingstar,species,,Primula hendersonii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,hendersonii,"","",provisional,1
 59091,-296,Festuca occidentalis,western fescue,species,,Festuca occidentalis,species,non-infrataxon,voucher,secure,native,confirmed,0,occidentalis,"","",provisional,1
-52808,-431,Poa annua,annual bluegrass,species,,Poa annua,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.063,annua,"","",provisional,1
+52808,-431,Poa annua,annual bluegrass,species,,Poa annua,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.039,annua,"","",provisional,1
 53103,-325,Hypochaeris glabra,smooth cat's-ear,species,,Hypochaeris glabra,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,glabra,"","",provisional,1
 78499,-418,Phacelia linearis,thread-leaved phacelia,species,,Phacelia linearis,species,non-infrataxon,no_voucher,secure,native,confirmed,0.048,linearis,"","",provisional,1
-60267,-159,Allium amplectens,slimleaf onion,species,,Allium amplectens,species,non-infrataxon,no_voucher,concern,native,confirmed,0.016,amplectens,"","",provisional,1
-58917,-307,Geranium carolinianum,Carolina cranesbill,species,,Geranium carolinianum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.119,carolinianum,"","",provisional,1
+60267,-159,Allium amplectens,slimleaf onion,species,,Allium amplectens,species,non-infrataxon,no_voucher,concern,native,confirmed,0.017,amplectens,"","",provisional,1
+58917,-307,Geranium carolinianum,Carolina cranesbill,species,,Geranium carolinianum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.134,carolinianum,"","",provisional,1
 1220721,-285,Eriocoma lemmonii,Lemmon's needlegrass,species,,Eriocoma lemmonii,species,non-infrataxon,no_voucher,secure,native,confirmed,0,lemmonii,"","",provisional,1
-57079,-522,Trifolium microdon,thimble clover,species,,Trifolium microdon,species,non-infrataxon,voucher,secure,native,confirmed,0.038,microdon,"","",provisional,1
-866252,-354,Lolium pratense,meadow fescue,species,,Lolium pratense,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.047,pratense,"","",provisional,1
+57079,-522,Trifolium microdon,thimble clover,species,,Trifolium microdon,species,non-infrataxon,voucher,secure,native,confirmed,0.039,microdon,"","",provisional,1
+866252,-354,Lolium pratense,meadow fescue,species,,Lolium pratense,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.031,pratense,"","",provisional,1
 75935,-210,Callitriche heterophylla,diverse-leaved water-starwort,variety,,Callitriche heterophylla,variety,infrataxon,no_voucher,secure,native,confirmed,0.015,heterophylla,"",bolanderi,provisional,1
 79514,-542,Viola palustris,marsh violet,species,,Viola palustris,species,non-infrataxon,no_voucher,secure,native,confirmed,0.063,palustris,"","",provisional,1
-52801,-354,Lolium perenne,perennial ryegrass,species,,Lolium perenne,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.016,perenne,"","",provisional,1
+52801,-354,Lolium perenne,perennial ryegrass,species,,Lolium perenne,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.017,perenne,"","",provisional,1
 53456,-504,Symphoricarpos mollis,trailing snowberry,species,,Symphoricarpos mollis,species,non-infrataxon,no_voucher,secure,native,confirmed,0,mollis,"","",provisional,1
-76581,-256,Cynosurus cristatus,crested dogtail,species,,Cynosurus cristatus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,cristatus,"","",provisional,1
+76581,-256,Cynosurus cristatus,crested dogtail,species,,Cynosurus cristatus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.016,cristatus,"","",provisional,1
 59423,-360,Lupinus polycarpus,small-flowered lupine,species,,Lupinus polycarpus,species,non-infrataxon,voucher,secure,native,confirmed,0.159,polycarpus,"","",provisional,1
 78682,-432,Polygonum douglasii,Douglas's knotweed,species,,Polygonum douglasii,species,non-infrataxon,no_voucher,secure,native,confirmed,0.031,douglasii,"","",provisional,1
 57005,-496,Spergula arvensis,corn-spurry,species,,Spergula arvensis,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.116,arvensis,"","",provisional,1
@@ -1024,7 +1024,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 76014,-219,Carex arcta,northern clustered sedge,species,,Carex arcta,species,non-infrataxon,no_voucher,secure,native,confirmed,0.104,arcta,"","",provisional,1
 57190,-421,Phleum pratense,common timothy,species,,Phleum pratense,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,pratense,"","",provisional,1
 136366,-311,Gnaphalium uliginosum,marsh cudweed,species,,Gnaphalium uliginosum,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,uliginosum,"","",provisional,1
-1290817,-432,Polygonum aviculare,common knotweed,species,,Polygonum aviculare,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.054,aviculare,"","",provisional,1
+1290817,-432,Polygonum aviculare,common knotweed,species,,Polygonum aviculare,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.034,aviculare,"","",provisional,1
 55977,-370,Malva moschata,musk mallow,species,,Malva moschata,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,moschata,"","",provisional,1
 77923,-367,Madia glomerata,clustered tarweed,species,,Madia glomerata,species,non-infrataxon,no_voucher,secure,native,confirmed,0.285,glomerata,"","",provisional,1
 52971,-281,Epilobium brachycarpum,tall annual willowherb,species,,Epilobium brachycarpum,species,non-infrataxon,no_voucher,secure,native,confirmed,0,brachycarpum,"","",provisional,1
@@ -1040,24 +1040,24 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 129038,-415,Petasites japonicus,Japanese butterbur,species,,Petasites japonicus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,japonicus,"","",provisional,1
 55830,-309,Glechoma hederacea,ground-ivy,species,,Glechoma hederacea,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.075,hederacea,"","",provisional,1
 48225,-292,Eschscholzia californica,California poppy,species,,Eschscholzia californica,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,californica,"","",provisional,1
-57056,-374,Medicago lupulina,black medic,species,,Medicago lupulina,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.063,lupulina,"","",provisional,1
+57056,-374,Medicago lupulina,black medic,species,,Medicago lupulina,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.065,lupulina,"","",provisional,1
 77140,-296,Festuca myuros,rattail fescue,species,,Festuca myuros,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,myuros,"","",provisional,1
 76745,-273,Dulichium arundinaceum,three-way sedge,species,,Dulichium arundinaceum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.05,arundinaceum,"","",provisional,1
 78683,-432,Polygonum fowleri,Fowler's knotweed,species,,Polygonum fowleri,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,fowleri,"","",provisional,1
 59035,-490,Solanum americanum,American black nightshade,species,,Solanum americanum,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.285,americanum,"","",provisional,1
 361656,-187,Artemisia campestris ssp. pacifica,northern wormwood,subspecies,,Artemisia campestris ssp. pacifica,subspecies,infrataxon,no_voucher,secure,native,confirmed,0.06,campestris,pacifica,"",provisional,1
 77818,-355,Lomatium nudicaule,barestem desert-parsley,species,,Lomatium nudicaule,species,non-infrataxon,no_voucher,secure,native,confirmed,0,nudicaule,"","",provisional,1
-77145,-296,Festuca subulata,bearded fescue,species,,Festuca subulata,species,non-infrataxon,no_voucher,secure,native,confirmed,0.048,subulata,"","",provisional,1
+77145,-296,Festuca subulata,bearded fescue,species,,Festuca subulata,species,non-infrataxon,no_voucher,secure,native,confirmed,0.032,subulata,"","",provisional,1
 49883,-199,Betula papyrifera,paper birch,species,,Betula papyrifera,species,non-infrataxon,no_voucher,secure,native,confirmed,0.049,papyrifera,"","",provisional,1
 58229,-428,Plantago elongata,coastal plantain,species,,Plantago elongata,species,non-infrataxon,voucher,secure,native,confirmed,0,elongata,"","",provisional,1
-77789,-352,Lithophragma glabrum,smooth fringecup,species,,Lithophragma glabrum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.045,glabrum,"","",provisional,1
+77789,-352,Lithophragma glabrum,smooth fringecup,species,,Lithophragma glabrum,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,glabrum,"","",provisional,1
 52702,-205,Bromus diandrus,ripgut brome,species,,Bromus diandrus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,diandrus,"","",provisional,1
 57164,-265,Deschampsia danthonioides,annual hairgrass,species,,Deschampsia danthonioides,species,non-infrataxon,no_voucher,secure,native,confirmed,0.045,danthonioides,"","",provisional,1
 76017,-219,Carex aurea,golden sedge,species,,Carex aurea,species,non-infrataxon,no_voucher,secure,native,confirmed,0.045,aurea,"","",provisional,1
 1538928,-526,Graphephorum canescens,tall trisetum,species,,Graphephorum canescens,species,non-infrataxon,voucher,secure,native,confirmed,0.046,canescens,"","",provisional,1
 53012,-368,Maianthemum racemosum ssp. amplexicaule,western Solomon's plume,subspecies,,Maianthemum racemosum ssp. amplexicaule,subspecies,infrataxon,no_voucher,secure,native,confirmed,0.045,racemosum,amplexicaule,"",provisional,1
-77136,-296,Festuca bromoides,barren fescue,species,,Festuca bromoides,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.016,bromoides,"","",provisional,1
-60284,-279,Elymus repens,quack grass,species,,Elymus repens,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.046,repens,"","",provisional,1
+77136,-296,Festuca bromoides,barren fescue,species,,Festuca bromoides,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.017,bromoides,"","",provisional,1
+60284,-279,Elymus repens,quack grass,species,,Elymus repens,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.047,repens,"","",provisional,1
 840641,-429,Platanthera elegans,elegant rein orchid,species,,Platanthera elegans,species,non-infrataxon,no_voucher,secure,native,confirmed,0.03,elegans,"","",provisional,1
 56166,-414,Persicaria maculosa,spotted lady's thumb,species,,Persicaria maculosa,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.045,maculosa,"","",provisional,1
 78706,-437,Potamogeton berchtoldii,small pondweed,species,,Potamogeton berchtoldii,species,non-infrataxon,no_voucher,secure,native,confirmed,0.045,berchtoldii,"","",provisional,1
@@ -1071,7 +1071,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 79676,-219,Carex echinata ssp. phyllomanica,coastal stellate sedge,subspecies,,Carex echinata ssp. phyllomanica,subspecies,infrataxon,no_voucher,secure,native,unconfirmed,,echinata,phyllomanica,"",provisional,1
 1264456,-219,Carex flava,yellow sedge,species,,Carex flava,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,flava,"","",provisional,1
 77588,-331,Juncus oxymeris,pointed rush,species,,Juncus oxymeris,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.328,oxymeris,"","",provisional,1
-76340,-232,Cinna latifolia,nodding wood-reed,species,,Cinna latifolia,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,latifolia,"","",provisional,1
+76340,-232,Cinna latifolia,nodding wood-reed,species,,Cinna latifolia,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.239,latifolia,"","",provisional,1
 77293,-310,Glyceria striata,fowl mannagrass,species,,Glyceria striata,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,striata,"","",provisional,1
 52795,-322,Hordeum murinum ssp. leporinum,charming barley,subspecies,,Hordeum murinum ssp. leporinum,subspecies,infrataxon,no_voucher,unknown,exotic,unconfirmed,,murinum,leporinum,"",provisional,1
 68479,-354,Lolium multiflorum,Italian ryegrass,species,,Lolium multiflorum,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,multiflorum,"","",provisional,1
@@ -1083,7 +1083,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 52841,-171,Anthemis cotula,stinking chamomile,species,,Anthemis cotula,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,cotula,"","",provisional,1
 76907,-284,Erigeron canadensis,horseweed,species,,Erigeron canadensis,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,canadensis,"","",provisional,1
 77305,-313,Grindelia squarrosa,curly-cup gumweed,species,,Grindelia squarrosa,species,non-infrataxon,no_voucher,unknown,native,unconfirmed,0.285,squarrosa,"","",provisional,1
-79317,-508,Taraxacum erythrospermum agg.,red-seeded dandelion,species,,Taraxacum erythrospermum agg.,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.03,erythrospermum,"","",provisional,1
+79317,-508,Taraxacum erythrospermum agg.,red-seeded dandelion,species,,Taraxacum erythrospermum agg.,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.031,erythrospermum,"","",provisional,1
 984576,-216,Campanula rotundifolia,common harebell,species,,Campanula rotundifolia,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,rotundifolia,"","",provisional,1
 64293,-524,Triodanis perfoliata,Venus’ looking-glass,species,,Triodanis perfoliata,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,perfoliata,"","",provisional,1
 55721,-485,Silene vulgaris,bladder campion,species,,Silene vulgaris,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,vulgaris,"","",provisional,1
@@ -1116,7 +1116,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 69636,-218,Cardamine flexuosa,wood bittercress,species,,Cardamine flexuosa,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.016,flexuosa,"","",provisional,1
 56998,-465,Sagina apetala,common pearlwort,species,,Sagina apetala,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.285,apetala,"","",provisional,1
 55736,-469,Sanguisorba minor,blue elderberry??,species,,Sanguisorba minor,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0,minor,"","",provisional,1
-235283,-235,Clarkia amoena ssp. caurina,farewell-to-spring,subspecies,,Clarkia amoena ssp. caurina,subspecies,infrataxon,voucher,concern,native,confirmed,0.168,amoena,caurina,"",provisional,1
+235283,-235,Clarkia amoena ssp. caurina,farewell-to-spring,subspecies,,Clarkia amoena ssp. caurina,subspecies,infrataxon,voucher,concern,native,confirmed,0.187,amoena,caurina,"",provisional,1
 47892,-328,Impatiens glandulifera,policeman's helmet,species,,Impatiens glandulifera,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,glandulifera,"","",provisional,1
 78930,-466,Salicornia depressa,maritime glasswort,species,,Salicornia depressa,species,non-infrataxon,no_voucher,secure,unknown,unconfirmed,,depressa,"","",provisional,1
 79446,-526,Trisetum spicatum,spike trisetum,species,,Trisetum spicatum,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.202,spicatum,"","",provisional,1
@@ -1124,9 +1124,9 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 53328,-542,Viola adunca,early blue violet,species,,Viola adunca,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.202,adunca,"","",provisional,1
 55848,-392,Narcissus cf. pseudonarcissus,daffodil,species,,Narcissus cf. pseudonarcissus,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,,pseudonarcissus,"","",provisional,1
 55886,-359,Lunaria annua,honesty,species,,Lunaria annua,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,annua,"","",provisional,1
-77897,-361,Luzula parviflora,forked wood-rush,species,,Luzula parviflora,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.296,parviflora,"","",provisional,1
-181924,-506,Symphytum × uplandicum,hybrid comfrey,hybrid,,Symphytum × uplandicum,hybrid,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,"","","",provisional,1
-53785,-301,Fumaria officinalis,common fumitory,species,,Fumaria officinalis,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,officinalis,"","",provisional,1
+77897,-361,Luzula parviflora,forked wood-rush,species,,Luzula parviflora,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.343,parviflora,"","",provisional,1
+181924,-506,Symphytum × uplandicum,hybrid comfrey,hybrid,,Symphytum × uplandicum,hybrid,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.177,"","","",provisional,1
+53785,-301,Fumaria officinalis,common fumitory,species,,Fumaria officinalis,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.177,officinalis,"","",provisional,1
 159233,-200,Bidens amplissima,Vancouver Island beggarticks,species,,Bidens amplissima,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.177,amplissima,"","",provisional,1
 78465,-417,Petroselinum crispum,garden parsley,species,,Petroselinum crispum,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,crispum,"","",provisional,1
 58306,-389,Myosurus minimus,tiny mousetail,species,,Myosurus minimus,species,non-infrataxon,voucher,secure,native,confirmed,0.03,minimus,"","",provisional,1
@@ -1169,14 +1169,14 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 78829,-451,Ranunculus parviflorus,small-flowered buttercup,species,,Ranunculus parviflorus,species,non-infrataxon,voucher,unknown,exotic,new,0.044,parviflorus,"","",provisional,1
 734805,-416,Petrosedum rupestre,crooked yellow stonecrop,species,,Petrosedum rupestre,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0,rupestre,"","",provisional,1
 60150,-492,Soliva sessilis,carpet burweed,species,,Soliva sessilis,species,non-infrataxon,voucher,unknown,exotic,new,0.047,sessilis,"","",provisional,1
-181759,-296,Festuca rubra ssp. rubra,red fescue,subspecies,,Festuca rubra ssp. rubra,subspecies,infrataxon,voucher,secure,native,new,0.047,rubra,rubra,"",provisional,1
+181759,-296,Festuca rubra ssp. rubra,red fescue,subspecies,,Festuca rubra ssp. rubra,subspecies,infrataxon,voucher,secure,native,new,0.048,rubra,rubra,"",provisional,1
 52692,-154,Agrostis pallens,seashore bentgrass,species,,Agrostis pallens,species,non-infrataxon,voucher,secure,native,confirmed,0.046,pallens,"","",provisional,1
 204353,-365,Lysimachia minima,chaffweed,species,,Lysimachia minima,species,non-infrataxon,voucher,secure,native,new,0.046,minima,"","",provisional,1
 61470,-455,Rhinanthus minor,yellow rattle,species,,Rhinanthus minor,species,non-infrataxon,voucher,secure,native,unconfirmed,0.046,minor,"","",provisional,1
 58780,-485,Silene antirrhina,sleepy catchfly,species,,Silene antirrhina,species,non-infrataxon,voucher,secure,native,confirmed,0,antirrhina,"","",provisional,1
 56846,-517,Torilis arvensis,common hedge parsley,species,,Torilis arvensis,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,arvensis,"","",provisional,1
 77983,-375,Melica harfordii,Harford's melic,species,,Melica harfordii,species,non-infrataxon,voucher,secure,native,confirmed,0,harfordii,"","",provisional,1
-77289,-310,Glyceria elata,tall mannagrass,species,,Glyceria elata,species,non-infrataxon,voucher,secure,native,confirmed,0.052,elata,"","",provisional,1
+77289,-310,Glyceria elata,tall mannagrass,species,,Glyceria elata,species,non-infrataxon,voucher,secure,native,confirmed,0.034,elata,"","",provisional,1
 61012,-374,Medicago arabica,spotted medic,species,,Medicago arabica,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.03,arabica,"","",provisional,1
 76812,-280,Empetrum nigrum,crowberry,species,,Empetrum nigrum,species,non-infrataxon,voucher,secure,native,new,0.031,nigrum,"","",provisional,1
 133036,-363,Lycopus europaeus,European horehound,species,,Lycopus europaeus,species,non-infrataxon,no_voucher,unknown,exotic,new,0.044,europaeus,"","",provisional,1
@@ -1223,7 +1223,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 78705,-437,Potamogeton amplifolius,large-leaved pondweed,species,,Potamogeton amplifolius,species,non-infrataxon,no_voucher,secure,native,new,0.134,amplifolius,"","",provisional,1
 76070,-219,Carex leptopoda,short-scaled sedge,species,,Carex leptopoda,species,non-infrataxon,no_voucher,secure,native,new,0,leptopoda,"","",provisional,1
 71135,-164,Ambrosia chamissonis,silver burweed,species,,Ambrosia chamissonis,species,non-infrataxon,no_voucher,secure,native,new,0,chamissonis,"","",provisional,1
-57191,-419,Phalaris canariensis,canarygrass,species,,Phalaris canariensis,species,non-infrataxon,no_voucher,unknown,exotic,new,0.126,canariensis,"","",provisional,1
+57191,-419,Phalaris canariensis,canarygrass,species,,Phalaris canariensis,species,non-infrataxon,no_voucher,unknown,exotic,new,0.134,canariensis,"","",provisional,1
 933404,-222,Centaurea cyanus,cornflower,species,,Centaurea cyanus,species,non-infrataxon,no_voucher,unknown,exotic,new,0,cyanus,"","",provisional,1
 83938,-411,Penstemon ovatus,broad-leaved penstemon,species,,Penstemon ovatus,species,non-infrataxon,no_voucher,concern,native,new,0.126,ovatus,"","",provisional,1
 76639,-265,Deschampsia cespitosa,tufted hairgrass,species,,Deschampsia cespitosa,species,non-infrataxon,no_voucher,secure,native,new,0.126,cespitosa,"","",provisional,1
@@ -1271,7 +1271,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 127355,-254,Cyclamen hederifolium,cyclamen,species,,Cyclamen hederifolium,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,hederifolium,"","",provisional,1
 630966,-448,Pyrola aphylla,leafless wintergreen,species,,Pyrola aphylla,species,non-infrataxon,no_voucher,concern,native,new,0.078,aphylla,"","",provisional,1
 406080,-490,Solanum nitidibaccatum,ground-cherry nightshade,species,,Solanum nitidibaccatum,species,non-infrataxon,no_voucher,unknown,exotic,new,0.104,nitidibaccatum,"","",provisional,1
-357949,-380,Micranthes rufidula,rusty-haired saxifrage,species,,Micranthes rufidula,species,non-infrataxon,no_voucher,secure,native,new,0.038,rufidula,"","",provisional,1
+357949,-380,Micranthes rufidula,rusty-haired saxifrage,species,,Micranthes rufidula,species,non-infrataxon,no_voucher,secure,native,new,0.039,rufidula,"","",provisional,1
 1369716,-338,Lamium hybridum,cutleaf deadnettle,species,,Lamium hybridum,species,non-infrataxon,no_voucher,unknown,exotic,new,0.116,hybridum,"","",provisional,1
 54431,-458,Ribes rubrum,red currant,species,,Ribes rubrum,species,non-infrataxon,no_voucher,unknown,exotic,new,1,rubrum,"","",provisional,1
 1125370,-461,Rosa canina,dog rose,species,,Rosa canina,species,non-infrataxon,no_voucher,unknown,exotic,new,0.099,canina,"","",provisional,1
@@ -1320,7 +1320,7 @@ id,parentId,iNaturalistTaxonName,commonName,rank,iNaturalistTaxonImage,scientifi
 77148,-296,Festuca trachyphylla,hard fescue,species,,Festuca trachyphylla,species,non-infrataxon,no_voucher,unknown,exotic,new,0,trachyphylla,"","",provisional,1
 52118,-446,Pterospora andromedea,woodland pinedrops,species,,Pterospora andromedea,species,non-infrataxon,no_voucher,secure,native,new,0,andromedea,"","",provisional,1
 473217,-429,Platanthera ephemerantha,whiteflower rein orchid,species,,Platanthera ephemerantha,species,non-infrataxon,no_voucher,concern,native,new,0,ephemerantha,"","",provisional,1
-69931,-154,Agrostis stolonifera,creeping bentgrass,species,,Agrostis stolonifera,species,non-infrataxon,no_voucher,unknown,exotic,new,0.047,stolonifera,"","",provisional,1
+69931,-154,Agrostis stolonifera,creeping bentgrass,species,,Agrostis stolonifera,species,non-infrataxon,no_voucher,unknown,exotic,new,0.031,stolonifera,"","",provisional,1
 163267,-307,Geranium versicolor,pencilled crane's-bill,species,,Geranium versicolor,species,non-infrataxon,no_voucher,unknown,exotic,new,0.058,versicolor,"","",provisional,1
 51779,-480,Sempervivum tectorum,houseleek,species,,Sempervivum tectorum,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,tectorum,"","",provisional,1
 49444,-245,Corallorhiza mertensiana,Pacific coralroot,species,,Corallorhiza mertensiana,species,non-infrataxon,no_voucher,secure,native,new,0,mertensiana,"","",provisional,1

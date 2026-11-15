@@ -5,6 +5,7 @@
 <fluid-import src="bioreportr-storyMap.vue"></fluid-import>
 <fluid-import src="bioreportr-statusFilter.vue"></fluid-import>
 <fluid-import src="bioreportr-recordAndTaxaReporter.vue"></fluid-import>
+<fluid-import src="bioreportr-storyPageCuration.vue"></fluid-import>
 <fluid-import src="%imerss-bioinfo/src/client/sfc/filters/hortis-standardFilterControls.vue"></fluid-import>
 <fluid-import src="%imerss-bioinfo/src/client/sfc/filters/hortis-collectorFilter.vue"></fluid-import>
 <fluid-import src="%imerss-bioinfo/src/client/sfc/core/hortis-standardChecklist.vue"></fluid-import>
@@ -23,7 +24,6 @@
 <script src="%imerss-bioinfo/src/client/js/i6/hashManager.js"></script>
 <script src="../js/story.js"></script>
 <script src="../js/solow.js"></script>
-<script src="../js/curation.js"></script>
 <style src="https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css"></style>
 <style src="%imerss-bioinfo/src/client/css/imerss-core.css"></style>
 <style src="%imerss-bioinfo/src/client/css/imerss-i6.css"></style>
@@ -37,10 +37,18 @@
 // is decoded before anything is rendered, so that the pane the URL names is the first and only one shown. When the page
 // is rendered statically there is no URL, and nothing depending on the pane is rendered until the page boots
 fluid.def("bioreportr.storyPage", {
-    $layers: "hortis.vizLoader",
+    // Community curation of the taxa and records - see bioreportr.storyPageCuration
+    $layers: ["hortis.vizLoader", "bioreportr.storyPageCuration"],
     // obsFile: String
     // taxaFile: String
     // regionIndirectionFile: String
+    // - the story's data files, named in its bioreportr.yaml and supplied by the layer bioreportr.storyData, which
+    // src/js/storyBuild.js writes from it
+    // The small files from which the page is rendered statically, in place of its data, shared by every story since
+    // they serve only to let the page's skeleton render - see fluid.withPlaceholder
+    obsPlaceholderFile: "../bioreportr/data/placeholder/obs.csv",
+    taxaPlaceholderFile: "../bioreportr/data/placeholder/taxa.csv",
+    regionIndirectionPlaceholderFile: "../bioreportr/data/placeholder/regionIndirection.csv",
     // The directory holding the material written by storyBuild.js, relative to the page and ending in /
     storyBase: "",
     // Map of pane key to settings overriding those of its front matter - see bioreportr.storyPage.paneSettings
@@ -152,44 +160,9 @@ fluid.def("bioreportr.storyPage", {
             $layers: "hortis.standardChecklist",
             label: "Plants",
             rootId: "47126", // Plantae
-            decorate: "hortis.blitzChecklistDecoration",
-            // Each taxon bears a speech bubble leading to its curation, which summarises its notes on hover - see curation.js
-            renderTooltip: "$method:bioreportr.curation.renderChecklistTooltip({self}.rowById, {storyPage}.curation.byTaxon, {0}:hoverId)",
-            // The hover id of a summary pinned by clicking its bubble, until a press outside it dismisses it
-            curationPin: null,
-            pinTooltip: "$effect:bioreportr.curation.pinTooltip({self}, {storyPage}, {self}.tooltip, {self}.curationPin)",
-            pinDismiss: {
-                $effect: {
-                    func: "bioreportr.curation.pinDismiss",
-                    args: ["{self}", fluid.globalDismissalSignal, "{self}.tooltip"]
-                }
-            },
-            tree: {
-                $component: {
-                    view: {
-                        $component: {
-                            templateTree: `$compute:bioreportr.curation.renderChecklistTree({checklist}, {checklist}.rootEntry,
-                                {checklist}.idToState, {checklist}.selectedId, {storyPage}.curation.byTaxon)`
-                        }
-                    }
-                }
-            }
+            decorate: "hortis.blitzChecklistDecoration"
         }
     },
-    // The history of the curatorial notes on each taxon from before the site's own curation, as a CSV file relative to the
-    // story page, if the project has one - shown by the History tab of the curation pane, see bioreportr.curation.history
-    curationHistoryFile: null,
-    // Community curation of the taxa - see notes/community-curation-design.md and the pane rendered by bioreportr.curationPane
-    curation: {
-        $component: {
-            $layers: "bioreportr.curation"
-        }
-    },
-    // The taxon chosen for curation, whilst the curation pane is shown - that chosen in the checklist's search
-    curationTaxon: "$compute:bioreportr.curation.chosenTaxon({self}.activePane, {self}.checklist.search.filterState, {self}.taxa.rowById)",
-    // The observation chosen for curation, whilst the curation pane is shown - the record selected, held in the URL
-    curationObservation: `$compute:bioreportr.curation.chosenObservation({self}.activePane, {self}.map.recordSelector.filterState,
-        {self}.map.recordSelector.selectedRow)`,
     recordReporter: {
         $component: {
             $layers: "bioreportr.recordAndTaxaReporter",
@@ -215,16 +188,7 @@ fluid.def("bioreportr.storyPage", {
             // Clicking a record shows its marker alone on the map - see hortis.libreMap.recordSelector
             rowSelectable: true,
             selectedRow: "{storyPage}.map.recordSelector.selectedRow",
-            selectRow: "$method:hortis.libreMap.recordSelector.select({storyPage}.map.recordSelector, {0}:row)",
-            // Each record bears a speech bubble leading to its curation - see bioreportr.curation.recordTableBody
-            resolvedColumns: "$compute:bioreportr.curation.recordTableColumns({self}.rows, {self}.columns)",
-            body: {
-                $component: {
-                    markup: `$compute:bioreportr.curation.recordTableBody({dataTable}.displayRows, {dataTable}.resolvedColumns,
-                        {dataTable}.window, {dataTable}.rowHeight, {dataTable}.rowSelectable, {dataTable}.selectedRow,
-                        {storyPage}.curation.byObservation, {storyPage}.map.recordSelector.recordIndex)`
-                }
-            }
+            selectRow: "$method:hortis.libreMap.recordSelector.select({storyPage}.map.recordSelector, {0}:row)"
         }
     },
     // The buttons beside the tables of records clearing the record selected in them, disabled whilst there is none
@@ -410,12 +374,16 @@ bioreportr.storyPage.toggleFilters = function (that) {
  * @param {fluid.component} that - The component
  * @param {String} member - The name of the member
  */
-// Whether a slot has been given markup by the project
-bioreportr.storyPage.hasMarkup = markup => !!markup;
-
 bioreportr.storyPage.toggle = function (that, member) {
     that[member] = !that[member];
 };
+
+/**
+ * Determine whether a slot has been given markup by the project.
+ * @param {String} markup - The slot's markup
+ * @return {Boolean} `true` if it has any
+ */
+bioreportr.storyPage.hasMarkup = markup => !!markup;
 </script>
 
 <template>
@@ -427,7 +395,7 @@ bioreportr.storyPage.toggle = function (that, member) {
                 <div class="mxcw-data-pane-widget mxcw-atlas-taxon-holder" @class="mxcw-atlas-has-taxon:@{taxonPanelVisible}"><div @id="taxonPanel"></div></div>
                 <div @id="taxonPanelResizeBar"></div>
                 <div class="mxcw-data-pane-widget mxcw-obs-table-holder @{classes.obsTable}" @class="mxcw-records-collapsed:@{recordsCollapsed}"
-                    @onclick="bioreportr.curation.recordTableClick({0}, {self})">
+                    @onclick="{self}.recordTableClick({0})">
                     <div class="mxcw-obs-table-controls">
                         <button type="button" class="mxcw-records-toggle mxcw-data-widget-text" aria-expanded="@{recordsExpanded}"
                             aria-controls="mxcw-records-table" @onclick="{self}.toggleRecords()">Records<span class="mxcw-records-filter-label" title="@{recordsLabel.title}">@{recordsLabel.text}</span></button>

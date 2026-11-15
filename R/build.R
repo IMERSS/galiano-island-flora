@@ -9,15 +9,10 @@ dst_dir <- "static/local/data/tabular"
 # Create destination directory if it doesn't exist
 dir.create(dst_dir, recursive = TRUE, showWarnings = FALSE)
 
-files <- c(
-  "Galiano_Tracheophyta_catalogue_2025-12-30-selected-labels.csv",
-  "Galiano_Tracheophyta_catalogue_2025-12-30-selected-regionIndirection.csv",
-  "Galiano_Tracheophyta_summary_2026-04-04-prepared-taxa.csv",
-  # The history of the curatorial notes on each taxon - see scripts/prepare_curation_history.R
-  "Galiano_Tracheophyta_curation-history_2026-04-04.csv",
-  # The annotations of records, e.g. of planted populations - see scripts/apply_record_annotations.R
-  "Galiano_Tracheophyta_record-annotations_2026-04-04.csv"
-)
+# The files the published site uses, as bioreportr.yaml names them - see src/js/storyBuild.js, which names them to the
+# story page
+config <- yaml::read_yaml("bioreportr.yaml")$data
+files <- c(config$labels, config$regionIndirection, config$summary, config$curationHistory, config$recordAnnotations)
 
 for (f in files) {
   src <- file.path(src_dir, f)

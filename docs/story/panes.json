@@ -3,7 +3,7 @@
     "title": "In Memory of Plants",
     "shortTitle": "In Memoriam",
     "weight": 1,
-    "paneComponent": "galiano.tracesPane",
+    "paneComponent": "bioreportr.tracesPane",
     "paneKey": "Traces",
     "file": null,
     "dataFile": null,
@@ -14,7 +14,7 @@
     "title": "The lost plants of Galiano Island",
     "shortTitle": "Lost Plants",
     "weight": 2,
-    "paneComponent": "galiano.lostPlantsPane",
+    "paneComponent": "bioreportr.lostPlantsPane",
     "paneKey": "LostPlants",
     "file": null,
     "dataFile": null,
@@ -47,7 +47,7 @@
     ]
   },
   {
-    "title": "Community contributions to our knowledge of the regional plant diversity",
+    "title": "Community contributions to our knowledge of the island's plant diversity",
     "shortTitle": "Community Science",
     "weight": 4,
     "paneKey": "TopContributions",
@@ -65,6 +65,33 @@
     "dataFile": null,
     "widgetIds": [],
     "layers": []
+  },
+  {
+    "title": "Native plant diversity within protected areas",
+    "shortTitle": "Protected Areas",
+    "weight": 5.5,
+    "regionField": "Protected",
+    "visibleGrid": false,
+    "paneComponent": "bioreportr.protectedPane",
+    "view": {
+      "type": "view",
+      "lon": -123.42,
+      "lat": 48.925,
+      "zoom": 10.4
+    },
+    "selectableRegions": [
+      "Ecological reserve",
+      "Provincial park",
+      "Regional park",
+      "Private conservation land"
+    ],
+    "paneKey": "Protected",
+    "file": null,
+    "dataFile": "Protected-data.html",
+    "widgetIds": [],
+    "layers": [
+      "reknitr.obsMapPaneHandler"
+    ]
   },
   {
     "title": "Community Curation",

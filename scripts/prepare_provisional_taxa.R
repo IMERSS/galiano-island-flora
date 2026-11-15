@@ -61,6 +61,15 @@ higher <- bind_rows(lapply(treeRanks, function (rank) {
   data.frame(rank = rank, name = sort(unique(na.omit(hier[[rank]]))))
 }))
 higher$id <- -seq_len(nrow(higher))
+
+# A taxon whose iNaturalist id in the summary repeats that of an earlier one - e.g. Alchemilla arvensis, given the id
+# of Alchemilla occidentalis - is given a negative id of its own, after those of the higher taxa, until assignBNames.js
+# assigns it by name
+repeated <- which(duplicated(hier$iNaturalistTaxonId) & !is.na(hier$iNaturalistTaxonId))
+if (length(repeated) > 0) {
+  wg("Warning: iNaturalist ids repeated in the summary, given provisional ids: {paste(hier$scientificName[repeated], '(', hier$iNaturalistTaxonId[repeated], ')', collapse = ', ')}")
+  hier$iNaturalistTaxonId[repeated] <- -(nrow(higher) + seq_along(repeated))
+}
 higherId <- function (rank, name) higher$id[match(paste(rank, name), paste(higher$rank, higher$name))]
 
 # The parent of a taxon at a given rank is its nearest named ancestor

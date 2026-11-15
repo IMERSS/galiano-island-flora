@@ -4,17 +4,13 @@ library(sf)
 
 source("scripts/utils.R")
 
-runDataset = "Galiano";
+# This script is shared between bioReportR projects and copied between them by copyFrameworkOut.sh. Each project's
+# own settings - its catalogue, the index of the shapes it is intersected with, and any further filter of its records -
+# are in scripts/project.R
+source("scripts/project.R")
 
-datasets <- list(
-  Galiano = list(
-    obs_file = "tabular_data/Galiano_Tracheophyta_catalogue_2025-12-30-selected-orig.csv",
-    shp_index_file = "tabular_data/Galiano Shapefile Index.csv"
-  )
-)
-
-obsFile <- datasets[[runDataset]]$obs_file;
-shapeIndex = timedFread(datasets[[runDataset]]$shp_index_file);
+obsFile <- project$obsFile
+shapeIndex <- timedFread(project$shapeIndexFile)
 
 prefix <- sub("(.*)-orig.*", "\\1", obsFile)
 
@@ -46,6 +42,9 @@ cat("Removing ", length(emptyColNames), " empty columns ", paste(emptyColNames, 
 rawObs <- rawObs[!emptyCols]
 
 filteredObs <- rawObs %>% filter(iNaturalistTaxonId != 0)
+if (!is.null(project$filterObs)) {
+  filteredObs <- project$filterObs(filteredObs)
+}
 
 filteredObs.sf <- st_as_sf(filteredObs, coords = c("decimalLongitude", "decimalLatitude"), crs=4326, na.fail = FALSE) # CRS is WGS:1984
 
@@ -64,6 +63,12 @@ for(i in 1:nrow(shapeIndex)) {
   }
   read.end <- Sys.time()
   wg("Read {nrow(shape)} polygons in {format(read.end - read.start)}")
+  # A layer with no shapes, e.g. the published KBAs of a project which has none as yet, labels no records and gives no
+  # column - its file, written with no features, has no attributes to read
+  if (nrow(shape) == 0) {
+    wg("Skipping {row$Label}, which has no shapes")
+    next
+  }
   bench.start <- Sys.time()
   # Ignore message "although coordinates are longitude/latitude, st_intersects assumes that they are planar"
   suppressMessages(rawintersects <- st_intersects(filteredObs.sf, shape))
@@ -96,6 +101,21 @@ for(i in 1:nrow(shapeIndex)) {
     wg("About to index {row$Label}")
     indirectionRows <- data.frame(regionField = row$Label, id = 1:length(sortUniqueLabels), label = sortUniqueLabels)
     regionIndirection <- rbind(regionIndirection, indirectionRows)
+    # A row naming a GroupField also gives each region the label of its group, e.g. its category of protected area, in
+    # further rows of the same field and id - a selection of the group's label then matches the records of all its
+    # regions, with no column of its own. If it names a GroupLabel, the groups are also listed under that field, e.g.
+    # for the legend of a map whose regionField it is
+    groupField <- row[["GroupField"]]
+    if (!is.null(groupField) && !is.na(groupField) && groupField != "") {
+      groupValues <- shapecols[[groupField]][match(sortUniqueLabels, shapeFieldValues)]
+      regionIndirection <- rbind(regionIndirection,
+        data.frame(regionField = row$Label, id = 1:length(sortUniqueLabels), label = groupValues))
+      groupLabel <- row[["GroupLabel"]]
+      if (!is.null(groupLabel) && !is.na(groupLabel) && groupLabel != "") {
+        groups <- sort(unique(groupValues))
+        regionIndirection <- rbind(regionIndirection, data.frame(regionField = groupLabel, id = seq_along(groups), label = groups))
+      }
+    }
   } else {
     wg("Regions for column ${row$Label} did not match any observations")
   }
@@ -116,6 +136,11 @@ for(i in 1:nrow(shapeIndex)) {
 
 #timedWrite(withoutEco, str_glue("{prefix}-ecoregion-discarded.csv"))
 
+
+# Keep taxonName last, if there is one, after the label columns we have just added - see prepare_obs.R
+if ("taxonName" %in% names(filteredObs.labels)) {
+  filteredObs.labels <- filteredObs.labels %>% relocate(taxonName, .after = last_col())
+}
 
 timedWrite(filteredObs.labels, str_glue("{prefix}-labels.csv"))
 
