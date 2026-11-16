@@ -1,1 +1,3 @@
 occurrenceID,taxon_name,eventDate,recordedBy,distance_m,annotation,excludeFromEP,note
+BCCDC2019:6,Meconella oregana,,L. Chalifour,0,planted,TRUE,"Seed re-introduction on Mount Sutil in 2013; one plant found in 2014 (BC CDC element occurrence, L. Chalifour; iNaturalist 9142345). Erickson 2022, Ecological Assessment for DL21 & DL22, p. 18. Does not validate the historical (1980) population."
+https://www.inaturalist.org/observations/9142345,Meconella oregana,2014-03-22,Galiano observer,75,planted,TRUE,"Seed re-introduction on Mount Sutil in 2013; one plant found in 2014 (BC CDC element occurrence, L. Chalifour; iNaturalist 9142345). Erickson 2022, Ecological Assessment for DL21 & DL22, p. 18. Does not validate the historical (1980) population."

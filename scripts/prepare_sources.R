@@ -36,6 +36,12 @@ catalogueColumns <- c("taxon_name", "eventDate", "occurrenceID", "gbifID", "basi
 
 summary <- timedFread(summary_file) %>% filter(Phylum == "Tracheophyta")
 
+# A copy of the summary in tabular_data, the checklist read by scripts/prepare_curation_history.R for the notes on each
+# taxon - named as the list in bioreportr-prep.yaml. It is copied byte for byte, since its notes hold quotation marks
+# which a round trip through fread and timedWrite would double
+summary_copy_file <- file.path("tabular_data", yaml::read_yaml("bioreportr-prep.yaml")$data$list)
+file.copy(summary_file, summary_copy_file, overwrite = TRUE)
+
 # --- The historical records ---------------------------------------------------------------------------------------
 
 blank <- function (x) is.na(x) | x == ""
@@ -177,6 +183,48 @@ solow <- data.frame(taxon_name = catalogue$taxon_name, year = years) %>%
   group_by(taxon_name) %>%
   summarise(solow_EP = round(solow_ep(year, firstYear, lastYear), 3), .groups = "drop")
 
+# --- The reporting status -----------------------------------------------------------------------------------------
+
+# Each taxon's reporting status, by the year from which a record counts as recent, recentYear in the settings of
+# bioreportr.yaml - just after the publication of Harvey Janszen's checklist, the historical baseline of this flora - so
+# that the statuses agree with the records the site shows. A taxon is historical if the summary reports it historically,
+# "confirmed" or "reported", since its historical reports may not all be among the records, or if it has a record before
+# that year, and is recent if it has a record since: then "confirmed" if both, "unconfirmed" (historical) if only
+# historical, "new" if only recent. A record without a date is taken as historical, since the undated records are those
+# of lists, chiefly Janszen's. A taxon with no records keeps the summary's status
+recent_year <- yaml::read_yaml("bioreportr.yaml")$settings$recentYear
+
+summary_status <- function (status) {
+  case_when(
+    status == "confirmed" ~ "confirmed",
+    str_detect(status, "^new") ~ "new",
+    status == "reported" ~ "unconfirmed",
+    TRUE ~ "unknown"
+  )
+}
+
+recorded <- data.frame(taxon_name = catalogue$taxon_name, year = years) %>%
+  group_by(taxon_name) %>%
+  summarise(historical = any(is.na(year) | year < recent_year), recent = any(!is.na(year) & year >= recent_year),
+            .groups = "drop")
+
+statuses <- summary %>%
+  transmute(Taxon, listed = summary_status(Reporting.Status)) %>%
+  left_join(recorded, by = c("Taxon" = "taxon_name")) %>%
+  mutate(historical = coalesce(historical, FALSE) | listed %in% c("confirmed", "unconfirmed"),
+         reportingStatus = case_when(
+           is.na(recent) ~ listed,
+           historical & recent ~ "confirmed",
+           recent ~ "new",
+           historical ~ "unconfirmed",
+           TRUE ~ listed
+         )) %>%
+  distinct(Taxon, .keep_all = TRUE)
+
+changed <- statuses %>% filter(reportingStatus != listed)
+message(nrow(changed), " taxa given a reporting status other than the summary's, by the records since ", recent_year, ": ",
+        paste0(changed$Taxon, " (", changed$listed, " -> ", changed$reportingStatus, ")", collapse = ", "))
+
 # --- The reduced summary ------------------------------------------------------------------------------------------
 
 vouchered <- unique(catalogue$taxon_name[catalogue$basisOfRecord == "PRESERVED_SPECIMEN"])
@@ -205,12 +253,7 @@ reducedList <- summary %>%
     provenance_status = ifelse(Taxon %in% vouchered, "voucher", "no_voucher"),
     provincial_concern = provincialConcern(Provincial.Status),
     introduction_status = ifelse(Origin %in% c("native", "exotic"), Origin, "unknown"),
-    reportingStatus = case_when(
-      Reporting.Status == "confirmed" ~ "confirmed",
-      str_detect(Reporting.Status, "^new") ~ "new",
-      Reporting.Status == "reported" ~ "unconfirmed",
-      TRUE ~ "unknown"
-    ),
+    reportingStatus = statuses$reportingStatus[match(Taxon, statuses$Taxon)],
     solow_EP = solow_EP,
     phylum = "Tracheophyta"
   )

@@ -13,7 +13,30 @@ data:
   summary: Galiano_Tracheophyta_summary_2026-04-04-prepared-taxa.csv
   # The index of the shapes the records are intersected with by scripts/intersectShapes.R - see spatial_data/vectors
   shapeIndex: "Galiano Shapefile Index.csv"
+  # The columnar data package of the three files above, as the tables obs, taxa and regionIndirection, packed from them
+  # by R/build.R as the final stage of data preparation, with its details beside it as "-details.viz"
+  viz: Galiano_Tracheophyta_2026-04-04.viz
   # The history of the curatorial notes on each taxon, prepared by scripts/prepare_curation_history.R - published
   curationHistory: Galiano_Tracheophyta_curation-history_2026-04-04.csv
   # The annotations of records, e.g. of planted populations, applied by scripts/apply_record_annotations.R - published
   recordAnnotations: Galiano_Tracheophyta_record-annotations_2026-04-04.csv
+  # The taxa which the Biodiversity Galiano curation excluded from the checklist, prepared by
+  # scripts/prepare_excluded_taxa.R - published
+  excludedTaxa: Galiano_Tracheophyta_excluded-taxa_2026-04-04.csv
+  # Extirpation probabilities inferred by the Galiano Plant Extirpation Study for its focal taxa, from search effort and
+  # habitat, which replace the Solow EP of those taxa - applied by scripts/apply_study_estimates.R - not published
+  studyEstimates: Galiano_Tracheophyta_extirpation-study-estimates_2025-01-09.csv
+# The settings which the project's R scripts and its story page share, named once here: its R scripts read them from this
+# file, and src/js/storyBuild.js ("npm run story") writes each into the layer bioreportr.storyData as a member of the same
+# name - see the defaults of bioreportr.storyPage
+settings:
+  # Whether the Protected Areas pane, and its summaries written by scripts/Protected_map_mapbox.R, keep only the records
+  # which can be mapped. Many of Galiano Island's native species are known only from list records without a position,
+  # which would leave the map nothing to fit when chosen, so it keeps only those which can be mapped
+  protectedMappedOnly: true
+  # The year from which a record counts as recent - 2004, just after the publication of Harvey Janszen's Outer Gulf
+  # Islands checklist of 2003, which is the historical baseline of this flora. A record before it is historical, and one
+  # from it a sighting since: a native taxon recorded on both sides is confirmed, only before it historical, and only
+  # since it new. scripts/prepare_sources.R sets each taxon's reporting status by it, and
+  # scripts/apply_record_annotations.R recalculates it by it, and the story page describes its statuses by it
+  recentYear: 2004

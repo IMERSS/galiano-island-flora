@@ -4,12 +4,12 @@ shortTitle: Harvey’s footsteps
 weight: 7
 knit: (function(input, ...) { source(here::here("R/knit_render.R"), local = TRUE)$value(input, ...) })
 # The component rendering this pane's section, into whose template npm run story writes it - see AGENTS.md
-paneComponent: galiano.rememberingPane
+paneComponent: bioreportr.rememberingPane
 ---
 
 ## Harvey’s footsteps
 
-<figure class="galiano-harvey-portrait"><img src="img/HJ.png" alt="Harvey Janszen, Galiano Island, May 3, 2019"></figure>
+<figure class="mxcw-harvey-portrait"><img src="img/HJ.png" alt="Harvey Janszen, Galiano Island, May 3, 2019"></figure>
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -24,11 +24,12 @@ Galiano Island was part of Harvey’s botanical life from his very first journal
 
 Through the [Janszen Legacy Project](https://imerss.github.io/janszen-legacy-storymap/Janszen_Legacy_Project.html) we continue to digitize Harvey’s journals and collections, and through this atlas we invite you to help carry his work forward, by sharing your local plant knowledge and contributing to the co-creation of a living *Flora of Galiano Island.*
 
-<!-- TODO: the Galiano project's supporters - their logos go in static/local/images/supporters/, listed as for Saanich:
-<div class="galiano-supporters">
-<p class="galiano-supporters-title">With thanks to our supporters</p>
-<ul class="galiano-supporters-list">
-<li class="galiano-supporter-NAME"><img src="../local/images/supporters/NAME.png" alt="NAME" title="NAME"></li>
+<!-- TODO: the Galiano project's supporters - their logos go in static/local/images/supporters/, listed as for Saanich,
+     a logo to be shown taller marked <li class="mxcw-supporter-tall">:
+<div class="mxcw-supporters">
+<p class="mxcw-supporters-title">With thanks to our supporters</p>
+<ul class="mxcw-supporters-list">
+<li><img src="../local/images/supporters/NAME.png" alt="NAME" title="NAME"></li>
 </ul>
 </div>
 -->

@@ -1,0 +1,57 @@
+group,id,scientificName,commonName,family,introduction_status,reason,confidence,n_records,n_research_grade,first_record_date,last_record_date
+excluded,181594,Euphorbia characias,Mediterranean spurge,Euphorbiaceae,,persisting or waif,,9,4,2016-02-12,2025-05-08
+excluded,47570,Populus alba,white poplar,Salicaceae,,persisting or waif,,9,4,2016-08-21,2025-06-08
+excluded,950617,Anemonoides blanda,Greek Anemone,Ranunculaceae,,persisting or waif,,7,6,2017-04-24,2025-04-05
+excluded,163812,Hippophae rhamnoides,Sea-buckthorn,Elaeagnaceae,,persisting or waif,,6,6,2024-08-29,2025-09-18
+excluded,53094,Heracleum maximum,American cowparsnip,Apiaceae,,persisting or waif,,4,2,2021-06-20,2024-03-01
+excluded,710266,Actinidia kolomikta,Kolomicta,Actinidiaceae,,persisting or waif,,3,0,2025-05-07,2025-05-07
+excluded,60265,Asparagus officinalis,garden asparagus,Asparagaceae,,persisting or waif,,3,1,2023-05-18,2025-05-29
+excluded,53271,Brassica rapa,Turnip,Brassicaceae,,persisting or waif,,3,0,2018-05-08,2023-06-02
+excluded,487126,Crocus × stellaris,Dutch Yellow Crocus,Iridaceae,,persisting or waif,,3,2,2017-02-23,2021-02-26
+excluded,320685,Geranium macrorrhizum,Rock Crane's-bill,Geraniaceae,,persisting or waif,,3,0,2023-05-31,2025-09-26
+excluded,77719,Leucanthemum maximum,max chrysanthemum,Asteraceae,,persisting or waif,,3,0,2024-06-10,2025-09-28
+excluded,48258,Acer circinatum,Vine Maple,Sapindaceae,,persisting or waif,,2,0,2019-01-10,2021-07-19
+excluded,54763,Acer platanoides,Norway maple,Sapindaceae,,persisting or waif,,2,0,2020-09-17,2025-07-14
+excluded,51807,Aquilegia vulgaris,common columbine,Ranunculaceae,,persisting or waif,,2,0,2025-04-22,2025-05-11
+excluded,54516,Brassica oleracea,"cabbage, broccoli, and allies",Brassicaceae,,persisting or waif,,2,1,2018-04-10,2020-05-03
+excluded,820904,Callitropsis nootkatensis,Alaska yellow cedar,Cupressaceae,,persisting or waif,,2,0,2023-09-17,2025-10-19
+excluded,131586,Colchicum autumnale,Meadow Saffron,Colchicaceae,,persisting or waif,,2,0,2020-09-17,2025-09-26
+excluded,56132,Hyacinthoides non-scripta,bluebell,Asparagaceae,,persisting or waif,,2,0,2025-05-29,2025-05-29
+excluded,126637,Hyacinthus orientalis,Hyacinth,Asparagaceae,,persisting or waif,,2,1,2018-04-15,2024-03-22
+excluded,47757,Oxalis oregana,Oregon woodsorrel,Oxalidaceae,,persisting or waif,,2,1,2021-06-25,2025-04-23
+excluded,55969,Viburnum opulus,guelder-rose,Viburnaceae,,persisting or waif,,2,0,2020-09-04,2025-05-07
+excluded,158005,Actinidia arguta,Hardy kiwifruit,Actinidiaceae,,persisting or waif,,1,0,2025-07-06,2025-07-06
+excluded,55149,Actinidia chinensis,Chinese gooseberry,Actinidiaceae,,persisting or waif,,1,0,2025-07-02,2025-07-02
+excluded,56022,Alchemilla mollis,Garden Lady's-mantle,Rosaceae,,persisting or waif,,1,0,2024-06-23,2024-06-23
+excluded,239653,Brassica oleracea capitata,Cabbage,Brassicaceae,,persisting or waif,,1,0,2025-06-02,2025-06-02
+excluded,121763,Castanea sativa,Sweet Chestnut,Fagaceae,,persisting or waif,,1,0,2024-10-06,2024-10-06
+excluded,48206,Convallaria majalis,European lily of the valley,Asparagaceae,,persisting or waif,,1,1,2022-08-07,2022-08-07
+excluded,64240,Cortaderia selloana,Pampas Grass,Poaceae,,persisting or waif,,1,0,2020-09-17,2020-09-17
+excluded,54770,Corylus americana,American hazelnut,Betulaceae,,persisting or waif,,1,0,2024-08-17,2024-08-17
+excluded,54491,Corylus avellana,Hazel,Betulaceae,,persisting or waif,,1,0,2023-11-08,2023-11-08
+excluded,82853,Cydonia oblonga,Quince,Rosaceae,,persisting or waif,,1,0,2025-05-07,2025-05-07
+excluded,64697,Elaeagnus umbellata,spreading oleaster,Elaeagnaceae,,persisting or waif,,1,0,2025-05-15,2025-05-15
+excluded,522953,Epimedium × versicolor,Hybrid Barrenwort,Berberidaceae,,persisting or waif,,1,0,2024-10-22,2024-10-22
+excluded,53052,Foeniculum vulgare,fennel,Apiaceae,,persisting or waif,,1,1,2024-09-01,2024-09-01
+excluded,55722,Geranium pratense,Meadow Crane's-bill,Geraniaceae,,persisting or waif,,1,0,2023-06-29,2023-06-29
+excluded,126583,Hemerocallis fulva,orange day-lily,Asphodelaceae,,persisting or waif,,1,0,2025-05-06,2025-05-06
+excluded,163663,Hemerocallis lilioasphodelus,yellow daylily,Asphodelaceae,,persisting or waif,,1,0,2025-05-25,2025-05-25
+excluded,50876,Layia platyglossa,tidy tips,Asteraceae,,persisting or waif,,1,0,2025-05-07,2025-05-07
+excluded,170837,Leucanthemum × superbum,Shasta Daisy,Asteraceae,,persisting or waif,,1,0,2024-07-01,2024-07-01
+excluded,77741,Ligustrum ovalifolium,garden privet,Oleaceae,,persisting or waif,,1,1,2022-07-10,2022-07-10
+excluded,223669,Lilium longiflorum,Easter lily,Liliaceae,,persisting or waif,,1,0,2024-07-01,2024-07-01
+excluded,62313,Nigella damascena,love-in-a-mist,Ranunculaceae,,persisting or waif,,1,1,2024-06-03,2024-06-03
+excluded,83914,Oplopanax horridus,Devil's Club,Araliaceae,,persisting or waif,,1,1,2023-07-16,2023-07-16
+excluded,404400,Osmanthus heterophyllus,Prickly Sweet Olive,Oleaceae,,persisting or waif,,1,0,2024-07-06,2024-07-06
+excluded,57805,Oxalis articulata,pink-sorrel,Oxalidaceae,,persisting or waif,,1,1,2023-05-27,2023-05-27
+excluded,63735,Prunus domestica,Plum,Rosaceae,,persisting or waif,,1,1,2016-07-10,2016-07-10
+excluded,78882,Rosa multiflora,many-flowered rose,Rosaceae,,persisting or waif,,1,0,2025-09-26,2025-09-26
+excluded,53778,Santolina chamaecyparissus,Lavender-cotton,Asteraceae,,persisting or waif,,1,0,2024-07-05,2024-07-05
+excluded,79461,Ulmus minor,Small-leaved Elm,Ulmaceae,,persisting or waif,,1,0,2023-05-30,2023-05-30
+excluded,name:Elymus hirsutus,Elymus hirsutus,,,,doubtful,,0,0,,
+excluded,name:Equisetum fluviatile,Equisetum fluviatile,,,,doubtful,,0,0,,
+excluded,name:Gymnocarpium dryopteris,Gymnocarpium dryopteris,,,,doubtful,,0,0,,
+excluded,name:Juncus mertensianus,Juncus mertensianus,,,,doubtful,,0,0,,
+excluded,name:Olsynium douglasii,Olsynium douglasii,,,,doubtful,,0,0,,
+excluded,name:Sorbus sitchensis,Sorbus sitchensis,,,,doubtful,,0,0,,
+excluded,name:Viburnum lantana,Viburnum lantana,,,,persisting or waif,,0,0,,

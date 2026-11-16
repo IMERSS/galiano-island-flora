@@ -1,25 +1,51 @@
-# The settings, beyond its data files named in bioreportr.yaml, of the Galiano Island project read by the shared scripts of the bioReportR framework, such as
+# The settings, beyond its data files named in bioreportr.yaml and bioreportr-prep.yaml, of the Galiano Island project read by the shared scripts of the bioReportR framework, such as
 # scripts/intersectShapes.R and scripts/Protected_map_mapbox.R. This file is the project's own, and is not copied by
 # copyFrameworkOut.sh
 
-# The project's data files are named in bioreportr.yaml, which the story page reads too
-config <- yaml::read_yaml("bioreportr.yaml")$data
+# The project's data files: those its story page reads, named in bioreportr.yaml, and those which only prepare them,
+# named in bioreportr-prep.yaml
+config <- c(yaml::read_yaml("bioreportr.yaml")$data, yaml::read_yaml("bioreportr-prep.yaml")$data)
 
 project <- list(
+  # The year from which a record counts as recent, shared with the story page through the settings of bioreportr.yaml
+  recentYear = yaml::read_yaml("bioreportr.yaml")$settings$recentYear,
   # The source catalogue, whose records are labelled with the regions they fall in
   obsFile = file.path("tabular_data", config$catalogue),
   # The index of the shapes the records are intersected with - see spatial_data/vectors
   shapeIndexFile = file.path("tabular_data", config$shapeIndex),
   # The summary of the catalogue's taxa
   summaryFile = file.path("tabular_data", config$summary),
+  # The settings of the curation history, read by scripts/prepare_curation_history.R from the Biodiversity Galiano summary,
+  # named as the list in bioreportr-prep.yaml - its one source, the summary's Notes, given as the field "notes" as
+  # curationHistorySources in galiano-story.vue names it, and the notes of the taxa kept off the checklist, from the
+  # working list written by scripts/prepare_working_list.R
+  # The columns of the checklist naming each taxon and giving its provincial and national statuses, read by
+  # scripts/assign_conservation_status.R for any taxon which the BC CDC's rankings don't rank
+  conservation = list(name = "Taxon", provincial = "Provincial.Status", national = "National.Status"),
+  curation = list(
+    nameColumn = "Taxon",
+    idColumn = "ID",
+    history = list(notes = "Notes"),
+    # The notes' reviewers' signatures, e.g. "(QC)" or "-AS, HJ", are spelled out
+    expandInitials = "notes",
+    reviewedBy = NULL,
+    # The reviewers who sign the notes with their initials - in citations, e.g. "HJ (2001)", initials are left as written
+    reviewers = c(
+      AS = "Andrew Simon",
+      HJ = "Harvey Janszen",
+      QC = "Quentin Cronk"
+    ),
+    automatic = c(),
+    # The flags of the working list by which the curators exclude a taxon, each with the label shown for it - those of
+    # the Saanich Peninsula, onto which scripts/prepare_working_list.R maps the Biodiversity Galiano decisions
+    flags = c(is_doubtful = "doubtful", is_persisting_or_waif = "persisting or waif", is_planted = "planted")
+  ),
   # The settings of the map of Harvey Janszen's checklists in the pane in memory of him, read by
   # scripts/Janszen_checklists_mapbox.R: the area picked out as the project's own - Galiano Island, which lies within
-  # his Outer Gulf Islands checklist and so is drawn over it from the project's own boundary - and the class of the
-  # hover cards, styled by galiano-rememberingPane.vue
+  # his Outer Gulf Islands checklist and so is drawn over it from the project's own boundary
   janszen = list(
     highlight = "Galiano",
-    extraAreas = data.frame(folder = "Galiano", name = "Galiano Island", path = "spatial_data/vectors/Galiano.geojson"),
-    labelClass = "galiano-checklist-name"
+    extraAreas = data.frame(folder = "Galiano", name = "Galiano Island", path = "spatial_data/vectors/Galiano.geojson")
   ),
   # The settings of the Protected Areas pane's map and summaries, read by scripts/Protected_map_mapbox.R
   protected = list(
@@ -40,10 +66,6 @@ project <- list(
     # The island's shore, framing the study area
     boundary = function () sf::st_read("spatial_data/vectors/Galiano.geojson", quiet = TRUE),
     view = list(lon = -123.42, lat = 48.925, zoom = 10.4),
-    # The story keeps only the records which can be mapped on this pane, since many native species are known only from
-    # list records without a position, which would leave the map nothing to fit - see mappedOnly in
-    # bioreportr-protectedPane.vue and galiano-story.vue
-    mappedOnly = TRUE,
     # The wording of the summaries - see default.text in scripts/Protected_map_mapbox.R for the figures each is given
     text = list(
       overview = function (v) str_glue("Based on our current knowledge, {v$stats$protected.percent} percent of the ",

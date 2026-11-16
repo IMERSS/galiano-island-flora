@@ -111,7 +111,7 @@
     "title": "Harvey’s footsteps",
     "shortTitle": "Harvey’s footsteps",
     "weight": 7,
-    "paneComponent": "galiano.rememberingPane",
+    "paneComponent": "bioreportr.rememberingPane",
     "view": {
       "type": "view",
       "lon": -123.1764,

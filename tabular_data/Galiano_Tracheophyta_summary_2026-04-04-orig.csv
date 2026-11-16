@@ -3,8 +3,8 @@ Amaranthus powellii,Amaranthus powellii,75398,species,non-infrataxon,voucher,unk
 Idahoa scapigera,Idahoa scapigera,77486,species,non-infrataxon,no_voucher,secure,native,confirmed,0.048,Tracheophyta
 Taraxacum officinale agg.,Taraxacum officinale agg.,47602,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Pseudognaphalium stramineum,Pseudognaphalium stramineum,53089,species,non-infrataxon,no_voucher,unknown,native,confirmed,0,Tracheophyta
-Sanicula graveolens,Sanicula graveolens,78979,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.143,Tracheophyta
-Lathyrus sylvestris,Lathyrus sylvestris,82740,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.126,Tracheophyta
+Sanicula graveolens,Sanicula graveolens,78979,species,non-infrataxon,no_voucher,secure,native,confirmed,0.143,Tracheophyta
+Lathyrus sylvestris,Lathyrus sylvestris,82740,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.126,Tracheophyta
 Rhamphospermum arvense,Rhamphospermum arvense,1451052,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,Tracheophyta
 Turritis glabra,Turritis glabra,79460,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Arabis eschscholtziana,Arabis eschscholtziana,75494,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
@@ -33,7 +33,7 @@ Bromus hordeaceus,Bromus hordeaceus,52703,species,non-infrataxon,voucher,unknown
 Arctium minus,Arctium minus,59570,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,Tracheophyta
 Bromus tectorum,Bromus tectorum,58369,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Cardamine pensylvanica,Cardamine pensylvanica,76005,species,non-infrataxon,voucher,secure,native,confirmed,0.08,Tracheophyta
-Fragaria chiloensis,Fragaria chiloensis,55367,species,non-infrataxon,voucher,secure,native,unconfirmed,0,Tracheophyta
+Fragaria chiloensis,Fragaria chiloensis,55367,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Cardamine oligosperma,Cardamine oligosperma,52981,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Erythranthe sookensis,Erythranthe sookensis,865336,species,non-infrataxon,no_voucher,secure,native,confirmed,,Tracheophyta
 Moehringia macrophylla,Moehringia macrophylla,61884,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
@@ -73,7 +73,7 @@ Myosotis arvensis,Myosotis arvensis,51726,species,non-infrataxon,voucher,unknown
 Phalaris arundinacea,Phalaris arundinacea,63337,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Dianthus armeria,Dianthus armeria,64541,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.015,Tracheophyta
 Bromus inermis,Bromus inermis,75903,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.328,Tracheophyta
-Puccinellia nuttalliana,Puccinellia nuttalliana,60309,species,non-infrataxon,voucher,secure,native,unconfirmed,0.046,Tracheophyta
+Puccinellia nuttalliana,Puccinellia nuttalliana,60309,species,non-infrataxon,voucher,secure,native,confirmed,0.046,Tracheophyta
 Platanthera elongata,Platanthera elongata,551466,species,non-infrataxon,voucher,concern,native,confirmed,0,Tracheophyta
 Comarum palustre,Comarum palustre,62213,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Carex lasiocarpa,Carex lasiocarpa,76063,species,non-infrataxon,voucher,secure,native,confirmed,0.143,Tracheophyta
@@ -113,7 +113,7 @@ Juncus bufonius,Juncus bufonius,57107,species,non-infrataxon,voucher,secure,nati
 Poa trivialis,Poa trivialis,78657,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.098,Tracheophyta
 Poa compressa,Poa compressa,78636,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.051,Tracheophyta
 Carex kelloggii var. limnophila,Carex kelloggii var. limnophila,1091402,variety,infrataxon,voucher,secure,native,unconfirmed,0.328,Tracheophyta
-Carex utriculata,Carex utriculata,76124,species,non-infrataxon,voucher,secure,native,unconfirmed,0.163,Tracheophyta
+Carex utriculata,Carex utriculata,76124,species,non-infrataxon,voucher,secure,native,confirmed,0.163,Tracheophyta
 Arenaria serpyllifolia var. serpyllifolia,Arenaria serpyllifolia var. serpyllifolia,80373,variety,infrataxon,voucher,unknown,exotic,unconfirmed,0.328,Tracheophyta
 Carex leptalea,Carex leptalea,76069,species,non-infrataxon,voucher,secure,native,confirmed,0.049,Tracheophyta
 Juncus ensifolius,Juncus ensifolius,77569,species,non-infrataxon,voucher,secure,native,confirmed,0.016,Tracheophyta
@@ -129,9 +129,9 @@ Amelanchier alnifolia,Amelanchier alnifolia,75415,species,non-infrataxon,no_vouc
 Frangula purshiana,Frangula purshiana,77156,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Erodium cicutarium,Erodium cicutarium,47687,subspecies,infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Thysanocarpus curvipes,Thysanocarpus curvipes,58088,species,non-infrataxon,voucher,concern,native,confirmed,0.059,Tracheophyta
-Meconella oregana,Meconella oregana,77970,species,non-infrataxon,no_voucher,concern,native,confirmed,0.046,Tracheophyta
+Meconella oregana,Meconella oregana,77970,species,non-infrataxon,no_voucher,concern,native,confirmed,0.164,Tracheophyta
 Equisetum telmateia ssp. braunii,Equisetum telmateia ssp. braunii,57032,subspecies,infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
-Plagiobothrys tenellus,Plagiobothrys tenellus,58066,species,non-infrataxon,voucher,concern,native,unconfirmed,0.048,Tracheophyta
+Plagiobothrys tenellus,Plagiobothrys tenellus,58066,species,non-infrataxon,voucher,concern,native,unconfirmed,0.434,Tracheophyta
 Pteridium aquilinum ssp. pubescens,Pteridium aquilinum ssp. pubescens,52684,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Salix scouleriana,Salix scouleriana,71076,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Mentha canadensis,Mentha canadensis,77991,species,non-infrataxon,no_voucher,secure,native,confirmed,0.022,Tracheophyta
@@ -405,7 +405,7 @@ Sonchus asper,Sonchus asper,53269,species,non-infrataxon,no_voucher,unknown,exot
 Lactuca serriola,Lactuca serriola,53107,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.03,Tracheophyta
 Euphorbia peplus,Euphorbia peplus,57036,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.126,Tracheophyta
 Hypericum calycinum,Hypericum calycinum,77481,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
-Calystegia sepium ssp. sepium,Calystegia sepium ssp. sepium,118539,subspecies,infrataxon,no_voucher,unknown,exotic,confirmed,0.285,Tracheophyta
+Calystegia sepium ssp. sepium,Calystegia sepium ssp. sepium,118539,subspecies,infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
 Madia gracilis,Madia gracilis,53135,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Madia sativa,Madia sativa,53143,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.016,Tracheophyta
 Spirodela polyrhiza,Spirodela polyrhiza,57867,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
@@ -450,7 +450,7 @@ Festuca occidentalis,Festuca occidentalis,59091,species,non-infrataxon,voucher,s
 Poa annua,Poa annua,52808,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.039,Tracheophyta
 Hypochaeris glabra,Hypochaeris glabra,53103,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Phacelia linearis,Phacelia linearis,78499,species,non-infrataxon,no_voucher,secure,native,confirmed,0.048,Tracheophyta
-Allium amplectens,Allium amplectens,60267,species,non-infrataxon,no_voucher,concern,native,confirmed,0.017,Tracheophyta
+Allium amplectens,Allium amplectens,60267,species,non-infrataxon,no_voucher,concern,native,confirmed,0.016,Tracheophyta
 Geranium carolinianum,Geranium carolinianum,58917,species,non-infrataxon,no_voucher,secure,native,confirmed,0.134,Tracheophyta
 Eriocoma lemmonii,Eriocoma lemmonii,1220721,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Trifolium microdon,Trifolium microdon,57079,species,non-infrataxon,voucher,secure,native,confirmed,0.039,Tracheophyta
@@ -478,7 +478,7 @@ Phleum pratense,Phleum pratense,57190,species,non-infrataxon,no_voucher,unknown,
 Gnaphalium uliginosum,Gnaphalium uliginosum,136366,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Polygonum aviculare,Polygonum aviculare,1290817,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.034,Tracheophyta
 Malva moschata,Malva moschata,55977,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
-Madia glomerata,Madia glomerata,77923,species,non-infrataxon,no_voucher,secure,native,confirmed,0.285,Tracheophyta
+Madia glomerata,Madia glomerata,77923,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Epilobium brachycarpum,Epilobium brachycarpum,52971,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Trifolium hybridum,Trifolium hybridum,61824,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.031,Tracheophyta
 Toxicodendron diversilobum,Toxicodendron diversilobum,51080,species,non-infrataxon,voucher,concern,native,confirmed,0.055,Tracheophyta
@@ -496,7 +496,7 @@ Medicago lupulina,Medicago lupulina,57056,species,non-infrataxon,no_voucher,unkn
 Festuca myuros,Festuca myuros,77140,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Dulichium arundinaceum,Dulichium arundinaceum,76745,species,non-infrataxon,no_voucher,secure,native,confirmed,0.05,Tracheophyta
 Polygonum fowleri,Polygonum fowleri,78683,species,non-infrataxon,no_voucher,secure,native,confirmed,0.046,Tracheophyta
-Solanum americanum,Solanum americanum,59035,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.285,Tracheophyta
+Solanum americanum,Solanum americanum,59035,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
 Artemisia campestris ssp. pacifica,Artemisia campestris ssp. pacifica,361656,subspecies,infrataxon,no_voucher,secure,native,confirmed,0.06,Tracheophyta
 Lomatium nudicaule,Lomatium nudicaule,77818,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Festuca subulata,Festuca subulata,77145,species,non-infrataxon,no_voucher,secure,native,confirmed,0.032,Tracheophyta
@@ -523,7 +523,7 @@ Bolboschoenus maritimus ssp. paludosus,Bolboschoenus maritimus ssp. paludosus,79
 Carex echinata ssp. phyllomanica,Carex echinata ssp. phyllomanica,79676,subspecies,infrataxon,no_voucher,secure,native,unconfirmed,,Tracheophyta
 Carex flava,Carex flava,1264456,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Juncus oxymeris,Juncus oxymeris,77588,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.328,Tracheophyta
-Cinna latifolia,Cinna latifolia,76340,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.239,Tracheophyta
+Cinna latifolia,Cinna latifolia,76340,species,non-infrataxon,no_voucher,secure,native,confirmed,0.239,Tracheophyta
 Glyceria striata,Glyceria striata,77293,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Hordeum murinum ssp. leporinum,Hordeum murinum ssp. leporinum,52795,subspecies,infrataxon,no_voucher,unknown,exotic,unconfirmed,,Tracheophyta
 Lolium multiflorum,Lolium multiflorum,68479,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
@@ -535,7 +535,7 @@ Angelica genuflexa,Angelica genuflexa,75450,species,non-infrataxon,no_voucher,se
 Anthemis cotula,Anthemis cotula,52841,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
 Erigeron canadensis,Erigeron canadensis,76907,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Grindelia squarrosa,Grindelia squarrosa,77305,species,non-infrataxon,no_voucher,unknown,native,unconfirmed,0.285,Tracheophyta
-Taraxacum erythrospermum agg.,Taraxacum erythrospermum agg.,79317,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.031,Tracheophyta
+Taraxacum erythrospermum agg.,Taraxacum erythrospermum agg.,79317,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.031,Tracheophyta
 Campanula rotundifolia,Campanula rotundifolia,984576,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Triodanis perfoliata,Triodanis perfoliata,64293,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Silene vulgaris,Silene vulgaris,55721,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
@@ -543,23 +543,23 @@ Fallopia convolvulus,Fallopia convolvulus,77129,species,non-infrataxon,no_vouche
 Plectritis macrocera,Plectritis macrocera,57287,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Andromeda polifolia var. polifolia,Andromeda polifolia var. polifolia,239202,variety,infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Arctostaphylos × media,Arctostaphylos × media,181436,hybrid,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
-Monotropa hypopitys,Monotropa hypopitys,59986,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0,Tracheophyta
-Lysimachia arvensis,Lysimachia arvensis,791928,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0,Tracheophyta
+Monotropa hypopitys,Monotropa hypopitys,59986,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
+Lysimachia arvensis,Lysimachia arvensis,791928,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Lysimachia maritima,Lysimachia maritima,204175,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Medicago sativa ssp. sativa,Medicago sativa ssp. sativa,57070,subspecies,infrataxon,no_voucher,unknown,exotic,unconfirmed,,Tracheophyta
 Melilotus albus,Melilotus albus,58907,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
-Trifolium wormskioldii,Trifolium wormskioldii,71146,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.224,Tracheophyta
+Trifolium wormskioldii,Trifolium wormskioldii,71146,species,non-infrataxon,no_voucher,secure,native,confirmed,0.224,Tracheophyta
 Galium mollugo,Galium mollugo,77206,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,Tracheophyta
 Geranium bicknellii,Geranium bicknellii,77251,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Geranium pusillum,Geranium pusillum,60204,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
-Mentha suaveolens,Mentha suaveolens,77993,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0,Tracheophyta
+Mentha suaveolens,Mentha suaveolens,77993,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Utricularia macrorhiza,Utricularia macrorhiza,79465,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.328,Tracheophyta
 Aphyllon californicum ssp. californicum,Aphyllon californicum ssp. californicum,802465,subspecies,infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
 Nuttallanthus texanus,Nuttallanthus texanus,78235,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.285,Tracheophyta
 Alcea rosea,Alcea rosea,62205,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
-Malva neglecta,Malva neglecta,77952,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0,Tracheophyta
+Malva neglecta,Malva neglecta,77952,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
 Potentilla norvegica,Potentilla norvegica,55732,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
-Solanum sarrachoides,Solanum sarrachoides,120519,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.104,Tracheophyta
+Solanum sarrachoides,Solanum sarrachoides,120519,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.104,Tracheophyta
 Potamogeton gramineus,Potamogeton gramineus,78710,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.328,Tracheophyta
 Juncus supiniformis,Juncus supiniformis,77594,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.296,Tracheophyta
 Uropappus lindleyi,Uropappus lindleyi,50806,species,non-infrataxon,voucher,concern,native,confirmed,0.05,Tracheophyta
@@ -567,35 +567,35 @@ Yabea microcarpa,Yabea microcarpa,56847,species,non-infrataxon,voucher,secure,na
 Festuca microstachys var. pauciflora,Festuca microstachys var. pauciflora,1377236,variety,infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Cardamine flexuosa,Cardamine flexuosa,69636,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.016,Tracheophyta
 Sagina apetala,Sagina apetala,56998,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.285,Tracheophyta
-Sanguisorba minor,Sanguisorba minor,55736,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0,Tracheophyta
+Sanguisorba minor,Sanguisorba minor,55736,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Clarkia amoena ssp. caurina,Clarkia amoena ssp. caurina,235283,subspecies,infrataxon,voucher,concern,native,confirmed,0.187,Tracheophyta
 Impatiens glandulifera,Impatiens glandulifera,47892,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,,Tracheophyta
 Salicornia depressa,Salicornia depressa,78930,species,non-infrataxon,no_voucher,secure,unknown,unconfirmed,,Tracheophyta
-Trisetum spicatum,Trisetum spicatum,79446,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.202,Tracheophyta
-Cardamine occidentalis,Cardamine occidentalis,76003,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.202,Tracheophyta
-Viola adunca,Viola adunca,53328,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.202,Tracheophyta
+Trisetum spicatum,Trisetum spicatum,79446,species,non-infrataxon,no_voucher,secure,native,confirmed,0.202,Tracheophyta
+Cardamine occidentalis,Cardamine occidentalis,76003,species,non-infrataxon,no_voucher,secure,native,confirmed,0.202,Tracheophyta
+Viola adunca,Viola adunca,53328,species,non-infrataxon,no_voucher,secure,native,confirmed,0.202,Tracheophyta
 Narcissus cf. pseudonarcissus,Narcissus cf. pseudonarcissus,55848,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,,Tracheophyta
 Lunaria annua,Lunaria annua,55886,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.015,Tracheophyta
 Luzula parviflora,Luzula parviflora,77897,species,non-infrataxon,no_voucher,secure,native,unconfirmed,0.343,Tracheophyta
-Symphytum × uplandicum,Symphytum × uplandicum,181924,hybrid,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.177,Tracheophyta
-Fumaria officinalis,Fumaria officinalis,53785,species,non-infrataxon,no_voucher,unknown,exotic,unconfirmed,0.177,Tracheophyta
-Bidens amplissima,Bidens amplissima,159233,species,non-infrataxon,no_voucher,concern,native,unconfirmed,0.177,Tracheophyta
+Symphytum × uplandicum,Symphytum × uplandicum,181924,hybrid,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.177,Tracheophyta
+Fumaria officinalis,Fumaria officinalis,53785,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.177,Tracheophyta
+Bidens amplissima,Bidens amplissima,159233,species,non-infrataxon,no_voucher,concern,native,confirmed,0.177,Tracheophyta
 Petroselinum crispum,Petroselinum crispum,78465,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Myosurus minimus,Myosurus minimus,58306,species,non-infrataxon,voucher,secure,native,confirmed,0.03,Tracheophyta
-Poa infirma,Poa infirma,78642,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.164,Tracheophyta
-Sagina maxima ssp. maxima,Sagina maxima ssp. maxima,238339,subspecies,infrataxon,voucher,secure,native,unconfirmed,0.152,Tracheophyta
-Prunus × pugetensis,Prunus × pugetensis,170971,hybrid,non-infrataxon,voucher,unknown,exotic,unconfirmed,0.152,Tracheophyta
+Poa infirma,Poa infirma,78642,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.164,Tracheophyta
+Sagina maxima ssp. maxima,Sagina maxima ssp. maxima,238339,subspecies,infrataxon,voucher,secure,native,confirmed,0.152,Tracheophyta
+Prunus × pugetensis,Prunus × pugetensis,170971,hybrid,non-infrataxon,voucher,unknown,exotic,confirmed,0.152,Tracheophyta
 Typha angustifolia,Typha angustifolia,60316,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.049,Tracheophyta
 Wolffia columbiana,Wolffia columbiana,79528,species,non-infrataxon,voucher,concern,native,confirmed,0.033,Tracheophyta
 Vicia lathyroides,Vicia lathyroides,79503,species,non-infrataxon,voucher,unknown,exotic,confirmed,0.045,Tracheophyta
-Lamium purpureum,Lamium purpureum,55851,species,non-infrataxon,voucher,unknown,exotic,new,0,Tracheophyta
+Lamium purpureum,Lamium purpureum,55851,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Taraxacum lacistophyllum,Taraxacum lacistophyllum,747262,species,non-infrataxon,voucher,unknown,exotic,new,0.113,Tracheophyta
 Prunus cerasifera,Prunus cerasifera,55837,species,non-infrataxon,no_voucher,unknown,exotic,new,0.031,Tracheophyta
-Rumex occidentalis,Rumex occidentalis,61086,species,non-infrataxon,no_voucher,secure,native,new,0.015,Tracheophyta
+Rumex occidentalis,Rumex occidentalis,61086,species,non-infrataxon,no_voucher,secure,native,confirmed,0.015,Tracheophyta
 Grindelia hirsutula,Grindelia hirsutula,55364,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Dipsacus fullonum,Dipsacus fullonum,56002,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Robinia pseudoacacia,Robinia pseudoacacia,56088,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
-Sparganium angustifolium,Sparganium angustifolium,79161,species,non-infrataxon,no_voucher,secure,native,new,0.197,Tracheophyta
+Sparganium angustifolium,Sparganium angustifolium,79161,species,non-infrataxon,no_voucher,secure,native,confirmed,0.197,Tracheophyta
 Salix hookeriana,Salix hookeriana,78941,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Ribes lacustre,Ribes lacustre,78858,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Sabulina macra,Sabulina macra,836878,species,non-infrataxon,no_voucher,secure,native,new,0.029,Tracheophyta
@@ -619,12 +619,12 @@ Danthonia decumbens,Danthonia decumbens,76603,species,non-infrataxon,voucher,unk
 Silene gallica,Silene gallica,53212,species,non-infrataxon,voucher,unknown,exotic,new,0,Tracheophyta
 Epilobium hallianum,Epilobium hallianum,76831,species,non-infrataxon,voucher,secure,native,new,0.044,Tracheophyta
 Ranunculus parviflorus,Ranunculus parviflorus,78829,species,non-infrataxon,voucher,unknown,exotic,new,0.044,Tracheophyta
-Petrosedum rupestre,Petrosedum rupestre,734805,species,non-infrataxon,voucher,unknown,exotic,unconfirmed,0,Tracheophyta
+Petrosedum rupestre,Petrosedum rupestre,734805,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Soliva sessilis,Soliva sessilis,60150,species,non-infrataxon,voucher,unknown,exotic,new,0.047,Tracheophyta
-Festuca rubra ssp. rubra,Festuca rubra ssp. rubra,181759,subspecies,infrataxon,voucher,secure,native,new,0.048,Tracheophyta
+Festuca rubra ssp. rubra,Festuca rubra ssp. rubra,181759,subspecies,infrataxon,voucher,secure,native,confirmed,0.048,Tracheophyta
 Agrostis pallens,Agrostis pallens,52692,species,non-infrataxon,voucher,secure,native,confirmed,0.046,Tracheophyta
 Lysimachia minima,Lysimachia minima,204353,species,non-infrataxon,voucher,secure,native,new,0.046,Tracheophyta
-Rhinanthus minor,Rhinanthus minor,61470,species,non-infrataxon,voucher,secure,native,unconfirmed,0.046,Tracheophyta
+Rhinanthus minor,Rhinanthus minor,61470,species,non-infrataxon,voucher,secure,native,confirmed,0.046,Tracheophyta
 Silene antirrhina,Silene antirrhina,58780,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Torilis arvensis,Torilis arvensis,56846,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Melica harfordii,Melica harfordii,77983,species,non-infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
@@ -649,21 +649,21 @@ Carex macrocephala,Carex macrocephala,160006,species,non-infrataxon,voucher,secu
 Petrosedum forsterianum,Petrosedum forsterianum,710296,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Viburnum tinus,Viburnum tinus,82666,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Muscari armeniacum,Muscari armeniacum,57847,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
-Kopsiopsis hookeri,Kopsiopsis hookeri,77611,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
+Kopsiopsis hookeri,Kopsiopsis hookeri,77611,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Stellaria graminea,Stellaria graminea,61948,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
-Gamochaeta ustulata,Gamochaeta ustulata,77224,species,non-infrataxon,no_voucher,unknown,native,new,0,Tracheophyta
+Gamochaeta ustulata,Gamochaeta ustulata,77224,species,non-infrataxon,no_voucher,unknown,native,confirmed,0,Tracheophyta
 Corallorhiza maculata var. ozettensis,Corallorhiza maculata var. ozettensis,452199,variety,infrataxon,no_voucher,concern,native,new,0.017,Tracheophyta
-Pinus contorta ssp. contorta,Pinus contorta ssp. contorta,80130,subspecies,infrataxon,no_voucher,secure,native,new,0,Tracheophyta
-Platanthera transversa,Platanthera transversa,355392,species,non-infrataxon,no_voucher,concern,native,new,0,Tracheophyta
-Atriplex prostrata,Atriplex prostrata,60176,species,non-infrataxon,no_voucher,unknown,exotic,new,0.033,Tracheophyta
+Pinus contorta ssp. contorta,Pinus contorta ssp. contorta,80130,subspecies,infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
+Platanthera transversa,Platanthera transversa,355392,species,non-infrataxon,no_voucher,concern,native,confirmed,0,Tracheophyta
+Atriplex prostrata,Atriplex prostrata,60176,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.033,Tracheophyta
 Cuscuta pacifica var. pacifica,Cuscuta pacifica var. pacifica,80645,variety,infrataxon,no_voucher,secure,native,new,0.016,Tracheophyta
 Juniperus maritima,Juniperus maritima,164313,species,non-infrataxon,voucher,secure,native,new,0,Tracheophyta
 Prunus avium,Prunus avium,61964,species,non-infrataxon,no_voucher,unknown,exotic,new,0.063,Tracheophyta
 Scilla luciliae,Scilla luciliae,244100,species,non-infrataxon,no_voucher,unknown,exotic,new,0.134,Tracheophyta
 Arceuthobium douglasii,Arceuthobium douglasii,75500,species,non-infrataxon,no_voucher,secure,native,new,,Tracheophyta
 Smyrnium olusatrum,Smyrnium olusatrum,68007,species,non-infrataxon,no_voucher,unknown,exotic,new,0.03,Tracheophyta
-Claytonia exigua ssp. exigua,Claytonia exigua ssp. exigua,57234,subspecies,infrataxon,no_voucher,secure,native,new,0.285,Tracheophyta
-Hyacinthoides hispanica,Hyacinthoides hispanica,57635,species,non-infrataxon,voucher,unknown,exotic,new,0,Tracheophyta
+Claytonia exigua ssp. exigua,Claytonia exigua ssp. exigua,57234,subspecies,infrataxon,no_voucher,secure,native,unconfirmed,0.285,Tracheophyta
+Hyacinthoides hispanica,Hyacinthoides hispanica,57635,species,non-infrataxon,voucher,unknown,exotic,confirmed,0,Tracheophyta
 Lepidium campestre,Lepidium campestre,77663,species,non-infrataxon,no_voucher,unknown,exotic,new,0.049,Tracheophyta
 Plectritis congesta ssp. brachystemon,Plectritis congesta ssp. brachystemon,57787,subspecies,infrataxon,no_voucher,secure,native,new,0.058,Tracheophyta
 Sanicula crassicaulis var. tripartita,Sanicula crassicaulis var. tripartita,68471,variety,infrataxon,no_voucher,secure,native,new,0.119,Tracheophyta
@@ -673,7 +673,7 @@ Erythronium oregonum × revolutum,Erythronium oregonum × revolutum,1459210,hybr
 Epipactis helleborine,Epipactis helleborine,50717,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Campanula persicifolia,Campanula persicifolia,159764,species,non-infrataxon,no_voucher,unknown,exotic,new,0.03,Tracheophyta
 Potamogeton amplifolius,Potamogeton amplifolius,78705,species,non-infrataxon,no_voucher,secure,native,new,0.134,Tracheophyta
-Carex leptopoda,Carex leptopoda,76070,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
+Carex leptopoda,Carex leptopoda,76070,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Ambrosia chamissonis,Ambrosia chamissonis,71135,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Phalaris canariensis,Phalaris canariensis,57191,species,non-infrataxon,no_voucher,unknown,exotic,new,0.134,Tracheophyta
 Centaurea cyanus,Centaurea cyanus,933404,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
@@ -696,9 +696,9 @@ Solidago lepida,Solidago lepida,79152,species,non-infrataxon,no_voucher,secure,n
 Pilosella aurantiaca,Pilosella aurantiaca,711103,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Bidens cernua,Bidens cernua,75765,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Menyanthes trifoliata,Menyanthes trifoliata,78016,species,non-infrataxon,no_voucher,secure,native,new,0.032,Tracheophyta
-Sorbus aucuparia,Sorbus aucuparia,56063,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
-Leontodon saxatilis ssp. saxatilis,Leontodon saxatilis ssp. saxatilis,60975,subspecies,infrataxon,no_voucher,unknown,exotic,new,0.036,Tracheophyta
-Urtica gracilis ssp. gracilis,Urtica gracilis ssp. gracilis,141854,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
+Sorbus aucuparia,Sorbus aucuparia,56063,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0,Tracheophyta
+Leontodon saxatilis ssp. saxatilis,Leontodon saxatilis ssp. saxatilis,60975,subspecies,infrataxon,no_voucher,unknown,exotic,confirmed,0.036,Tracheophyta
+Urtica gracilis ssp. gracilis,Urtica gracilis ssp. gracilis,141854,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Galanthus nivalis,Galanthus nivalis,51606,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,Tracheophyta
 Claytonia rubra ssp. depressa,Claytonia rubra ssp. depressa,79751,subspecies,infrataxon,voucher,secure,native,new,0,Tracheophyta
 Prunus virginiana,Prunus virginiana,54835,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
@@ -707,10 +707,10 @@ Cerastium pumilum,Cerastium pumilum,160341,species,non-infrataxon,no_voucher,unk
 Barbarea verna,Barbarea verna,71136,species,non-infrataxon,no_voucher,unknown,exotic,new,0.113,Tracheophyta
 Euphorbia cyparissias,Euphorbia cyparissias,55766,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Erythranthe microphylla,Erythranthe microphylla,453717,species,non-infrataxon,voucher,secure,native,new,0,Tracheophyta
-Adiantum aleuticum var. aleuticum,Adiantum aleuticum var. aleuticum,947668,variety,infrataxon,voucher,secure,native,new,0,Tracheophyta
+Adiantum aleuticum var. aleuticum,Adiantum aleuticum var. aleuticum,947668,variety,infrataxon,voucher,secure,native,confirmed,0,Tracheophyta
 Ornithogalum umbellatum,Ornithogalum umbellatum,1125873,species,non-infrataxon,no_voucher,unknown,exotic,new,0.09,Tracheophyta
 Carex laeviculmis,Carex laeviculmis,76062,species,non-infrataxon,no_voucher,secure,native,new,0.119,Tracheophyta
-Eriophorum gracile,Eriophorum gracile,77045,species,non-infrataxon,no_voucher,secure,native,new,0.126,Tracheophyta
+Eriophorum gracile,Eriophorum gracile,77045,species,non-infrataxon,no_voucher,secure,native,confirmed,0.126,Tracheophyta
 Juncus arcticus ssp. alaskanus,Juncus arcticus ssp. alaskanus,236555,subspecies,infrataxon,no_voucher,secure,native,new,0.113,Tracheophyta
 Hippuris vulgaris,Hippuris vulgaris,77422,species,non-infrataxon,no_voucher,secure,native,new,0.077,Tracheophyta
 Veronica officinalis,Veronica officinalis,129020,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
@@ -721,9 +721,9 @@ Carex pellita,Carex pellita,76091,species,non-infrataxon,voucher,secure,native,n
 Spergularia macrotheca var. macrotheca,Spergularia macrotheca var. macrotheca,61474,variety,infrataxon,no_voucher,secure,native,new,0.113,Tracheophyta
 Eleocharis obtusa,Eleocharis obtusa,76779,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Cyclamen hederifolium,Cyclamen hederifolium,127355,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,Tracheophyta
-Pyrola aphylla,Pyrola aphylla,630966,species,non-infrataxon,no_voucher,concern,native,new,0.078,Tracheophyta
+Pyrola aphylla,Pyrola aphylla,630966,species,non-infrataxon,no_voucher,concern,native,confirmed,0.078,Tracheophyta
 Solanum nitidibaccatum,Solanum nitidibaccatum,406080,species,non-infrataxon,no_voucher,unknown,exotic,new,0.104,Tracheophyta
-Micranthes rufidula,Micranthes rufidula,357949,species,non-infrataxon,no_voucher,secure,native,new,0.039,Tracheophyta
+Micranthes rufidula,Micranthes rufidula,357949,species,non-infrataxon,no_voucher,secure,native,confirmed,0.039,Tracheophyta
 Lamium hybridum,Lamium hybridum,1369716,species,non-infrataxon,no_voucher,unknown,exotic,new,0.116,Tracheophyta
 Ribes rubrum,Ribes rubrum,54431,species,non-infrataxon,no_voucher,unknown,exotic,new,1,Tracheophyta
 Rosa canina,Rosa canina,1125370,species,non-infrataxon,no_voucher,unknown,exotic,new,0.099,Tracheophyta
@@ -732,7 +732,7 @@ Lobularia maritima,Lobularia maritima,56992,species,non-infrataxon,no_voucher,un
 Cotoneaster horizontalis,Cotoneaster horizontalis,53771,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Tanacetum parthenium,Tanacetum parthenium,54520,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Sedum acre,Sedum acre,55734,species,non-infrataxon,no_voucher,unknown,exotic,new,0.03,Tracheophyta
-Polygonum spergulariiforme,Polygonum spergulariiforme,78692,species,non-infrataxon,no_voucher,secure,native,new,0.015,Tracheophyta
+Polygonum spergulariiforme,Polygonum spergulariiforme,78692,species,non-infrataxon,no_voucher,secure,native,confirmed,0.015,Tracheophyta
 Echinops sphaerocephalus,Echinops sphaerocephalus,76762,species,non-infrataxon,no_voucher,unknown,exotic,new,0.099,Tracheophyta
 Scirpus cyperinus,Scirpus cyperinus,79002,species,non-infrataxon,no_voucher,unknown,native,new,0,Tracheophyta
 Utricularia gibba,Utricularia gibba,79464,species,non-infrataxon,no_voucher,secure,native,new,0.094,Tracheophyta
@@ -746,7 +746,7 @@ Tiarella trifoliata var. laciniata,Tiarella trifoliata var. laciniata,51650,vari
 Narcissus poeticus,Narcissus poeticus,61334,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Centranthus ruber,Centranthus ruber,57283,species,non-infrataxon,no_voucher,unknown,exotic,new,0.045,Tracheophyta
 Euphorbia myrsinites,Euphorbia myrsinites,82511,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,Tracheophyta
-Myriophyllum sp.,Myriophyllum sp.,60207,species,non-infrataxon,voucher,unknown,unknown,new,0.08,Tracheophyta
+Myriophyllum sp.,Myriophyllum sp.,60207,species,non-infrataxon,voucher,unknown,unknown,confirmed,0.08,Tracheophyta
 Antirrhinum majus,Antirrhinum majus,1229777,species,non-infrataxon,no_voucher,unknown,exotic,new,0.086,Tracheophyta
 Cerastium tomentosum,Cerastium tomentosum,160347,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Clematis vitalba,Clematis vitalba,160697,species,non-infrataxon,no_voucher,unknown,exotic,new,0.031,Tracheophyta
@@ -772,14 +772,14 @@ Boechera divaricarpa,Boechera divaricarpa,1068235,species,non-infrataxon,no_vouc
 Festuca trachyphylla,Festuca trachyphylla,77148,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Pterospora andromedea,Pterospora andromedea,52118,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
 Platanthera ephemerantha,Platanthera ephemerantha,473217,species,non-infrataxon,no_voucher,concern,native,new,0,Tracheophyta
-Agrostis stolonifera,Agrostis stolonifera,69931,species,non-infrataxon,no_voucher,unknown,exotic,new,0.031,Tracheophyta
+Agrostis stolonifera,Agrostis stolonifera,69931,species,non-infrataxon,no_voucher,unknown,exotic,confirmed,0.031,Tracheophyta
 Geranium versicolor,Geranium versicolor,163267,species,non-infrataxon,no_voucher,unknown,exotic,new,0.058,Tracheophyta
 Sempervivum tectorum,Sempervivum tectorum,51779,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,Tracheophyta
-Corallorhiza mertensiana,Corallorhiza mertensiana,49444,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta
+Corallorhiza mertensiana,Corallorhiza mertensiana,49444,species,non-infrataxon,no_voucher,secure,native,confirmed,0,Tracheophyta
 Iris × hybrida,Iris × hybrida,857006,hybrid,non-infrataxon,no_voucher,unknown,exotic,new,0.045,Tracheophyta
 Bromus racemosus,Bromus racemosus,75909,species,non-infrataxon,no_voucher,unknown,exotic,new,0.044,Tracheophyta
 Bromus secalinus,Bromus secalinus,75911,species,non-infrataxon,voucher,unknown,exotic,new,0.045,Tracheophyta
-Poa palustris,Poa palustris,78650,species,non-infrataxon,no_voucher,secure,native,new,0.045,Tracheophyta
+Poa palustris,Poa palustris,78650,species,non-infrataxon,no_voucher,secure,native,confirmed,0.045,Tracheophyta
 Castilleja miniata var. dixonii,Castilleja miniata var. dixonii,234941,variety,infrataxon,no_voucher,concern,native,new,0.015,Tracheophyta
 Veronica peregrina var. xalapensis,Veronica peregrina var. xalapensis,491173,variety,infrataxon,no_voucher,secure,native,new,0.044,Tracheophyta
 Cotoneaster franchetii,Cotoneaster franchetii,1319212,species,non-infrataxon,no_voucher,unknown,exotic,new,0.046,Tracheophyta

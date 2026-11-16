@@ -12,8 +12,8 @@
 <fluid-import src="../../bioreportr/sfc/bioreportr-storyPageTraces.vue"></fluid-import>
 <fluid-import src="../../bioreportr/sfc/bioreportr-storyPageLostPlants.vue"></fluid-import>
 <fluid-import src="../../bioreportr/sfc/bioreportr-storyPageProtectedAreas.vue"></fluid-import>
-<!-- The pane of this story alone, in memory of Harvey Janszen - see content/story/Remembering.Rmd -->
-<fluid-import src="galiano-rememberingPane.vue"></fluid-import>
+<!-- The pane in memory of Harvey Janszen, which frames the areas of his checklists - see content/story/Remembering.Rmd -->
+<fluid-import src="../../bioreportr/sfc/bioreportr-storyPageRemembering.vue"></fluid-import>
 <!-- The rest particular to this story, which builds on the story page's own summaries in story.js -->
 <script src="../../bioreportr/js/story.js"></script>
 <script src="../js/galiano.js"></script>
@@ -21,8 +21,7 @@
 "use strict";
 
 // The story page of the Galiano Island vascular plant report. Its atlas and the panes it shares with the other
-// bioReportR stories are layers of the story page defined in static/bioreportr/sfc, given this story's settings here;
-// the pane in memory of Harvey Janszen is this story's alone, defined beside this file. Its paths are relative to the
+// bioReportR stories are layers of the story page defined in static/bioreportr/sfc, given this story's settings here. Its paths are relative to the
 // story page, served at /story/, whose panes are written by src/js/storyBuild.js into static/story
 
 fluid.registerNamespace("galiano");
@@ -35,13 +34,13 @@ galiano.inverseWeibullCount = (x, maxCount) => maxCount < 200 ? x : 0.012 * Math
 
 fluid.def("galiano.story", {
     $layers: ["bioreportr.storyPage", "bioreportr.storyData", "bioreportr.atlasPanel", "bioreportr.storyPageTraces", "bioreportr.storyPageLostPlants",
-        "bioreportr.storyPageProtectedAreas"],
+        "bioreportr.storyPageProtectedAreas", "bioreportr.storyPageRemembering"],
     gridResolution: 1000,
     // The regions which may filter the records - a category of protected area, or all the KBAs, is matched through rows
     // of the region index giving each area or KBA the label of its group, see GroupField in scripts/intersectShapes.R
     regionFilterFieldNames: ["BEC", "ProtectedArea", "KBA"],
     // The period of the records, over which the extirpation risk analysis always runs
-    recordPeriod: "$compute:galiano.recordPeriod({self}.obsRows)",
+    recordPeriod: "$compute:galiano.recordPeriod({self}.pkg)",
     solowParams: "$compute:galiano.solowParams({self}.recordPeriod)",
     taxonColumns: [
         {key: "scientificName", label: "Taxon name"},
@@ -92,7 +91,7 @@ fluid.def("galiano.story", {
     ],
     // The taxa of the summary with their counts of records with and without coordinates
     summaryTaxa: "$compute:bioreportr.summaryTaxaRows({self}.taxa.allRows)",
-    annotatedTaxa: "$compute:galiano.annotateGeoref({self}.summaryTaxa, {self}.obsRows)",
+    annotatedTaxa: "$compute:galiano.annotateGeoref({self}.summaryTaxa, {self}.pkg)",
     solowTaxa: {
         $component: {
             taxaFilters: {
@@ -130,10 +129,6 @@ fluid.def("galiano.story", {
             isActive: "{storyPage}.activePane.visibleFilters"
         }
     },
-    // A record counts as recent from 2004, just after Harvey Janszen's Outer Gulf Islands checklist of 2003, from whose
-    // lists many of the Biodiversity Galiano summary's "reported" (historical) taxa were last recorded - so that the
-    // historical taxa are, for the most part, those not recorded since, as the atlas describes them
-    recentYear: 2004,
     // Galiano Island's record is sparse until the 1970s and then crowded into a few years, e.g. 107 key moments in 2016
     // alone, so the opening timeline's pass is brisk, and opens on Harvey Janszen's first collections on the island -
     // see bioreportr.traces.pacingDefaults in bioreportr-tracesPane.vue
@@ -145,13 +140,6 @@ fluid.def("galiano.story", {
             }
         }
     },
-    // Many of Galiano Island's native species are known only from list records without a position, so the Protected Areas
-    // pane keeps only the records which can be mapped, as its summaries do - see mappedOnly in scripts/project.R
-    protectedAreas: {
-        $component: {
-            mappedOnly: true
-        }
-    },
     // Populations are aggregated at 1000 m by default, the third of the radius slider's snap values
     solowRadius: {
         $component: {
@@ -160,29 +148,21 @@ fluid.def("galiano.story", {
         }
     },
     // The sources of that history, by the column of the file holding each, oldest first - for Galiano Island, only the
-    // notes of the Biodiversity Galiano review of the checklist
+    // notes of the Biodiversity Galiano review of the checklist, credited for now to Andrew Simon, who curates it, until
+    // the author of each note can be told apart
     curationHistorySources: [
-        {field: "notes", source: "Biodiversity Galiano", label: "Review notes"}
+        {field: "notes", source: "Andrew Simon", label: "Review notes"}
     ],
     // The extirpation risk pane opens on whichever species is at the top of its list, with the map fitted to its records
     solowShown: "$compute:bioreportr.storyPage.isActive({self}.activePaneKey, Solow)",
     selectTopSpecies: "$effect:galiano.selectTopSpecies({self}, {self}.solowShown, {self}.loaded, {self}.solowTaxa.taxaTable.displayRows)",
-    // The final pane, in memory of Harvey Janszen, shows the areas of his checklists on the map, described on hover - see
-    // galiano-rememberingPane.vue
-    remembering: {
-        $component: {
-            $layers: "galiano.remembering"
-        }
-    },
-    // The classes of the left pane - those of the opening timeline, and while Harvey's pane is shown, its own
-    leftPaneClass: "$compute:galiano.leftPaneClass({self}.traces.leftPaneClass, {self}.remembering.active)",
     paneOverrides: {
         Traces: {
             visibleMap: true
         },
         Remembering: {
             visibleMap: true,
-            // Harvey's pane frames the areas of his checklists itself - see galiano.remembering.frame
+            // Harvey's pane frames the areas of his checklists itself - see bioreportr.remembering.frame
             framesItself: true
         },
         Solow: {

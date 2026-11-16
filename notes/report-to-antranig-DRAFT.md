@@ -33,7 +33,13 @@
 - SFC naming: a namespace named after an SFC's file is replaced by its lazy creator (hit while sharing the pacing).
 - Rmds of both projects still name data files directly, against the new rule in AGENTS.md.
 
+- `bioreportr-tracesPane.vue`: the map's dimming is CSS properties (`--mxcw-traces-brightness`, `--mxcw-traces-saturation`,
+  defaults unchanged), lightened by Galiano; the "Seen again" card text follows the story's `recentYear`.
+
 ## Galiano-only refinements (project settings, not framework)
+
+- `recentYear: 2004` in `galiano-story.vue` - the Biodiversity Galiano summary's "reported" taxa are largely last recorded
+  in Janszen's 2003 Outer Gulf Islands checklist, so 2000 described them wrongly.
 
 - `recordColumns` in `galiano-story.vue` trimmed to what helps find a plant again (date, taxon, locality, position,
   uncertainty, elevation, recorder, evidence, establishment, occurrence id); the CSV download keeps every field.
@@ -41,6 +47,24 @@
 - The same record columns set in Saanich's driver. Howe sets no record columns.
 - Data refreshed 14 Nov from the Biodiversity Galiano consolidated records (new digitized sources, UBC georeferences):
   24,737 records (from 22,348), 23,927 of them mapped.
+
+## Living data curation from the Biodiversity Galiano workflow
+
+- `scripts/prepare_working_list.R` (Galiano's own) writes the inputs of the shared `prepare_excluded_taxa.R` and
+  `prepare_curation_history.R` in the alignment workflow's shapes, from the Biodiversity Galiano curation:
+  - working list (`bioreportr-prep.yaml` workingList): the checklist's 812 taxa, with the 379 synonyms the curators
+    resolved (SYNONYM rules, consolidation key matches) in `verbatim_taxon_name`; 68 excluded (standing DELETE rules -
+    mapped onto Saanich's annotations: 50 persisting or waif, 10 reviewed not carried to the list, 8 doubtful); 50 review remaining
+  - penultimate catalogue (big_data): every iNaturalist observation, for the 78 names never reviewed
+- `project$curation$flags` and review_status as Saanich's (doubtful, persisting or waif, planted; complete, in progress, remaining). History: 305 entries.
+- A stand-in until the whole Biodiversity Galiano workflow (aggregation, synthesis, summary, taxonomy, curation) is
+  brought into the repository.
+
+- Logical typing: only taxa are set aside, not records. A name counts as excluded only if the checklist recognizes its
+  taxon under no name - same name, an infrataxon of its species, a curator-resolved synonym, or iNaturalist's taxonomy
+  (cached in `nameResolutions`). 19 record-level decisions are left out, e.g. "unresolved infrataxon" on Plectritis
+  congesta, or a rejected report of Triteleia howellii (= T. grandiflora). Now 56 excluded; Galiano has no Under review tab - its queued and never-reviewed names were mostly garden plants from single records - and no penultimate catalogue.
+  The upstream review pipeline should eventually emit this distinction itself; the adapter's rule is the spec.
 
 ## Still open (to settle before sending)
 

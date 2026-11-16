@@ -32,20 +32,22 @@ fluid.registerNamespace("bioreportr.protectedAreas");
 fluid.def("bioreportr.protectedAreas", {
     $layers: "fluid.component",
     // Whether the pane keeps only the records which can be mapped, leaving out the species known only from records
-    // without a position, e.g. those of lists, which would leave the map nothing to fit when chosen. A story setting it
-    // sets mappedOnly in project$protected of its scripts/project.R too, so that the pane's summaries agree
-    mappedOnly: false,
+    // without a position, e.g. those of lists, which would leave the map nothing to fit when chosen. Named once, as
+    // protectedMappedOnly in the settings of the project's bioreportr.yaml, which scripts/Protected_map_mapbox.R reads
+    // too, so that the pane's summaries agree
+    mappedOnly: "{storyPage}.protectedMappedOnly",
     active: "$compute:bioreportr.storyPage.isActive({storyPage}.activePaneKey, Protected)",
     hover: "$effect:bioreportr.protectedAreas.bindCards({storyPage}, {storyPage}.map.readyMap, {storyPage}.mapData, {global})",
     selects: "$effect:bioreportr.protectedAreas.bindSelects({storyPage}, {global})",
     shown: "$effect:bioreportr.protectedAreas.showSelection({storyPage}.selectedRegion, {self}.baseRegion, {self}.active, {global})",
     // The plant chosen in the checklist, with its records within the selected region, shown in a smaller panel beside
     // the chart, in place of the atlas's
-    regionRecords: "$compute:bioreportr.atlas.taxonRecords({storyPage}.finalFilteredObs, {storyPage}.taxa.rowById, {storyPage}.checklistTaxon, {storyPage}.isSighting)",
+    regionRecords: "$compute:bioreportr.atlas.taxonRecords({storyPage}.pkg, {storyPage}.finalFilteredObs, {storyPage}.checklistTaxon, {storyPage}.sightingPredicates)",
     panelMarkup: "$compute:bioreportr.protectedAreas.panelMarkup({storyPage}.checklistTaxon, {self}.regionRecords, {storyPage}.selectedRegion, {storyPage}.statusLabels)",
     // The native species reported in no protected area, and the ids of the native species, those of conservation
     // concern and those reported within a KBA - see bioreportr.protectedAreas.regionFilter
-    taxonSets: "$compute:bioreportr.protectedAreas.taxonSets({storyPage}.obsRows, {storyPage}.taxa.rowById, {storyPage}.regionIndirection.rows)",
+    // They are derived only once the pane is first shown, or a selection needs them - see the story page's activatedPanes
+    taxonSets: "$compute:bioreportr.protectedAreas.taxonSetsWhenNeeded({storyPage}, {storyPage}.activatedPanes, {storyPage}.selectedRegion)",
     // The area, group or other region of the selection, without any subset of its species - outlined on the map, marked
     // in the legend, and summarised by the card and chart shown
     baseRegion: "$compute:bioreportr.protectedAreas.baseRegion({storyPage}.selectedRegion)",
@@ -86,43 +88,56 @@ bioreportr.protectedAreas.baseRegion = function (selectedRegion) {
 };
 
 /**
- * The sets of taxa by which the selections of the pane filter the records - the native species of the summary which
- * have no record within any protected area, as counted by scripts/Protected_map_mapbox.R, and the native species,
- * those of conservation concern, and those with a record within a KBA; and, by category of protected area, the native
- * species reported in it and in no other.
- * @param {Object[]} obsRows - All the records
- * @param {Object<String, TaxonRow>} rowById - The taxa, by id
- * @param {Object[]} indirectionRows - The rows of the region index, which give each protected area its category
- * @return {Object} Each set of ids - unprotected, native, concern and kba - and unique, the set of each category
+ * Compute the sets of taxa by which the pane selects some of the species of a region, once the pane is first shown or
+ * the selection, e.g. held in the URL, needs them - until then they are empty. The story page's members are read
+ * within, rather than as arguments, so that none of them is derived until then.
+ * @param {bioreportr.storyPage} storyPage - The story page
+ * @param {Object<String, Boolean>} activatedPanes - The panes which have been shown
+ * @param {String|null} selectedRegion - The selection, as held in the URL, if any
+ * @return {Object} The sets - see bioreportr.protectedAreas.taxonSets
  */
-bioreportr.protectedAreas.taxonSets = function (obsRows, rowById, indirectionRows) {
+bioreportr.protectedAreas.taxonSetsWhenNeeded = function (storyPage, activatedPanes, selectedRegion) {
+    const {region, subset} = bioreportr.protectedAreas.parseSelection(selectedRegion);
+    const needed = activatedPanes.Protected || !!subset || region === bioreportr.protectedAreas.unprotected;
+    const empty = new Set();
+    return needed ? bioreportr.protectedAreas.taxonSets(storyPage.pkg, storyPage.taxa.rowById, storyPage.regionIndirectionRows) :
+        {unprotected: empty, native: empty, concern: empty, kba: empty, unique: {}};
+};
+
+/**
+ * Compute the sets of taxa by which the pane selects some of the species of a region.
+ * @param {VizPackage} pkg - The data package
+ * @param {Object<String, TaxonRow>} rowById - Map of taxon id to taxon row
+ * @param {Object[]} indirectionRows - The rows of the region indirection table
+ * @return {Object} Members `unprotected`, `native`, `concern` and `kba`, each a Set of taxon ids, and `unique`, a map
+ * of each category of protected area to the Set of the native taxa reported in that category alone
+ */
+bioreportr.protectedAreas.taxonSets = function (pkg, rowById, indirectionRows) {
+    const bareRowById = fluid.unwrapProxy(rowById);
     const isNative = id => {
-        const taxon = rowById[id];
+        const taxon = bareRowById[id];
         return !!taxon && taxon.introduction_status === "native" && String(taxon.inSummary) === "1";
     };
-    const idsWhere = test => new Set(obsRows.filter(test).map(row => String(row.iNaturalistTaxonId)));
-    const protectedIds = idsWhere(row => row.ProtectedArea);
-    const native = [...idsWhere(() => true)].filter(isNative);
+    const idsWhere = predicates => new Set(hortis.distinctObs(pkg, hortis.selectObs(pkg, predicates), "iNaturalistTaxonId"));
+    const protectedIds = idsWhere([{field: "ProtectedArea", op: "notNull"}]);
+    const native = [...idsWhere([])].filter(isNative);
     return {
         unprotected: new Set(native.filter(id => !protectedIds.has(id))),
         native: new Set(native),
-        concern: new Set(native.filter(id => rowById[id].provincial_concern === "concern")),
-        kba: idsWhere(row => row.KBA),
-        unique: bioreportr.protectedAreas.uniqueByCategory(obsRows, native, indirectionRows)
+        concern: new Set(native.filter(id => bareRowById[id].provincial_concern === "concern")),
+        kba: idsWhere([{field: "KBA", op: "notNull"}]),
+        unique: bioreportr.protectedAreas.uniqueByCategory(pkg, native, indirectionRows)
     };
 };
 
 /**
- * The native species reported in each category of protected area and in no other - as counted by
- * scripts/Protected_map_mapbox.R. A record's area is labelled by its index among the rows of the region index for
- * "ProtectedArea", whose rows for that index give the area's name and then its category, one of the labels of the rows
- * for "Protected" - see GroupField in scripts/intersectShapes.R.
- * @param {Object[]} obsRows - All the records
- * @param {String[]} native - The ids of the native species
- * @param {Object[]} indirectionRows - The rows of the region index
- * @return {Object<String, Set<String>>} The ids of those species, by category
+ * Find the native taxa reported within the protected areas of only one category.
+ * @param {VizPackage} pkg - The data package
+ * @param {String[]} native - The ids of the native taxa
+ * @param {Object[]} indirectionRows - The rows of the region indirection table
+ * @return {Object<String, Set<String>>} Map of each category to the ids of the taxa reported in it alone
  */
-bioreportr.protectedAreas.uniqueByCategory = function (obsRows, native, indirectionRows) {
+bioreportr.protectedAreas.uniqueByCategory = function (pkg, native, indirectionRows) {
     const categories = new Set(indirectionRows.filter(row => row.regionField === "Protected").map(row => row.label));
     const categoryById = {};
     indirectionRows.forEach(row => {
@@ -132,9 +147,8 @@ bioreportr.protectedAreas.uniqueByCategory = function (obsRows, native, indirect
     });
     const isNative = new Set(native);
     const categoriesOf = {};
-    obsRows.forEach(row => {
-        const category = row.ProtectedArea && categoryById[row.ProtectedArea];
-        const id = String(row.iNaturalistTaxonId);
+    hortis.countObsByPair(pkg, hortis.selectAllObs(pkg), "iNaturalistTaxonId", "ProtectedArea").forEach(([id, area]) => {
+        const category = categoryById[area];
         if (category && isNative.has(id)) {
             (categoriesOf[id] = categoriesOf[id] || new Set()).add(category);
         }
@@ -150,30 +164,28 @@ bioreportr.protectedAreas.uniqueByCategory = function (obsRows, native, indirect
 };
 
 /**
- * Filter the records to the selection: to its region, as bioreportr.regionSelectionFilter does, or to all the
- * protected areas, or to the records of the native species outside them; and then to any subset of its species. The
- * Protected Areas pane assesses the native flora alone, so that while it is shown only the records of native species
- * are kept - and, if the story's mappedOnly is set, only those which can be mapped - and its checklist agrees with the
- * counts of its cards.
- * @param {Object[]} obsRows - The records to be filtered
- * @param {String|null} selectedRegion - The selection, if any
- * @param {Object[]} indirectionRows - The rows of the region index
- * @param {String[]} fieldNames - The fields of the records holding regions which may be selected
- * @param {Object<String, Set<String>>} taxonSets - The sets of taxa, see bioreportr.protectedAreas.taxonSets
- * @param {String} activePaneKey - The pane shown
- * @param {Boolean} [mappedOnly] - Whether the pane keeps only the records which can be mapped
- * @return {Object[]} The records of the selection
+ * Compute the predicates of the selection of a region by the Protected Areas pane, which may also select all the
+ * protected areas, or the native species reported in none, and a subset of the species of a region.
+ * @param {String|null} selectedRegion - The selection, as held in the URL, if any
+ * @param {Object[]} indirectionRows - The rows of the region indirection table
+ * @param {String[]} fieldNames - The fields of regions which may be selected
+ * @param {Object} taxonSets - The sets of taxa, as computed by bioreportr.protectedAreas.taxonSets
+ * @param {String} activePaneKey - The key of the active pane
+ * @param {Boolean} mappedOnly - Whether the pane keeps only the records which can be mapped
+ * @return {Object[]} The predicates
  */
-bioreportr.protectedAreas.regionFilter = function (obsRows, selectedRegion, indirectionRows, fieldNames, taxonSets, activePaneKey, mappedOnly) {
+bioreportr.protectedAreas.regionPredicates = function (selectedRegion, indirectionRows, fieldNames, taxonSets, activePaneKey, mappedOnly) {
     const {region, subset} = bioreportr.protectedAreas.parseSelection(selectedRegion);
-    const inSet = (rows, set) => rows.filter(row => set.has(String(row.iNaturalistTaxonId)));
-    const regionRows = region === bioreportr.protectedAreas.allAreas ? obsRows.filter(row => row.ProtectedArea) :
-        region === bioreportr.protectedAreas.unprotected ? inSet(obsRows, taxonSets.unprotected) :
-            bioreportr.regionSelectionFilter(obsRows, region, indirectionRows, fieldNames);
+    const inSet = set => ({field: "iNaturalistTaxonId", op: "in", value: [...set]});
+    const regionPredicates = region === bioreportr.protectedAreas.allAreas ? [{field: "ProtectedArea", op: "notNull"}] :
+        region === bioreportr.protectedAreas.unprotected ? [inSet(taxonSets.unprotected)] :
+            bioreportr.regionSelectionPredicates(region, indirectionRows, fieldNames);
     const set = subset === "unique" ? taxonSets.unique[region] || new Set() : taxonSets[subset];
-    const subsetRows = subset ? inSet(regionRows, set) : regionRows;
-    const nativeRows = activePaneKey === "Protected" ? inSet(subsetRows, taxonSets.native) : subsetRows;
-    return activePaneKey === "Protected" && mappedOnly ? nativeRows.filter(hortis.libreMap.hasCoords) : nativeRows;
+    const subsetPredicates = subset ? [inSet(set)] : [];
+    const isProtected = activePaneKey === "Protected";
+    const nativePredicates = isProtected ? [inSet(taxonSets.native)] : [];
+    const mappedPredicates = isProtected && mappedOnly ? hortis.mappedPredicates : [];
+    return [...regionPredicates, ...subsetPredicates, ...nativePredicates, ...mappedPredicates];
 };
 
 // The map's grid of records, hidden on this pane, shows where the native species outside protected areas grow when
@@ -215,6 +227,7 @@ bioreportr.protectedAreas.panelMarkup = function (taxon, records, region, status
         <dt>Records:</dt> <dd>${bioreportr.formatCount(records.length)}</dd>
         <dt>First seen:</dt> <dd>${bioreportr.eventDay(records[0].eventDate)}</dd>
         <dt>Last seen:</dt> <dd>${bioreportr.eventDay(fluid.peek(records).eventDate)}</dd>
+        ${bioreportr.atlas.statusFields(taxon)}
       </dl>
     </div>
   </div>
@@ -551,6 +564,13 @@ bioreportr.protectedAreas.showSelection = function (selectedRegion, baseRegion, 
 
 .mxcw-pa-taxon-pane .mxcw-atlas-facts dd {
     margin: 0;
+}
+
+/* The plant's conservation status, the longest of its facts, runs beneath its label across the panel's width - see
+   bioreportr.atlas.statusFields */
+.mxcw-pa-taxon-pane .mxcw-atlas-facts dt:has(+ dd.mxcw-taxon-status),
+.mxcw-pa-taxon-pane .mxcw-atlas-facts dd.mxcw-taxon-status {
+    grid-column: 1 / -1;
 }
 
 .mxcw-pa-taxon-region {
@@ -1114,7 +1134,7 @@ bioreportr.protectedAreas.showSelection = function (selectedRegion, baseRegion, 
 <span>species reported in no other category</span>
 </div>
 <div class="mxcw-pa-stat">
-<b>5,276</b>
+<b>5,273</b>
 <span>records of native species</span>
 </div>
 </div>
@@ -1549,7 +1569,7 @@ bioreportr.protectedAreas.showSelection = function (selectedRegion, baseRegion, 
 <span>species of conservation concern</span>
 </div>
 <div class="mxcw-pa-stat">
-<b>805</b>
+<b>802</b>
 <span>records of native species</span>
 </div>
 </div>

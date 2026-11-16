@@ -1,0 +1,20 @@
+# The data files read and written by the project's data preparation scripts on the way to those its story page reads,
+# which are named in bioreportr.yaml. The R scripts read both through scripts/project.R. Each is a file of tabular_data
+# unless said otherwise. None is published.
+# This file is the project's own, and is not copied by copyFrameworkOut.sh
+data:
+  # The checklist: the Biodiversity Galiano summary of vascular plants, copied here from Biodiversity_Galiano by
+  # scripts/prepare_sources.R, and read by scripts/prepare_curation_history.R for the notes on each taxon
+  list: Galiano_Tracheophyta_summary_2026-04-04.csv
+  # The taxa which the Biodiversity Galiano curation excluded from the checklist - its standing rules and the names
+  # rejected in consolidation - with their decisions and notes, in the shape of a working list of
+  # checklist-catalogue-alignment-workflow, written by scripts/prepare_working_list.R and read by
+  # scripts/prepare_excluded_taxa.R and scripts/prepare_curation_history.R
+  workingList: Galiano_Tracheophyta_working-list_2026-04-04.csv
+  # The names kept off the checklist as iNaturalist's taxonomy resolves them, by which scripts/prepare_working_list.R
+  # tells a taxon excluded from a decision on records of a taxon the checklist recognizes - filled from iNaturalist's
+  # taxa API as names first appear, then read from here
+  nameResolutions: Galiano_Tracheophyta_name-resolutions.csv
+  # The BC Conservation Data Centre's table of rankings, assigned to the iNaturalist taxonomy, a file of big_data (not
+  # checked in), from adfsimon-bioinfo/Howe_Sound/2026_synthesis/rankings, read by scripts/assign_conservation_status.R
+  conservationRanks: bc-cdc_full_2026-04-10-assigned.csv

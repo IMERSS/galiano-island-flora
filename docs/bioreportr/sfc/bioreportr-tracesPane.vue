@@ -23,7 +23,8 @@ fluid.def("bioreportr.traces", {
     // The settings of the timeline's pacing which a story gives for its own record, over bioreportr.traces.pacingDefaults
     pacing: {},
     active: "$compute:bioreportr.storyPage.isActive({storyPage}.activePaneKey, Traces)",
-    events: "$compute:bioreportr.traces.buildEvents({storyPage}.taxa.allRows, {storyPage}.byTaxon, {storyPage}.statusById, {storyPage}.recentYear)",
+    // Derived only once the pane is first shown - see the story page's activatedPanes
+    events: "$compute:bioreportr.traces.eventsOnceShown({storyPage}, {storyPage}.activatedPanes)",
     // The classes of the story's left pane while the timeline shows - see bioreportr.traces.leftPaneClass
     leftPaneClass: "$compute:bioreportr.traces.leftPaneClass({self}.active, {self}.paused, {self}.scrubbing)",
     control: "$effect:bioreportr.traces.control({self}, {storyPage}, {storyPage}.map.readyMap, {self}.events, {self}.active, {storyPage}.loaded, {global})",
@@ -52,7 +53,7 @@ bioreportr.traces.kinds = {
     },
     found: {
         label: "Seen again",
-        significance: "The first record since 2000 of a plant known from earlier reports.",
+        significance: "The first record since %recentYear of a plant known from earlier reports.",
         icon: `<path transform="scale(0.09375)" fill="#35c2a0" d="M247.63,47.89a8,8,0,0,0-7.52-7.52c-51.76-3-93.32,12.74-111.18,42.22-11.8,19.49-11.78,43.16-.16,65.74a71.34,71.34,0,0,0-14.17,27L98.33,159c7.82-16.33,7.52-33.35-1-47.49-13.2-21.79-43.67-33.47-81.5-31.25a8,8,0,0,0-7.52,7.52c-2.23,37.83,9.46,68.3,31.25,81.5A45.82,45.82,0,0,0,63.44,176,54.58,54.58,0,0,0,87,170.33l25,25V224a8,8,0,0,0,16,0V194.51a55.61,55.61,0,0,1,12.27-35,73.91,73.91,0,0,0,33.31,8.4,60.9,60.9,0,0,0,31.83-8.86C234.89,141.21,250.67,99.65,247.63,47.89ZM47.81,155.6C32.47,146.31,23.79,124.32,24,96c28.32-.24,50.31,8.47,59.6,23.81,4.85,8,5.64,17.33,2.46,26.94L61.65,122.34a8,8,0,0,0-11.31,11.31l24.41,24.41C65.14,161.24,55.82,160.45,47.81,155.6Zm149.31-10.22c-13.4,8.11-29.15,8.73-45.15,2l53.69-53.7a8,8,0,0,0-11.31-11.31L140.65,136c-6.76-16-6.15-31.76,2-45.15,13.94-23,47-35.82,89.33-34.83C232.94,98.34,220.14,131.44,197.12,145.38Z"/>`
     },
     last: {
@@ -87,33 +88,40 @@ bioreportr.traces.playIcons = {
  */
 
 /**
- * Derive the events of the timeline: each marks a key moment in the record of a species, and is shown only if the record
- * concerned can be mapped. A record which is both the first and last of a lost plant appears once, as its last.
- * @param {TaxonRow[]} taxaRows - All taxa
- * @param {Map<String, Object[]>} byTaxon - Dated records indexed by taxon id
- * @param {Object<String, String>} statusById - The reporting status of each taxon, by id - see hortis.reportingStatusById
- * @param {Number} recentYear - The year from which a record counts as recent
- * @return {TraceEvent[]} The events, in date order
+ * Build the events of the timeline once its pane is first shown - until then there are none. The story page's members
+ * are read within, rather than as arguments, so that none of them is derived until the pane is shown.
+ * @param {bioreportr.storyPage} storyPage - The story page
+ * @param {Object<String, Boolean>} activatedPanes - The panes which have been shown
+ * @return {Object[]} The events - see bioreportr.traces.buildEvents
  */
-bioreportr.traces.buildEvents = function (taxaRows, byTaxon, statusById, recentYear) {
+bioreportr.traces.eventsOnceShown = (storyPage, activatedPanes) => activatedPanes.Traces ?
+    bioreportr.traces.buildEvents(storyPage.taxa.allRows, storyPage.byTaxon, storyPage.statusById, storyPage.recentYear, storyPage.recordAnnotations) : [];
+
+bioreportr.traces.buildEvents = function (taxaRows, byTaxon, statusById, recentYear, annotations) {
     const events = [];
-    const add = (taxon, kind, record) => {
+    // The records suspended from the calculation of extirpation probability, found once by their ids
+    const notExcluded = bioreportr.notExcludedFromEPPredicates(fluid.unwrapProxy(annotations));
+    const excluded = notExcluded.length === 0 ? new Set() : byTaxon.idsWhere(notExcluded.map(pred => pred.not));
+    // Only the records shown are read as objects - the first, the last, and the first found again since recentYear
+    const add = (taxon, kind, id) => {
+        const record = id === undefined ? null : byTaxon.rowOf(id);
         if (record && bioreportr.hasCoordinates(record)) {
             events.push({taxon, kind, record, year: parseInt(record.eventDate, 10)});
         }
     };
     const statusOf = taxon => statusById[taxon.id];
     taxaRows.filter(taxon => taxon.inSummary).forEach(taxon => {
-        const records = (byTaxon.get(taxon.id) || []).slice().sort(bioreportr.obsDateComparator);
-        if (records.length > 0) {
-            const first = records[0], last = fluid.peek(records);
+        const all = byTaxon.idsOf(taxon.id);
+        const ids = excluded.size === 0 ? all : all.filter(id => !excluded.has(id));
+        if (ids.length > 0) {
+            const first = ids[0], last = ids[ids.length - 1];
             if (statusOf(taxon) === "unconfirmed") {
                 add(taxon, "last", last);
-                add(taxon, "first", first === last ? null : first);
+                add(taxon, "first", first === last ? undefined : first);
             } else if (statusOf(taxon) === "confirmed") {
-                const found = records.find(record => parseInt(record.eventDate, 10) >= recentYear);
+                const found = ids.find(id => byTaxon.yearOf(id) >= recentYear);
                 add(taxon, "found", found);
-                add(taxon, "first", first === found ? null : first);
+                add(taxon, "first", first === found ? undefined : first);
             } else if (statusOf(taxon) === "new") {
                 add(taxon, "fresh", first);
             }
@@ -136,9 +144,11 @@ bioreportr.traces.formatDate = function (eventDate) {
 /**
  * Render the card shown on hovering over a marker, with a space for its photo.
  * @param {TraceEvent} event - The event of the marker
+ * @param {Number} recentYear - The year from which a record counts as recent - the story's own, see
+ * bioreportr-atlasPanel.vue
  * @return {String} The markup of the card
  */
-bioreportr.traces.renderCard = function (event) {
+bioreportr.traces.renderCard = function (event, recentYear) {
     const {taxon, kind, record} = event;
     const encode = hortis.dataTable.encode;
     const recorder = (record.recordedBy || "").split(";")[0].trim();
@@ -147,7 +157,7 @@ bioreportr.traces.renderCard = function (event) {
     return `<div class="mxcw-trace-photo"></div><div class="mxcw-trace-kind" data-kind="${kind}">${bioreportr.traces.icon(kind)}${bioreportr.traces.kinds[kind].label}</div>
         <div class="mxcw-trace-name">${encode(taxon.scientificName)}</div>${common}
         <div>${bioreportr.traces.formatDate(record.eventDate)}${recorder ? ", " + encode(recorder) : ""}</div>${place}
-        <div class="mxcw-trace-significance">${bioreportr.traces.kinds[kind].significance}</div>
+        <div class="mxcw-trace-significance">${bioreportr.traces.kinds[kind].significance.replace("%recentYear", recentYear)}</div>
         <div class="mxcw-trace-action">Find this plant &rarr;</div>`;
 };
 
@@ -285,7 +295,7 @@ bioreportr.traces.showCard = function (state, event, element) {
     const {card} = state.overlay, {innerWidth, innerHeight} = state.window;
     bioreportr.traces.cancelHide(state);
     bioreportr.traces.holdMarker(state, element);
-    card.innerHTML = bioreportr.traces.renderCard(event);
+    card.innerHTML = bioreportr.traces.renderCard(event, state.storyPage.recentYear);
     card.classList.add("mxcw-trace-card-visible");
     const anchor = element.getBoundingClientRect(), box = card.getBoundingClientRect();
     // Close beside the marker, so that the pointer can cross to the card before it hides
@@ -755,8 +765,8 @@ bioreportr.traces.control = function (that, storyPage, map, events, active, load
 .mxcw-leftPane.mxcw-traces-active > .resize-bar {
     display: none !important;
 }
-/* How far the map is dimmed suits the landscape a story shows - a story whose imagery is dark already, e.g. Galiano
-   Island's forest and sea, lightens it by setting these properties in its own stylesheet */
+/* How far the map is dimmed suits the landscape a story shows - a story whose imagery is dark already, e.g. of forest
+   and sea, lightens it by setting these properties in its own stylesheet */
 .mxcw-leftPane.mxcw-traces-active .maplibregl-canvas {
     filter: brightness(var(--mxcw-traces-brightness, 0.45)) saturate(var(--mxcw-traces-saturation, 0.6));
 }

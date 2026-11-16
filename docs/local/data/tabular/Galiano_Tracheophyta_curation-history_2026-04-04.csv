@@ -5,15 +5,15 @@ id,scientificName,notes
 739040,Aphyllon purpureum,Reported as Orobanche uniflora
 76067,Carex leporina,"reported as C. tracyi; Retreat Cove; Shore drainage, swampy area with Juncus, grasses, Veronica, Ranuculus, open, flat. H.L. Roemer."
 79303,Symphyotrichum subspicatum,"Symphyotrichum douglasii (sensu Fennamen 2019 ined.) also reported: """"Symphyotrichum douglasii is restricted in British Columbia to the southwestern coast of the province (Figure 39), where it is primarily a species of lacustrine and fluvial shorelines at low elevations of the Georgia Depression. It occurs most frequently along the southeastern coast of Vancouver Island, where it is the most common narrow-leaved Symphyotrichum away from areas of marine or estuarine influence”; HJ (2001) also reports Symphyotrichum chilense × subspicatum"
-204364,Neottia cordata,Neottia borealisshould also be sought on higher elevation north slopes (HJ)
-78861,Ribes lobbii,cut-over area near Bluff Road; garden escape? QC; Harvey suggests it was dispersed by bird
+204364,Neottia cordata,Neottia borealisshould also be sought on higher elevation north slopes (Harvey Janszen)
+78861,Ribes lobbii,cut-over area near Bluff Road; garden escape? Quentin Cronk; Harvey suggests it was dispersed by bird
 524900,Argentina pacifica,"reported as Argentina anserina (V104942); H. Janszen also reports P. egedii (RBCM V097827), a segregate of P.anserina that is not recognized by the FPNW2"
 55367,Fragaria chiloensis,Dionisio Pt
-865336,Erythranthe sookensis,a hybrid between E. nasuta and E. microphyllum unrecognized in Nesom's treatment of Erythranthe; identification? –QC
+865336,Erythranthe sookensis,a hybrid between E. nasuta and E. microphyllum unrecognized in Nesom's treatment of Erythranthe; identification? –Quentin Cronk
 470643,Erythranthe cf guttata,Reported as Mimulus guttatus; acc. to Nesom's treatment this should be annotated Erythranthe cf guttata as the material represented isn't a rhizomatous perennial
 53266,Sisymbrium officinale,"waste ground, gravel pit; L-66"
-55826,Myosotis sylvatica,"Angela Wood reports M. s.var. alpestris, which is likely misapplied to M. sylvatica; not a valid infraspecific taxon; this species is not recognized by the province according to the BC Ecosystem Explorer; check specimen; couldn't find the specimen! (AS)"
-863646,Hyacinthoides × massartiana,"Angela Wood reports Hyacinthoides hispanica; Harvey Janszen, Scilla nonscripta; ”Commonly naturalized in the LM and is a persistent relic of cult in SGI. Both H. hispanica and H. non-scripta are cultivated in BC but I have never seen them naturalized."""" QC; review voucher specimen (RBCM V097149)"
+55826,Myosotis sylvatica,"Angela Wood reports M. s.var. alpestris, which is likely misapplied to M. sylvatica; not a valid infraspecific taxon; this species is not recognized by the province according to the BC Ecosystem Explorer; check specimen; couldn't find the specimen! (Andrew Simon)"
+863646,Hyacinthoides × massartiana,"Angela Wood reports Hyacinthoides hispanica; Harvey Janszen, Scilla nonscripta; ”Commonly naturalized in the LM and is a persistent relic of cult in SGI. Both H. hispanica and H. non-scripta are cultivated in BC but I have never seen them naturalized."""" Quentin Cronk; review voucher specimen (RBCM V097149)"
 60996,Stellaria sitchana,reported as Stellaria borealis ssp. sitchana
 60307,Poa pratensis,sphagnum bog
 52812,Poa howellii,west of MaryAnne Point Rd; Fd rocky bluff slope
@@ -45,11 +45,11 @@ id,scientificName,notes
 77287,Glyceria borealis,lakeshore (L20) Laughlin?
 78785,Puccinellia pumila,Montague; salt marsh
 78157,Myriophyllum spicatum,"Bog + Sturdies Bay farm lake; 48.879167°, -123.31944°"
-58066,Plagiobothrys tenellus,easily overlooked but potentially very rare and possibly extinct –QC; open bluffs
-77991,Mentha canadensis,"M. arvensis misreported; ”M. canadensis is a distinct morphotype not to be confused with European M. arvensis s.str. I have only seen M. canadensis in the SGI. I have not seen M. arvensis in BC but it might well be here."""" (QC)"
-61100,Salix sitchensis,"""""The SGI have a very distinctive morphotype ofS. scouleriana that has a unique haplotype, small leaves and is very drought tolerant"""" (QC)."
+58066,Plagiobothrys tenellus,easily overlooked but potentially very rare and possibly extinct –Quentin Cronk; open bluffs
+77991,Mentha canadensis,"M. arvensis misreported; ”M. canadensis is a distinct morphotype not to be confused with European M. arvensis s.str. I have only seen M. canadensis in the SGI. I have not seen M. arvensis in BC but it might well be here."""" (Quentin Cronk)"
+61100,Salix sitchensis,"""""The SGI have a very distinctive morphotype ofS. scouleriana that has a unique haplotype, small leaves and is very drought tolerant"""" (Quentin Cronk)."
 57198,Poa secunda,reported as Poa secunda ssp. secunda (V113790)
-79971,Lepidium virginicum ssp. menziesii,"Mt. Sutil, open bluffs; extinct? Good subspecies? –QC"
+79971,Lepidium virginicum ssp. menziesii,"Mt. Sutil, open bluffs; extinct? Good subspecies? –Quentin Cronk"
 52976,Barbarea orthoceras,Cain Peninsula; salt marsh
 75912,Bromus sitchensis,Reported as Bromus sitchensis var. sitchensis (V113828)
 840638,Platanthera unalascensis,Stockade Hill; dry ridge
@@ -58,7 +58,7 @@ id,scientificName,notes
 71141,Alopecurus pratensis,Meadow and farm fields
 57156,Avena sativa,ruderal waif
 239373,Arrhenatherum elatius ssp. elatius,reported as Arrhenatherum elatius var. elatius (V113797); Retreat Cove; meadow
-556361,Phragmites australis ssp. australis,"could not be confirmed based on D analysis; morphologically indeterminate (most traits intermediate, some suggest the introduced ssp.) –AS, HJ"
+556361,Phragmites australis ssp. australis,"could not be confirmed based on D analysis; morphologically indeterminate (most traits intermediate, some suggest the introduced ssp.) –Andrew Simon, Harvey Janszen"
 54663,Hemitomes congestum,Stockade Hill
 49870,Actaea rubra,"E. P. Morgan collected 1935 (see Addendum to Henry’s Flora); creek north side of Georgeson Bay Road; Active Pass Drive neighbourhood (confirmed by Harvey, date unknown);"
 77693,Leptosiphon minimus,Reported as Leptosiphon bicolor var. bicolor (V119986)– not a valid synonym; problematic morphological treatment
@@ -79,9 +79,9 @@ id,scientificName,notes
 53050,Epilobium ciliatum,Crins' voucher is annotated 'Epilobium watsonii var. occidentale' —Voucher reviewed and annotated Epilobium ciliatum; ‘Epilobium ciliatum ssp. watsonii’ also reported for Laughlin Lake by Keith Erickson & Steven Gates (2002)
 53137,Anisocarpus madioides,reported as Madia madioides
 132710,Fumaria reuteri,Burril Road; escapee; Garden escape? remove?
-58185,Phacelia tanacetifolia,garden escape –QC; retained only because there is a collection; not recognizes by Province; but recognized by FPNW2
+58185,Phacelia tanacetifolia,garden escape –Quentin Cronk; retained only because there is a collection; not recognizes by Province; but recognized by FPNW2
 78122,Montia linearis,Bellhouse; vernally wet grassy area; in shallow soil above rocks
-56859,Agoseris heterophylla ssp. heterophylla,"Bluff Park record. Still there? –QC; I think this voucher should be checked; A. grandiflora,a very different species, is known from Bluffs Park (see photo above)"
+56859,Agoseris heterophylla ssp. heterophylla,"Bluff Park record. Still there? –Quentin Cronk; I think this voucher should be checked; A. grandiflora,a very different species, is known from Bluffs Park (see photo above)"
 168025,Rubus bifrons,R. bifrons recognized in FPNW2; iNat obs still annotated R. armeniacus
 78434,Perideridia gairdneri,Matt Fairbarns (2016) reports P. montana; Gerald B. Straley P. gairdneri
 81358,Salix lasiandra var. lasiandra,Reported as Salix lucidavar.lasiandra
@@ -152,13 +152,13 @@ id,scientificName,notes
 1377236,Festuca microstachys var. pauciflora,only V. m. paucifloraknown
 55736,Sanguisorba minor,"south of Montague Harbour, 524 Clanton Road; Roadside shoulder near creek, with Plantago lanceolata. Introduced weed; reported as Sanguisorba minor ssp. muricata"
 47892,Impatiens glandulifera,"In low ground near pond, shaded, with Rubus spectabilis, Urtica, Thuja. Flowers nod, white, abrupt taper to green recuved spur, succulent hollow annual, adventive; common escape from cultivation"
-55848,Narcissus cf. pseudonarcissus,Our naturalized daffodils are more likely a hybrid as the pure species is rarely grown. However in practical terms I think this is the best available name for the cultivated daffodil (and the photo actually looks not unlike pure N. pseudonarcissus). –QC
+55848,Narcissus cf. pseudonarcissus,Our naturalized daffodils are more likely a hybrid as the pure species is rarely grown. However in practical terms I think this is the best available name for the cultivated daffodil (and the photo actually looks not unlike pure N. pseudonarcissus). –Quentin Cronk
 55886,Lunaria annua,Reported by Terry Taylor
 77897,Luzula parviflora,"reported as Luzula fastigiata by Terry Taylor (2012); Luzula parviflora by Tyler Innes (2017-05-27, Bioblitz Galiano 2017)"
 181924,Symphytum × uplandicum,sterile hybrid between S. officinale and S. asperum); commonly grown as a “permaculture” plant in the SGI (usually as the Bocking selections) and may escape and persist; spreads by root fragments; probably retain.
 78642,Poa infirma,"Montague tidal mud; Sturdies Bay, crumbling blacktop margin"
-238339,Sagina maxima ssp. maxima,collected in ruderal area. Adventive? –QC
-170971,Prunus × pugetensis,backyard of house at corner of Gulf Road and Sturdies Bay Road; anthropogenic. No interest. –QC
+238339,Sagina maxima ssp. maxima,collected in ruderal area. Adventive? –Quentin Cronk
+170971,Prunus × pugetensis,backyard of house at corner of Gulf Road and Sturdies Bay Road; anthropogenic. No interest. –Quentin Cronk
 747262,Taraxacum lacistophyllum,"Taraxacum as a genus is highly overlooked (C.R.Björk); a great diversity of Taraxacum spp. have yet to be reported for the project; PNW botanists are happy to adopt European microspecies when there are few of them (e.g. R. armeniacus: a microspecies consisting of a single clone). But there are too many species of Taraxacum in BC for this to be applied without very hard work and pain. But again there are real problems with using T. officinale and T. erythrospermum in the FPNW sense as they lump things which have different evolutionary origins. Best practice would be to use sections as broad level taxa or “species"""" as these can be recognized quite easily with a bit of training (for instance Galiano has Taraxacum sect. Hamatum as its commonest dandelion group). We are not there yet... Pro tem., I suggest using """"T. officinale agg."""", and """"T. erythrospermum agg."""" (without authorities - they are not biologically species). There is a long road before BC botanists will accept a more biologically meaningful treatment of Taraxacum diversity. This does not much matter for the introductions (and there are no natives on Galiano), but is an absolute tragedy for the natives where a fantastic richness of endemic alpine species languish under the completely ridiculous name “T. ceratophorum”. (T. ceratophorum is an asian species that looks nothing like anything in BC!)."
 56088,Robinia pseudoacacia,https://static.inaturalist.org/photos/19091351/large.jpg?1528079862
 78858,Ribes lacustre,north end of island
@@ -174,15 +174,71 @@ id,scientificName,notes
 77224,Gamochaeta ustulata,Gamochaeta purpurea also reported by H. Janszen but omitted due to uncertainty as to whether both G. purpurea & G. ustulata are present on Galiano; some authorities collapse these taxa as one.
 244100,Scilla luciliae,flowers big (3.5 cm) => S. luciliae; if smaller S. forbesii.
 75500,Arceuthobium douglasii,FL - doubtful; confirm
-57635,Hyacinthoides hispanica,"Angela Wood reports Hyacinthoides hispanica; """"Commonly naturalized in the LM and is a persistent relic of cult in SGI. Both H. hispanica and H. non-scripta are cultivated in BC but I have never seen them naturalized."""" QC; review voucher specimen (RBCM V097149)"
+57635,Hyacinthoides hispanica,"Angela Wood reports Hyacinthoides hispanica; """"Commonly naturalized in the LM and is a persistent relic of cult in SGI. Both H. hispanica and H. non-scripta are cultivated in BC but I have never seen them naturalized."""" Quentin Cronk; review voucher specimen (RBCM V097149)"
 1490819,Epilobium ravenii,reported as Epilobium foliosum
 1459210,Erythronium oregonum × revolutum,hybrid (outside range of E. revolutum)
 76070,Carex leptopoda,Carex deweyana var. deweyana historically (HJ 2001) misapplied to this taxon
 914922,Reynoutria japonica,reported as Fallopia japonica; Reynoutria × bohemica also present?
 57149,Epilobium densiflorum,Previously thought to have been extirpated from the southern Gulf Islands.
 141854,Urtica gracilis ssp. gracilis,Presence of Urtica dioica still in question locally; Terry Taylor (2012) reports Urtica dioica ssp. gracilis; no voucher specimens or observations confirming the presence of this native ssp.
-1125873,Ornithogalum umbellatum,"""""Naturalized in the UK and could be expected to naturalize here. It is cytologically variable - there are triploids and hexaploids. It would be interesting to know what this is."""" QC"
+1125873,Ornithogalum umbellatum,"""""Naturalized in the UK and could be expected to naturalize here. It is cytologically variable - there are triploids and hexaploids. It would be interesting to know what this is."""" Quentin Cronk"
 77045,Eriophorum gracile,Eriophorum angustifolium misapplied by H. Roemer (2000)
 127355,Cyclamen hederifolium,not naturalized
 79452,Triteleia grandiflora,Lat: 48.897453 Lon: -123.338455; Triteleia grandiflora var. howellii; has not been seen since first reported at this locality
 76762,Echinops sphaerocephalus,remove; garden
+820904,Callitropsis nootkatensis,non-established
+54516,Brassica oleracea,non-established
+239653,Brassica oleracea capitata,non-established
+53271,Brassica rapa,non-established
+121763,Castanea sativa,non-established
+131586,Colchicum autumnale,non-established
+48206,Convallaria majalis,non-established
+64240,Cortaderia selloana,non-established
+54770,Corylus americana,non-established
+54491,Corylus avellana,non-established
+82853,Cydonia oblonga,non-established
+64697,Elaeagnus umbellata,non-established
+522953,Epimedium × versicolor,non-established
+181594,Euphorbia characias,non-established
+320685,Geranium macrorrhizum,non-established
+55722,Geranium pratense,non-established
+126583,Hemerocallis fulva,non-established
+163663,Hemerocallis lilioasphodelus,non-established
+53094,Heracleum maximum,non-established
+163812,Hippophae rhamnoides,non-established
+50876,Layia platyglossa,non-established
+77741,Ligustrum ovalifolium,non-established
+223669,Lilium longiflorum,non-established
+62313,Nigella damascena,non-established
+83914,Oplopanax horridus,non-established
+404400,Osmanthus heterophyllus,non-established
+57805,Oxalis articulata,non-established
+47757,Oxalis oregana,non-established
+53778,Santolina chamaecyparissus,non-established
+55969,Viburnum opulus,non-established
+48258,Acer circinatum,non-established
+54763,Acer platanoides,non-established
+158005,Actinidia arguta,non-established
+55149,Actinidia chinensis,non-established
+710266,Actinidia kolomikta,non-established
+56022,Alchemilla mollis,non-established
+950617,Anemonoides blanda,non-established
+51807,Aquilegia vulgaris,non-established
+60265,Asparagus officinalis,non-established
+487126,Crocus × stellaris,non-established
+53052,Foeniculum vulgare,non-established
+56132,Hyacinthoides non-scripta,non-established
+126637,Hyacinthus orientalis,non-established
+170837,Leucanthemum × superbum,non-established
+77719,Leucanthemum maximum,non-established
+47570,Populus alba,non-established
+63735,Prunus domestica,non-established
+78882,Rosa multiflora,non-established
+79461,Ulmus minor,non-established
+name:Elymus hirsutus,Elymus hirsutus,Rejected; likely misapplied to E. glaucus
+name:Equisetum fluviatile,Equisetum fluviatile,Rejected; likely misreport of a species otherwise not known from Galiano Island
+name:Gymnocarpium dryopteris,Gymnocarpium dryopteris,Rejected; likely misidentification
+name:Juncus mertensianus,Juncus mertensianus,Rejected; likely misidentification
+name:Olsynium douglasii,Olsynium douglasii,"Rejected; either misidentification, or planted"
+name:Sorbus sitchensis,Sorbus sitchensis,Rejected; name misapplied to S. aucuparia
+name:Viburnum lantana,Viburnum lantana,Non-established

@@ -7,7 +7,7 @@
 # Deliberately NOT copied:
 #  - Project-local content and configuration: hugo.yaml, package.json, mapboxData.json, content/,
 #    layouts/partials/custom/head-end.html, layouts/partials/favicons.html, static/local/,
-#    bioreportr.yaml (names the project's data files), scripts/project.R (the settings of the shared R scripts),
+#    bioreportr.yaml (names the data files the story page reads), bioreportr-prep.yaml (those which prepare them), scripts/project.R (the settings of the shared R scripts),
 #    scripts/*.R map and analysis scripts
 #  - Experimental R parsing work: src/js/parseR.mjs, src/js/r-parser/
 #  - The story page's driver static/local/story/<project>-story.vue, its development page static/story/index-dev.html,
@@ -75,6 +75,10 @@ FILES=(
     static/bioreportr/sfc/bioreportr-storyPageTraces.vue
     static/bioreportr/sfc/bioreportr-storyPageLostPlants.vue
     static/bioreportr/sfc/bioreportr-storyPageProtectedAreas.vue
+    # The pane in memory of Harvey Janszen, whose map scripts/Janszen_checklists_mapbox.R draws - each project's own
+    # content/story/Remembering.Rmd writes its section into the pane's template
+    static/bioreportr/sfc/bioreportr-rememberingPane.vue
+    static/bioreportr/sfc/bioreportr-storyPageRemembering.vue
     # Community curation - see notes/community-curation-design.md. Each project has its own static/curation/config.json
     # and its own content/story/Curation.Rmd, whose section each build writes into bioreportr-curationPane.vue
     static/bioreportr/sfc/bioreportr-curationPane.vue
@@ -141,6 +145,12 @@ FILES=(
     scripts/Protected_map_mapbox.R
     # The map of Harvey Janszen's checklists, for a project's pane in memory of him, whose settings are in project.R
     scripts/Janszen_checklists_mapbox.R
+    # The curation history and the taxa kept off the checklist, read by the curation pane and the Lost Plants gallery,
+    # prepared from the lists of checklist-catalogue-alignment-workflow, whose project's settings are in project.R
+    scripts/prepare_curation_history.R
+    scripts/prepare_excluded_taxa.R
+    # The conservation status of each taxon of the summary, from the BC CDC's rankings, as the Howe Sound synthesis assigns it
+    scripts/assign_conservation_status.R
 
     # Lint configuration
     .eslintrc.json

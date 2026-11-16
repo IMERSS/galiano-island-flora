@@ -2,6 +2,7 @@ library(dplyr)
 library(stringr)
 
 source("scripts/utils.R")
+source("scripts/project.R")
 
 # Apply the annotations of records kept in tabular_data/record-annotations.csv - each naming a taxon, the centre of a
 # site and a radius around it, the annotation given to the taxon's records within it, e.g. "planted", and whether they
@@ -85,7 +86,7 @@ annotated <- annotated %>% distinct(occurrenceID, .keep_all = TRUE)
 timedWrite(annotated, annotated_file)
 
 # Recalculate the EP of each taxon with records suspended - and its reporting status, which is "confirmed" for a
-# historical taxon found again since 2000, so that one found again only in records now suspended, e.g. of a planted
+# historical taxon found again since project$recentYear, as bioreportr.yaml gives it, so that one found again only in records now suspended, e.g. of a planted
 # population, is "unconfirmed" again. Only these values on its line of the summary are changed
 suspended <- annotated %>% filter(excludeFromEP)
 taxa <- timedFread(taxa_file)
@@ -109,7 +110,7 @@ for (taxon in unique(suspended$taxon_name)) {
   ep <- round(solow_ep(kept_years, baseline_year, analysis_year), 3)
   for (r in which(taxa$scientificName == taxon)) {
     status <- taxa$reportingStatus[r]
-    new_status <- if (status == "confirmed" && !any(kept_years >= 2000)) "unconfirmed" else status
+    new_status <- if (status == "confirmed" && !any(kept_years >= project$recentYear)) "unconfirmed" else status
     lines[r + 1] <- set_field(lines[r + 1], ep_column, as.character(ep))
     lines[r + 1] <- set_field(lines[r + 1], status_column, new_status)
     message(taxon, ", without ", sum(suspended$taxon_name == taxon), " suspended records: EP ", taxa$solow_EP[r], " -> ", ep,
