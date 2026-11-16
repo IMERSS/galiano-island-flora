@@ -11,7 +11,8 @@ source("scripts/utils.R")
 #
 # this script writes files of the same shape from the hierarchy held in the Biodiversity Galiano summary itself. Each
 # species takes its iNaturalist taxon id from the summary's ID column; the higher taxa, whose iNaturalist ids are not
-# known here, are given negative ids of their own, and no taxon has an image. Once assignBNames.js has run, its output
+# known here, are given negative ids of their own. Each taxon with an iNaturalist id is given iNaturalist's default photo,
+# as assignBNames.js gives it, kept in a lookup named as taxonImages in bioreportr-prep.yaml - see below. Once assignBNames.js has run, its output
 # overwrites both files and this script should not be run again.
 
 galiano_root <- Sys.getenv("BIODIVERSITY_GALIANO", "../adfsimon-bioinfo/Biodiversity_Galiano")
@@ -102,6 +103,31 @@ leafRows <- bind_rows(lapply(seq_len(nrow(hier)), function (i) {
 })) %>% filter(!is.na(id)) %>% distinct(id, .keep_all = TRUE)
 
 taxa <- bind_rows(root, higherRows, leafRows)
+
+# The image of each taxon with an iNaturalist id - the medium size of its default photo, as assignBNames.js takes it -
+# looked up from iNaturalist's API in batches of 30, within its requested limit of about one request a second, and kept
+# in a lookup, so that only taxa not already looked up are fetched on running again. Delete the lookup to refresh it
+images_file <- file.path("tabular_data", yaml::read_yaml("bioreportr-prep.yaml")$data$taxonImages)
+images <- if (file.exists(images_file)) timedFread(images_file, colClasses = "character") else
+  data.frame(id = character(), iNaturalistTaxonImage = character())
+wanted <- setdiff(as.character(taxa$id[!is.na(taxa$id) & taxa$id > 0]), images$id)
+for (batch in split(wanted, ceiling(seq_along(wanted) / 30))) {
+  Sys.sleep(1)
+  url <- paste0("https://api.inaturalist.org/v1/taxa/", paste(batch, collapse = ","), "?per_page=30")
+  results <- tryCatch(jsonlite::fromJSON(url, simplifyVector = FALSE)$results, error = function (e) NULL)
+  if (is.null(results)) {
+    wg("Warning: images of {length(batch)} taxa could not be fetched from iNaturalist - they are left out until run again")
+    next
+  }
+  found <- data.frame(id = vapply(results, function (r) as.character(r$id), character(1)),
+                      iNaturalistTaxonImage = vapply(results, function (r) r$default_photo$medium_url %||% "", character(1)))
+  # A taxon which iNaturalist doesn't return is recorded without an image, so that it isn't fetched again
+  missing <- setdiff(batch, found$id)
+  images <- bind_rows(images, found, data.frame(id = missing, iNaturalistTaxonImage = rep("", length(missing))))
+}
+images <- images %>% distinct(id, .keep_all = TRUE)
+timedWrite(images, images_file)
+taxa$iNaturalistTaxonImage <- images$iNaturalistTaxonImage[match(as.character(taxa$id), images$id)]
 
 assigned <- orig %>%
   left_join(hier, by = "scientificName") %>%

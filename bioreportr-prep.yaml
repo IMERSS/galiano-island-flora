@@ -18,3 +18,5 @@ data:
   # The BC Conservation Data Centre's table of rankings, assigned to the iNaturalist taxonomy, a file of big_data (not
   # checked in), from adfsimon-bioinfo/Howe_Sound/2026_synthesis/rankings, read by scripts/assign_conservation_status.R
   conservationRanks: bc-cdc_full_2026-04-10-assigned.csv
+  # The image of each taxon from iNaturalist, its default photo, fetched and kept by scripts/prepare_provisional_taxa.R
+  taxonImages: Galiano_Tracheophyta_taxon-images.csv
