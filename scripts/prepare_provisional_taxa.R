@@ -108,7 +108,7 @@ taxa <- bind_rows(root, higherRows, leafRows)
 # looked up from iNaturalist's API in batches of 30, within its requested limit of about one request a second, and kept
 # in a lookup, so that only taxa not already looked up are fetched on running again. Delete the lookup to refresh it
 images_file <- file.path("tabular_data", yaml::read_yaml("bioreportr-prep.yaml")$data$taxonImages)
-images <- if (file.exists(images_file)) timedFread(images_file, colClasses = "character") else
+images <- if (file.exists(images_file)) timedFread(images_file) %>% mutate(across(everything(), ~ coalesce(as.character(.x), ""))) else
   data.frame(id = character(), iNaturalistTaxonImage = character())
 wanted <- setdiff(as.character(taxa$id[!is.na(taxa$id) & taxa$id > 0]), images$id)
 for (batch in split(wanted, ceiling(seq_along(wanted) / 30))) {

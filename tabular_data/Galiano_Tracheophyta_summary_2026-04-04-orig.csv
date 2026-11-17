@@ -725,7 +725,7 @@ Pyrola aphylla,Pyrola aphylla,630966,species,non-infrataxon,no_voucher,concern,n
 Solanum nitidibaccatum,Solanum nitidibaccatum,406080,species,non-infrataxon,no_voucher,unknown,exotic,new,0.104,Tracheophyta
 Micranthes rufidula,Micranthes rufidula,357949,species,non-infrataxon,no_voucher,secure,native,confirmed,0.039,Tracheophyta
 Lamium hybridum,Lamium hybridum,1369716,species,non-infrataxon,no_voucher,unknown,exotic,new,0.116,Tracheophyta
-Ribes rubrum,Ribes rubrum,54431,species,non-infrataxon,no_voucher,unknown,exotic,new,1,Tracheophyta
+Ribes rubrum,Ribes rubrum,54431,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Rosa canina,Rosa canina,1125370,species,non-infrataxon,no_voucher,unknown,exotic,new,0.099,Tracheophyta
 Triteleia grandiflora,Triteleia grandiflora,79452,species,non-infrataxon,no_voucher,secure,native,new,0.045,Tracheophyta
 Lobularia maritima,Lobularia maritima,56992,species,non-infrataxon,no_voucher,unknown,exotic,new,0.11,Tracheophyta
@@ -806,8 +806,8 @@ Silybum marianum,Silybum marianum,52586,species,non-infrataxon,no_voucher,unknow
 Prunus lusitanica,Prunus lusitanica,127529,species,non-infrataxon,no_voucher,unknown,exotic,new,0.015,Tracheophyta
 Calamagrostis canadensis,Calamagrostis canadensis,75925,species,non-infrataxon,no_voucher,secure,native,new,0.015,Tracheophyta
 Aubrieta deltoidea,Aubrieta deltoidea,75721,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
-Trifolium fragiferum,Trifolium fragiferum,58167,species,non-infrataxon,no_voucher,unknown,exotic,new,1,Tracheophyta
-Silene dioica,Silene dioica,55759,species,non-infrataxon,no_voucher,unknown,exotic,new,1,Tracheophyta
+Trifolium fragiferum,Trifolium fragiferum,58167,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
+Silene dioica,Silene dioica,55759,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Lysimachia nummularia,Lysimachia nummularia,51809,species,non-infrataxon,no_voucher,unknown,exotic,new,0,Tracheophyta
 Azolla sp.,Azolla sp.,52631,species,non-infrataxon,no_voucher,unknown,unknown,new,0,Tracheophyta
-Brasenia schreberi,Brasenia schreberi,75867,species,non-infrataxon,no_voucher,secure,native,new,1,Tracheophyta
+Brasenia schreberi,Brasenia schreberi,75867,species,non-infrataxon,no_voucher,secure,native,new,0,Tracheophyta

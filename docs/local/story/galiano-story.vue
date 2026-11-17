@@ -156,6 +156,8 @@ fluid.def("galiano.story", {
     // The extirpation risk pane opens on whichever species is at the top of its list, with the map fitted to its records
     solowShown: "$compute:bioreportr.storyPage.isActive({self}.activePaneKey, Solow)",
     selectTopSpecies: "$effect:galiano.selectTopSpecies({self}, {self}.solowShown, {self}.loaded, {self}.solowTaxa.taxaTable.displayRows)",
+    // true once the extirpation risk pane has been opened on its top species - see galiano.selectTopSpecies
+    topSpeciesSelected: {$transient: false},
     // The Download list panel names the story's whole area so, and its files so - see bioreportr-list.vue
     list: {
         $component: {

@@ -17,6 +17,14 @@ fluid.def("galiano.timePeriodFilter", {
     placeHandles: "$effect:galiano.timePeriodFilter.placeHandles({self}.display, {global}.document)",
     filterSummary: "$compute:galiano.timePeriodFilter.summarise({self}.filterState)",
     predicates: "$compute:galiano.timePeriodFilter.predicates({self}.filterState)",
+    // The span being dragged is applied once the handles have rested, should the slider's change event not arrive
+    applyRested: {
+        $effect: {
+            func: "galiano.timePeriodFilter.applyRested",
+            args: ["{self}", "{self}.dragging"],
+            debounce: 400
+        }
+    },
     reset: "$method:galiano.timePeriodFilter.reset({self})"
 });
 
@@ -69,29 +77,32 @@ galiano.timePeriodFilter.span = function (event, that) {
         {min: Math.min(current.min, value), max: value};
 };
 
-// The timer applying each filter's span once its handles have rested, by filter
-galiano.timePeriodFilter.timers = new WeakMap();
-
-// How long in milliseconds the handles must rest before the span is applied, should the slider's change event not arrive
-galiano.timePeriodFilter.restDelay = 400;
-
 /**
  * Apply a span of years as the filter's state - none if it covers the whole period.
  * @param {galiano.timePeriodFilter} that - The filter
  * @param {Object} span - The span, with members `min` and `max`
  */
 galiano.timePeriodFilter.apply = function (that, span) {
-    window.clearTimeout(galiano.timePeriodFilter.timers.get(that));
     that.dragging = null;
     that.filterState = span.min <= that.bounds.first && span.max >= that.bounds.last ? null : span;
 };
 
-// The years follow a handle as it moves, and the records are filtered once it is let go or has rested a moment
+/**
+ * Apply the span being dragged, once the handles have rested - see the filter's `applyRested`.
+ * @param {galiano.timePeriodFilter} that - The filter
+ * @param {Object|null} dragging - The span being dragged, if any
+ */
+galiano.timePeriodFilter.applyRested = function (that, dragging) {
+    const span = fluid.unwrapProxy(dragging);
+    if (span) {
+        galiano.timePeriodFilter.apply(that, span);
+    }
+};
+
+// The years follow a handle as it moves, and the records are filtered once it is let go or has rested a moment - see
+// the filter's `applyRested`
 galiano.timePeriodFilter.input = function (event, that) {
-    const span = galiano.timePeriodFilter.span(event, that);
-    that.dragging = span;
-    window.clearTimeout(galiano.timePeriodFilter.timers.get(that));
-    galiano.timePeriodFilter.timers.set(that, window.setTimeout(() => galiano.timePeriodFilter.apply(that, span), galiano.timePeriodFilter.restDelay));
+    that.dragging = galiano.timePeriodFilter.span(event, that);
 };
 
 galiano.timePeriodFilter.change = function (event, that) {

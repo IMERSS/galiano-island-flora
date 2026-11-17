@@ -33,8 +33,17 @@ fluid.def("bioreportr.list", {
     fileStem: null,
     // What the list will hold, as the panel's header says it
     label: "$compute:bioreportr.list.label({storyPage}.recordsLabel)",
+    // A word of feedback beside the panel's buttons - see bioreportr.list.notify - cleared once it has been shown for a
+    // few seconds unchanged
     notice: "",
-    print: "$method:bioreportr.list.print({self}, {storyPage}, {global})",
+    clearNotice: {
+        $effect: {
+            func: "bioreportr.list.clearNotice",
+            args: ["{self}", "{self}.notice"],
+            debounce: 4000
+        }
+    },
+    print:"$method:bioreportr.list.print({self}, {storyPage}, {global})",
     download: "$method:bioreportr.list.download({self}, {storyPage})"
 });
 
@@ -74,13 +83,23 @@ bioreportr.list.currentRows = function (that, storyPage) {
 };
 
 /**
- * Show a word of feedback beside the panel's buttons for a few seconds.
+ * Show a word of feedback beside the panel's buttons for a few seconds - see the list's `clearNotice`.
  * @param {bioreportr.list} that - The list
  * @param {String} text - The feedback
  */
 bioreportr.list.notify = function (that, text) {
     that.notice = text;
-    setTimeout(() => that.notice = "", 4000);
+};
+
+/**
+ * Clear the feedback beside the panel's buttons, once it has been shown for a few seconds unchanged.
+ * @param {bioreportr.list} that - The list
+ * @param {String} notice - The feedback shown
+ */
+bioreportr.list.clearNotice = function (that, notice) {
+    if (notice) {
+        that.notice = "";
+    }
 };
 
 /**

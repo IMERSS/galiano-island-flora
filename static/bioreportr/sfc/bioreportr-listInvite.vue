@@ -15,10 +15,13 @@ fluid.def("bioreportr.listInvite", {
     panes: ["Status"],
     // The key under which its closing is remembered in the browser's storage
     storageKey: "bioreportr-list-invite-closed",
+    // Whether the invitation was closed earlier in the visit, as remembered in the browser's storage
+    storedDismissal: "$compute:bioreportr.listInvite.storedDismissal({self}.storageKey, {global})",
+    // Whether the invitation has been closed in this view of the page
     dismissed: false,
-    restore: "$effect:bioreportr.listInvite.restore({self}, {self}.storageKey, {global})",
     hasSelection: "$compute:bioreportr.listInvite.hasSelection({storyPage}.selectedRegion, {storyPage}.map.polygonDraw.filterState, {storyPage}.map.gridSelector.filterState)",
-    shown: "$compute:bioreportr.listInvite.shown({storyPage}.activePaneKey, {self}.panes, {self}.dismissed, {self}.hasSelection)",
+    shown: `$compute:bioreportr.listInvite.shown({storyPage}.activePaneKey, {self}.panes, {self}.storedDismissal, {self}.dismissed,
+        {self}.hasSelection)`,
     close: "$method:bioreportr.listInvite.close({self}, {self}.storageKey, {global})",
     draw: "$method:bioreportr.listInvite.draw({self}, {storyPage})",
     // A button over the map clears the area drawn, which the shape tool's own bin does less plainly
@@ -26,24 +29,29 @@ fluid.def("bioreportr.listInvite", {
     clearArea: "$method:bioreportr.listInvite.clearArea({storyPage})"
 });
 
-bioreportr.listInvite.restore = function (that, storageKey, window) {
+/**
+ * Determine whether the invitation was closed earlier in the visit, as remembered in the browser's storage.
+ * @param {String} storageKey - The key under which its closing is remembered
+ * @param {Window} window - The window of the page
+ * @return {Boolean} `true` if it was closed
+ */
+bioreportr.listInvite.storedDismissal = function (storageKey, window) {
     let closed = false;
     try {
         closed = window.sessionStorage.getItem(storageKey) === "true";
     } catch (e) {
+        // A browser without storage remembers nothing, and the invitation is shown afresh
         closed = false;
     }
-    if (closed) {
-        // Deferred since an effect may not write signals
-        fluid.invokeLater(() => that.dismissed = true);
-    }
+    return closed;
 };
 
 bioreportr.listInvite.hasSelection = (region, polygons, cell) => !!region || fluid.makeArray(fluid.unwrapProxy(polygons)).length > 0 ||
     hortis.isValue(fluid.unwrapProxy(cell)) && !(Array.isArray(fluid.unwrapProxy(cell)) && fluid.unwrapProxy(cell).length === 0) &&
     !(typeof(fluid.unwrapProxy(cell)) === "object" && Object.keys(fluid.unwrapProxy(cell) || {}).length === 0);
 
-bioreportr.listInvite.shown = (activePaneKey, panes, dismissed, hasSelection) => fluid.makeArray(panes).includes(activePaneKey) && !dismissed && !hasSelection;
+bioreportr.listInvite.shown = (activePaneKey, panes, storedDismissal, dismissed, hasSelection) => fluid.makeArray(panes).includes(activePaneKey) &&
+    !storedDismissal && !dismissed && !hasSelection;
 
 bioreportr.listInvite.close = function (that, storageKey, window) {
     that.dismissed = true;

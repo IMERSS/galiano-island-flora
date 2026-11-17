@@ -112,9 +112,6 @@ galiano.obsGridLegendMarkup = function (...args) {
         .replace(/ observations"/g, " records\"");
 };
 
-// The story pages whose extirpation risk pane has been opened on its top species
-galiano.topSpeciesSelected = new WeakSet();
-
 /**
  * The first time the extirpation risk pane is shown with real data, select the species at the top of its list unless
  * one has already been chosen - the map is then fitted to its records, see bioreportr.atlas.fitToTaxon.
@@ -124,8 +121,8 @@ galiano.topSpeciesSelected = new WeakSet();
  * @param {Object[]} displayRows - The rows of the species list, in their displayed order
  */
 galiano.selectTopSpecies = function (storyPage, isShown, loaded, displayRows) {
-    if (isShown && loaded && !galiano.topSpeciesSelected.has(storyPage) && displayRows.length > 0) {
-        galiano.topSpeciesSelected.add(storyPage);
+    if (isShown && loaded && !storyPage.topSpeciesSelected && displayRows.length > 0) {
+        storyPage.topSpeciesSelected = true;
         // Deferred since an effect may not write signals
         fluid.invokeLater(() => {
             const table = storyPage.solowTaxa.taxaTable;
