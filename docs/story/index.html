@@ -210,6 +210,45 @@ bioreportr.binding = function () {
 };
 
 /**
+ * Read the present value of a member of a component, as read outside any computation - unwrapping its proxy, and reading
+ * a member which arrives as its reactive cell, e.g. one defined by a reference to another, through the cell.
+ * @param {any} value - The member as read
+ * Needed wherever a member is read from an event handler rather than a computation - e.g. `storyPage.taxa`, a
+ * reference to a component, which arrives as its cell, so that `storyPage.taxa.rowById` is undefined unless read through
+ * this as `bioreportr.read(storyPage.taxa).rowById`
+ * @return {any} Its value
+ */
+bioreportr.read = function (value) {
+    let togo = fluid.unwrapProxy(value);
+    // A reference to a member defined by a reference arrives as a cell of a cell
+    for (let i = 0; i < 4 && togo && typeof(togo.get) === "function" && "cellId" in togo; ++i) {
+        togo = fluid.unwrapProxy(togo.get());
+    }
+    return togo;
+};
+
+/**
+ * Bind some behaviour to a map from an `$effect`, holding the binding in a `$transient` member whose `dispose` is
+ * bioreportr.unbind, and binding afresh only should any of the binder's arguments change. Used in place of a
+ * `$bindable` for listeners bound to the story's map: in Infusion 6.2.6 a `$bindable` taking the map, which nothing
+ * reads, is left pending once the map arrives and never binds - so that the tooltips of the populations of the
+ * extirpation risk analysis, the hover cards of the Protected Areas pane and those of the Remembering pane were lost.
+ * To be returned to a `$bindable` once this is fixed upstream.
+ * @param {fluid.component} that - The component holding the binding
+ * @param {String} key - The name of its `$transient` member holding the binding
+ * @param {String} binder - The global name of the binder, which returns a Binding, or nothing if it bound nothing
+ * @param {...any} args - The binder's arguments
+ */
+bioreportr.keepBinding = function (that, key, binder, ...args) {
+    const old = that[key];
+    if (!old || old.args.length !== args.length || old.args.some((arg, i) => arg !== args[i])) {
+        const bound = fluid.getGlobalValue(binder)(...args);
+        // Overwriting the member disposes the old binding
+        that[key] = Object.assign(bound || bioreportr.binding(), {args});
+    }
+};
+
+/**
  * Remove what a binding added - the `unbind` of a `$bindable` whose binder returns a binding - see bioreportr.binding.
  * @param {Binding|undefined} binding - The binding, if one was made
  */
@@ -5449,13 +5488,10 @@ fluid.def("bioreportr.solowMapLayer", {
     },
     renderLegend: "$effect:hortis.libreMap.renderLegend({self}.legend, {self}.legendMarkup, {self}.visible)",
     renderTooltip: "$method:bioreportr.solowMapLayer.renderTooltip({self}.clusters, {0}:clusterId, {storyPage}.solowParams)",
-    // Bound once the map is ready, and afresh should it change - see bioreportr.solowMapLayer.bindHover
-    hover: {
-        $bindable: {
-            bind: "bioreportr.solowMapLayer.bindHover({self}, {storyPage}.map.readyMap)",
-            unbind: "bioreportr.unbind({boundValue})"
-        }
-    }
+    // Bound once the map is ready, and afresh should it change - see bioreportr.solowMapLayer.bindHover and
+    // bioreportr.keepBinding
+    hoverBinding: {$transient: null, dispose: "bioreportr.unbind"},
+    hover: "$effect:bioreportr.keepBinding({self}, hoverBinding, bioreportr.solowMapLayer.bindHover, {self}, {storyPage}.map.readyMap)"
 });
 
 }).call(globalThis);
@@ -6483,7 +6519,7 @@ bioreportr.inatSpecies.open = function (storyPage, card, query, window) {
     if (name) {
         bioreportr.inatSpecies.byName(query, window).then(byName => {
             const taxon = byName.get(name);
-            const row = taxon && bioreportr.inatSpecies.atlasRow(storyPage.taxa.rowById, taxon);
+            const row = taxon && bioreportr.inatSpecies.atlasRow(bioreportr.read(bioreportr.read(storyPage.taxa).rowById), taxon);
             if (row) {
                 storyPage.keepTaxon = true;
                 window.location.hash = "pane:Status&taxon:" + row.id;
@@ -8346,20 +8382,8 @@ fluid.def("bioreportr.list", {
 
 bioreportr.list.label = recordsLabel => recordsLabel?.text || "";
 
-/**
- * Read the present value of a member of a component, as read outside any computation - unwrapping its proxy, and reading
- * a member which arrives as its reactive cell, e.g. one defined by a reference to another, through the cell.
- * @param {any} value - The member as read
- * @return {any} Its value
- */
-bioreportr.list.read = function (value) {
-    let togo = fluid.unwrapProxy(value);
-    // A reference to a member defined by a reference arrives as a cell of a cell
-    for (let i = 0; i < 4 && togo && typeof(togo.get) === "function" && "cellId" in togo; ++i) {
-        togo = fluid.unwrapProxy(togo.get());
-    }
-    return togo;
-};
+// Read a member of a component outside any computation - see bioreportr.read
+bioreportr.list.read = value => bioreportr.read(value);
 
 /**
  * Compute the rows of the list from the records the story page's filters now select.
@@ -8375,7 +8399,7 @@ bioreportr.list.currentRows = function (that, storyPage) {
         return null;
     }
     const stats = bioreportr.list.stats(read(storyPage.pkg), selection);
-    return bioreportr.list.rows(stats, read(storyPage.taxa.rowById), read(storyPage.statusById) || {}, read(storyPage.recentYear),
+    return bioreportr.list.rows(stats, read(read(storyPage.taxa).rowById), read(storyPage.statusById) || {}, read(storyPage.recentYear),
         read(that.groupRank), read(storyPage.curation?.historyById), read(storyPage.curationHistorySources), {}, [], {});
 };
 
@@ -8887,108 +8911,6 @@ bioreportr.list.fileName = function (that, window) {
 }
 
 /*# sourceURL=file:///Users/andrewsimon/GitHub/galiano-island-flora/docs/bioreportr/sfc/bioreportr-list.vue*/</style>
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.recordReporter-1">(function () {
-"use strict";
-
-// Reports how many observations survive the filters and selections
-fluid.def("hortis.recordReporter", {
-    $layers: ["fluid.sfcLayer","fluid.component"],
-    // filtered: Selection - the observations shown
-    // all: Selection - every observation
-    counts: "$compute:hortis.recordReporter.renderModel({self}.filtered, {self}.all)",
-    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
-"template":{"sfcLayer":"hortis.recordReporter"}}}
-});
-
-/**
- * Render the counts of the observations shown and of all of them.
- * @param {Selection} filtered - The observations shown
- * @param {Selection} all - Every observation
- * @return {Object} Members `filteredRows` and `allRows`, the counts formatted
- */
-hortis.recordReporter.renderModel = function (filtered, all) {
-    return {
-        filteredRows: hortis.formatInt(filtered.count),
-        allRows: hortis.formatInt(all.count)
-    };
-};
-
-}).call(globalThis);
-//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/core/hortis-recordReporter.vue</script>
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.valueFilter-2">(function () {
-"use strict";
-
-// Filters taxon rows by the value of one of their fields, offering a checkbox for each value - or by a value computed
-// from each row by the global function named by `valueOf`, e.g. hortis.graminoidValue
-fluid.def("hortis.valueFilter", {
-    $layers: ["fluid.sfcLayer","hortis.taxaFilter","hortis.urlMappedFilter"],
-    // Several value filters may be held in a list, and so each is keyed in the URL by its field
-    urlKey: "{self}.fieldName",
-    urlCodec: "hortis.urlCodecs.keys",
-    // filterName: String
-    // fieldName: String
-    // fieldValues: String[]
-    fieldLabels: null,
-    valueOf: null,
-    // Hash of each selected value to true
-    filterState: {},
-    rows: "$compute:hortis.valueFilter.rows({self}.fieldValues, {self}.fieldLabels)",
-    filterSummary: "$compute:hortis.keyCountSummary({self}.filterState, {self}.summaryNouns)",
-    summaryNouns: ["value", "values"],
-    doFilter: "$method:hortis.valueFilter.doFilter({0}:rows, {1}:filterState, {self}.fieldName, {self}.valueOf)",
-    reset: "$method:hortis.valueFilter.reset({self})",
-    valueRows: {
-        $component: {
-            $layers: "hortis.valueFilter.row",
-            $for: {
-                source: "{valueFilter}.rows",
-                valueAs: "row"
-            }
-        }
-    },
-    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
-"template":{"sfcLayer":"hortis.valueFilter"}}}
-});
-
-}).call(globalThis);
-//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/filters/hortis-valueFilter.vue</script>
-    <link data-fluid-indent="4" data-fluid-hydrated="" id="fl-style-hortis.valueFilter-0" href="../vendor/pretty-checkbox/dist/pretty-checkbox.min.css" rel="stylesheet">
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.epFilter-2">(function () {
-"use strict";
-
-// Filters the taxa of the extirpation risk analysis by their range of extirpation probability, chosen by a pair of
-// sliders
-fluid.def("bioreportr.epFilter", {
-    $layers: ["fluid.sfcLayer","hortis.taxaFilter"],
-    filterName: "Extirpation probability (EP)",
-    // The range, between 0 and 1
-    filterState: {min: 0, max: 1},
-    display: "$compute:bioreportr.epFilter.display({self}.filterState)",
-    // The handles are placed from code: the renderer writes the value of a bound input back into what it is bound to,
-    // which left the readings stuck and the other handle out of place
-    placeHandles: "$effect:bioreportr.epFilter.placeHandles({self}.display, {global}.document)",
-    filterSummary: "$compute:bioreportr.epFilter.summarise({self}.filterState)",
-    doFilter: "$method:bioreportr.epFilter.doFilter({0}:rows, {1}:filterState)",
-    reset: "$method:bioreportr.epFilter.reset({self})",
-    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
-"template":{"sfcLayer":"bioreportr.epFilter"}}}
-});
-
-/**
- * Place the handles of the sliders at the range of the filter's state.
- * @param {Object} display - The range as percentages, with members `min` and `max`
- * @param {Document} dokkument - The document holding the filter
- */
-bioreportr.epFilter.placeHandles = function (display, dokkument) {
-    const min = dokkument.querySelector(".mxcw-ep-min"), max = dokkument.querySelector(".mxcw-ep-max");
-    if (min && max) {
-        min.value = display.min;
-        max.value = display.max;
-    }
-};
-
-}).call(globalThis);
-//# sourceURL=../bioreportr/sfc/bioreportr-epFilter.vue</script>
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.filterControls-0">(function () {
 "use strict";
 
@@ -9009,6 +8931,54 @@ hortis.filterControls.resetAll = function (filters, checklists) {
 
 }).call(globalThis);
 //# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/filters/hortis-filterControls.vue</script>
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.autocomplete-0" fluid-client="" fluid-src="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.js" src="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.autocomplete-1">(function () {
+"use strict";
+
+// An accessible-autocomplete widget, rendered into a container of its own so that no template reconciles its markup
+fluid.def("hortis.autocomplete", {
+    $layers: ["fluid.sfcLayer","fluid.component"],
+    view: {
+        $component: {
+            $layers: "fluid.selfTemplateViewComponent"
+        }
+    },
+    widget: {
+        $bindable: {
+            bind: "hortis.autocomplete.bind({self}, {autocompleteHost}, {self}.view.renderedContainer, {global}.accessibleAutocomplete)",
+            onceOnly: true
+        }
+    }
+});
+
+hortis.autocomplete.bind = function (that, host, container, accessibleAutocomplete) {
+    let togo;
+    if (accessibleAutocomplete) {
+        fluid.disableRendering(that);
+        togo = accessibleAutocomplete({
+            element: container,
+            id: host.controlId,
+            placeholder: host.placeholder,
+            minLength: host.minLength,
+            displayMenu: "overlay",
+            confirmOnBlur: false,
+            source: (query, callback) => host.queryAutocomplete(query, callback),
+            templates: {
+                suggestion: fluid.getGlobalValue(host.renderSuggestion),
+                inputValue: fluid.getGlobalValue(host.renderInputValue)
+            },
+            onConfirm: selection => host.confirmAutocomplete(selection)
+        });
+        container.querySelector("input")?.setAttribute("spellcheck", "false");
+    } else {
+        togo = fluid.unavailable({message: "The accessible-autocomplete library is not loaded", variety: "config"});
+    }
+    return togo;
+};
+
+}).call(globalThis);
+//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/components/hortis-autocomplete.vue</script>
+    <link data-fluid-indent="4" data-fluid-hydrated="" id="fl-style-hortis.autocomplete-0" href="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet">
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.curation-2">(function () {
 "use strict";
 
@@ -9985,54 +9955,108 @@ bioreportr.curation.loadHistory = function (historyFile) {
 
 }).call(globalThis);
 //# sourceURL=../bioreportr/sfc/bioreportr-curation.vue</script>
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.autocomplete-0" fluid-client="" fluid-src="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.js" src="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.js"></script>
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.autocomplete-1">(function () {
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.epFilter-2">(function () {
 "use strict";
 
-// An accessible-autocomplete widget, rendered into a container of its own so that no template reconciles its markup
-fluid.def("hortis.autocomplete", {
-    $layers: ["fluid.sfcLayer","fluid.component"],
-    view: {
-        $component: {
-            $layers: "fluid.selfTemplateViewComponent"
-        }
-    },
-    widget: {
-        $bindable: {
-            bind: "hortis.autocomplete.bind({self}, {autocompleteHost}, {self}.view.renderedContainer, {global}.accessibleAutocomplete)",
-            onceOnly: true
-        }
-    }
+// Filters the taxa of the extirpation risk analysis by their range of extirpation probability, chosen by a pair of
+// sliders
+fluid.def("bioreportr.epFilter", {
+    $layers: ["fluid.sfcLayer","hortis.taxaFilter"],
+    filterName: "Extirpation probability (EP)",
+    // The range, between 0 and 1
+    filterState: {min: 0, max: 1},
+    display: "$compute:bioreportr.epFilter.display({self}.filterState)",
+    // The handles are placed from code: the renderer writes the value of a bound input back into what it is bound to,
+    // which left the readings stuck and the other handle out of place
+    placeHandles: "$effect:bioreportr.epFilter.placeHandles({self}.display, {global}.document)",
+    filterSummary: "$compute:bioreportr.epFilter.summarise({self}.filterState)",
+    doFilter: "$method:bioreportr.epFilter.doFilter({0}:rows, {1}:filterState)",
+    reset: "$method:bioreportr.epFilter.reset({self})",
+    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
+"template":{"sfcLayer":"bioreportr.epFilter"}}}
 });
 
-hortis.autocomplete.bind = function (that, host, container, accessibleAutocomplete) {
-    let togo;
-    if (accessibleAutocomplete) {
-        fluid.disableRendering(that);
-        togo = accessibleAutocomplete({
-            element: container,
-            id: host.controlId,
-            placeholder: host.placeholder,
-            minLength: host.minLength,
-            displayMenu: "overlay",
-            confirmOnBlur: false,
-            source: (query, callback) => host.queryAutocomplete(query, callback),
-            templates: {
-                suggestion: fluid.getGlobalValue(host.renderSuggestion),
-                inputValue: fluid.getGlobalValue(host.renderInputValue)
-            },
-            onConfirm: selection => host.confirmAutocomplete(selection)
-        });
-        container.querySelector("input")?.setAttribute("spellcheck", "false");
-    } else {
-        togo = fluid.unavailable({message: "The accessible-autocomplete library is not loaded", variety: "config"});
+/**
+ * Place the handles of the sliders at the range of the filter's state.
+ * @param {Object} display - The range as percentages, with members `min` and `max`
+ * @param {Document} dokkument - The document holding the filter
+ */
+bioreportr.epFilter.placeHandles = function (display, dokkument) {
+    const min = dokkument.querySelector(".mxcw-ep-min"), max = dokkument.querySelector(".mxcw-ep-max");
+    if (min && max) {
+        min.value = display.min;
+        max.value = display.max;
     }
-    return togo;
 };
 
 }).call(globalThis);
-//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/components/hortis-autocomplete.vue</script>
-    <link data-fluid-indent="4" data-fluid-hydrated="" id="fl-style-hortis.autocomplete-0" href="../vendor/accessible-autocomplete/dist/accessible-autocomplete.min.css" rel="stylesheet">
+//# sourceURL=../bioreportr/sfc/bioreportr-epFilter.vue</script>
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.valueFilter-2">(function () {
+"use strict";
+
+// Filters taxon rows by the value of one of their fields, offering a checkbox for each value - or by a value computed
+// from each row by the global function named by `valueOf`, e.g. hortis.graminoidValue
+fluid.def("hortis.valueFilter", {
+    $layers: ["fluid.sfcLayer","hortis.taxaFilter","hortis.urlMappedFilter"],
+    // Several value filters may be held in a list, and so each is keyed in the URL by its field
+    urlKey: "{self}.fieldName",
+    urlCodec: "hortis.urlCodecs.keys",
+    // filterName: String
+    // fieldName: String
+    // fieldValues: String[]
+    fieldLabels: null,
+    valueOf: null,
+    // Hash of each selected value to true
+    filterState: {},
+    rows: "$compute:hortis.valueFilter.rows({self}.fieldValues, {self}.fieldLabels)",
+    filterSummary: "$compute:hortis.keyCountSummary({self}.filterState, {self}.summaryNouns)",
+    summaryNouns: ["value", "values"],
+    doFilter: "$method:hortis.valueFilter.doFilter({0}:rows, {1}:filterState, {self}.fieldName, {self}.valueOf)",
+    reset: "$method:hortis.valueFilter.reset({self})",
+    valueRows: {
+        $component: {
+            $layers: "hortis.valueFilter.row",
+            $for: {
+                source: "{valueFilter}.rows",
+                valueAs: "row"
+            }
+        }
+    },
+    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
+"template":{"sfcLayer":"hortis.valueFilter"}}}
+});
+
+}).call(globalThis);
+//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/filters/hortis-valueFilter.vue</script>
+    <link data-fluid-indent="4" data-fluid-hydrated="" id="fl-style-hortis.valueFilter-0" href="../vendor/pretty-checkbox/dist/pretty-checkbox.min.css" rel="stylesheet">
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.recordReporter-1">(function () {
+"use strict";
+
+// Reports how many observations survive the filters and selections
+fluid.def("hortis.recordReporter", {
+    $layers: ["fluid.sfcLayer","fluid.component"],
+    // filtered: Selection - the observations shown
+    // all: Selection - every observation
+    counts: "$compute:hortis.recordReporter.renderModel({self}.filtered, {self}.all)",
+    view: {"$component":{    $layers: ["fluid.sfcTemplateViewComponent"],
+"template":{"sfcLayer":"hortis.recordReporter"}}}
+});
+
+/**
+ * Render the counts of the observations shown and of all of them.
+ * @param {Selection} filtered - The observations shown
+ * @param {Selection} all - Every observation
+ * @return {Object} Members `filteredRows` and `allRows`, the counts formatted
+ */
+hortis.recordReporter.renderModel = function (filtered, all) {
+    return {
+        filteredRows: hortis.formatInt(filtered.count),
+        allRows: hortis.formatInt(all.count)
+    };
+};
+
+}).call(globalThis);
+//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/core/hortis-recordReporter.vue</script>
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.storyMap-0" fluid-client="" fluid-src="../vendor/maplibre-gl/dist/maplibre-gl-dev.js" src="../vendor/maplibre-gl/dist/maplibre-gl-dev.js"></script>
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.storyMap-1" fluid-client="" fluid-src="../vendor/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw-unminified.js" src="../vendor/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw-unminified.js"></script>
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-bioreportr.storyMap-2" fluid-client="" fluid-src="../vendor/@popperjs/core/dist/umd/popper-lite.min.js" src="../vendor/@popperjs/core/dist/umd/popper-lite.min.js"></script>
@@ -15309,7 +15333,7 @@ bioreportr.lostPlants.open = function (storyPage, card) {
             sources: storyPage.curationHistorySources,
             byTaxon: storyPage.curation?.byTaxon,
             statusLabels: storyPage.statusLabels,
-            rowById: storyPage.taxa.rowById,
+            rowById: bioreportr.read(bioreportr.read(storyPage.taxa).rowById),
             canCurate: !!(bioreportr.curation?.paneKey && bioreportr.curation.paneKey(storyPage.panes)),
             canFind: !!lostPlants.galleries[lostPlants.gallery]?.find && storyPage.panes.some(pane => pane.paneKey === lostPlants.findPaneKey)
         });
@@ -16076,12 +16100,10 @@ fluid.def("bioreportr.protectedAreas", {
     // too, so that the pane's summaries agree
     mappedOnly: "{storyPage}.protectedMappedOnly",
     active: "$compute:bioreportr.storyPage.isActive({storyPage}.activePaneKey, Protected)",
-    hover: {
-        $bindable: {
-            bind: "bioreportr.protectedAreas.bindCards({storyPage}, {storyPage}.map.readyMap, {storyPage}.mapData, {global})",
-            unbind: "bioreportr.unbind({boundValue})"
-        }
-    },
+    // Bound once the map is ready - see bioreportr.keepBinding
+    hoverBinding: {$transient: null, dispose: "bioreportr.unbind"},
+    hover: `$effect:bioreportr.keepBinding({self}, hoverBinding, bioreportr.protectedAreas.bindCards, {storyPage},
+        {storyPage}.map.readyMap, {storyPage}.mapData, {global})`,
     selects: {
         $bindable: {
             bind: "bioreportr.protectedAreas.bindSelects({storyPage}, {global})",
@@ -17126,12 +17148,10 @@ fluid.registerNamespace("bioreportr.remembering");
 fluid.def("bioreportr.remembering", {
     $layers: "fluid.component",
     active: "$compute:bioreportr.storyPage.isActive({storyPage}.activePaneKey, Remembering)",
-    hover: {
-        $bindable: {
-            bind: "bioreportr.remembering.bindHover({storyPage}.map.readyMap, {storyPage}.mapData, {global})",
-            unbind: "bioreportr.unbind({boundValue})"
-        }
-    },
+    // Bound once the map is ready - see bioreportr.keepBinding
+    hoverBinding: {$transient: null, dispose: "bioreportr.unbind"},
+    hover: `$effect:bioreportr.keepBinding({self}, hoverBinding, bioreportr.remembering.bindHover, {storyPage}.map.readyMap,
+        {storyPage}.mapData, {global})`,
     frame: "$effect:bioreportr.remembering.frame({storyPage}.map.readyMap, {storyPage}.mapData, {self}.active, {storyPage}.map.zoomDuration)"
 });
 
@@ -18108,6 +18128,17 @@ bioreportr.curationForm.resetPosition = function (that) {
 
 
 /*# sourceURL=file:///Users/andrewsimon/GitHub/galiano-island-flora/docs/bioreportr/sfc/bioreportr-curationForm.vue*/</style>
+    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.icons-0">(function () {
+"use strict";
+
+// The icons of the BBEA visualisation's interface, shared by several of its components. A component whose template
+// refers to one of them bears this layer, so that the icons are injected into any document it renders into
+fluid.def("hortis.icons", {
+    $layers: ["fluid.sfcLayer","fluid.component"]
+});
+
+}).call(globalThis);
+//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/core/hortis-icons.vue</script>
     <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.valueFilter.row-1">(function () {
 "use strict";
 
@@ -18122,17 +18153,6 @@ fluid.def("hortis.valueFilter.row", {
 
 }).call(globalThis);
 //# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/filters/hortis-valueFilter-row.vue</script>
-    <script data-fluid-indent="4" data-fluid-hydrated="" id="fl-script-hortis.icons-0">(function () {
-"use strict";
-
-// The icons of the BBEA visualisation's interface, shared by several of its components. A component whose template
-// refers to one of them bears this layer, so that the icons are injected into any document it renders into
-fluid.def("hortis.icons", {
-    $layers: ["fluid.sfcLayer","fluid.component"]
-});
-
-}).call(globalThis);
-//# sourceURL=../vendor/imerss-bioinfo/src/client/sfc/core/hortis-icons.vue</script>
     <template id="site-subnav"><div class="imerss-subnav">
     <nav class="hx-mx-auto hx-flex hx-items-center hx-justify-start hx-gap-2 hx-h-16 hx-px-6 hx-max-w-[90rem]"><a title="Home" href="https://salishseabiodiversity.org/" class="contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200">
             <span class="hx-text-center">Home</span>
